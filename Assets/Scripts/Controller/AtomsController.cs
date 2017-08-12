@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class AtomsController : AbstractController
 {
     public GameObject atomPrefab;
+    public GameObject atomsContainer;
 
     private List<StoreView> atomViews = new List<StoreView>();
     
@@ -32,8 +33,6 @@ public class AtomsController : AbstractController
     {
         AtomModel atomModel;
         GameObject atomView;
-
-        GameObject atomsContainer = GameObject.Find( "AtomsContainer" );
         Transform acTransform = atomsContainer.transform;
 
         Debug.Log( model.User.Data.AtomsUnlocked );

@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{49244916-8527-9F88-24CD-35181C8628BD}</ProjectGuid>
+    <ProjectGuid>{A6228E9F-0D4F-7CE5-5B92-FB3105822EC9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Assembly-CSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -80,19 +78,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="SpacePrototip.Plugins.csproj">
-      <Project>{AD91222F-687F-D7CA-46DB-21CBF68D43D6}</Project>
-      <Name>SpacePrototip.Plugins</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Assets\Scripts\Controller\AbstractController.cs" />
     <Compile Include="Assets\Scripts\Controller\AtomsController.cs" />
     <Compile Include="Assets\Scripts\Controller\GameController.cs" />
     <Compile Include="Assets\Scripts\Controller\SCController.cs" />
     <Compile Include="Assets\Scripts\Controller\SolarController.cs" />
     <Compile Include="Assets\Scripts\Helpers\JsonHelper.cs" />
-    <Compile Include="Assets\Scripts\Helpers\PropertyBinding.cs" />
     <Compile Include="Assets\Scripts\Messages\AbstractMessage.cs" />
     <Compile Include="Assets\Scripts\Messages\Atom\AtomMessage.cs" />
     <Compile Include="Assets\Scripts\Messages\Messenger.cs" />
@@ -105,11 +96,11 @@
     <Compile Include="Assets\Scripts\Model\PlanetModel.cs" />
     <Compile Include="Assets\Scripts\Model\SolarModel.cs" />
     <Compile Include="Assets\Scripts\Model\UserModel.cs" />
-    <Compile Include="Assets\Scripts\View\StoreView.cs" />
     <Compile Include="Assets\Scripts\View\AtomView.cs" />
     <Compile Include="Assets\Scripts\View\PlanetAtomView.cs" />
     <Compile Include="Assets\Scripts\View\PlanetView.cs" />
     <Compile Include="Assets\Scripts\View\SolarView.cs" />
+    <Compile Include="Assets\Scripts\View\StoreView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
