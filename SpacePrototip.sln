@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpacePrototip.Plugins", "SpacePrototip.Plugins.csproj", "{AD91222F-687F-D7CA-46DB-21CBF68D43D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpacePrototip", "SpacePrototip.csproj", "{49244916-8527-9F88-24CD-35181C8628BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpacePrototip.Editor", "SpacePrototip.Editor.csproj", "{D41378A3-9118-7658-1DD2-CB3A7858BC7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD91222F-687F-D7CA-46DB-21CBF68D43D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD91222F-687F-D7CA-46DB-21CBF68D43D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD91222F-687F-D7CA-46DB-21CBF68D43D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD91222F-687F-D7CA-46DB-21CBF68D43D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49244916-8527-9F88-24CD-35181C8628BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49244916-8527-9F88-24CD-35181C8628BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49244916-8527-9F88-24CD-35181C8628BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49244916-8527-9F88-24CD-35181C8628BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D41378A3-9118-7658-1DD2-CB3A7858BC7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D41378A3-9118-7658-1DD2-CB3A7858BC7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D41378A3-9118-7658-1DD2-CB3A7858BC7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D41378A3-9118-7658-1DD2-CB3A7858BC7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
