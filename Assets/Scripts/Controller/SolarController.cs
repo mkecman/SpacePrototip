@@ -37,6 +37,12 @@ public class SolarController : AbstractController
             PlanetModel planetModel = new PlanetModel();
             planetModel.Radius = (int)( SC * 0.4f ) / PlanetsLength;
             int atomsAvailable = UnityEngine.Random.Range( 1, 3 );
+
+            planetModel.AtomsAvailable = new int[ atomsAvailable ];
+            planetModel.AtomsStock = new int[ atomsAvailable ];
+            planetModel.AtomsHarvestRates = new int[ atomsAvailable ];
+            planetModel.AtomsUpgradeLevels = new int[ atomsAvailable ];
+
             for( int atomIndex = 0; atomIndex < atomsAvailable; atomIndex++ )
             {
                 planetModel.AtomsAvailable[ atomIndex ] = UnityEngine.Random.Range( 1, model.atomsCount );

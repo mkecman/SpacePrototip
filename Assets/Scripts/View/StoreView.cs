@@ -15,6 +15,16 @@ public class StoreView : MonoBehaviour
     private string _name;
     private float _stock;
     private string _property;
+    private float lastTime;
+
+    private void Update()
+    {
+        if( Time.time - lastTime > 1.0f )
+        {
+            lastTime = Time.time;
+            Stock -= 1.0f;
+        }
+    }
 
     public float MaxStock
     {
@@ -31,6 +41,11 @@ public class StoreView : MonoBehaviour
             _stock = value;
             Fill.value = value;
             UIStock.text = "" + value;
+        }
+
+        get
+        {
+            return _stock;
         }
     }
 
