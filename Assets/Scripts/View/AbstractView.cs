@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AbstractController : MonoBehaviour
+public class AbstractView : MonoBehaviour
 {
     protected GameModel gameModel = GameModel.instance;
 }

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlanetView : MonoBehaviour {
-
-    public GameModel gameModel;
+public class PlanetView : AbstractView
+{
     public Text UIName;
     public GameObject planetAtomPrefab;
     public GameObject _planetAtomsContainer;
@@ -19,9 +18,6 @@ public class PlanetView : MonoBehaviour {
 
     public void SetupView( PlanetModel model )
     {
-        GameObject gm = GameObject.Find( "GameModel" );
-        gameModel = gm.GetComponent<GameModel>();
-
         _model = model;
         Name = _model.Name;
 

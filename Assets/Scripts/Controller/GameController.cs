@@ -7,12 +7,6 @@ public class GameController : AbstractController
     public Slider SCSlider;
     public Text SCText;
     
-    void Start()
-    {
-        
-        
-    }
-
     public void Setup()
     {
         Messenger.Dispatch( AtomMessage.SETUP_ATOMS );

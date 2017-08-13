@@ -3,7 +3,7 @@
 public class SCController : AbstractController
 {    
 
-    public void Start()
+    void Start()
     {
         //Messenger.Listen( "AtomStockChanged", CalculateSCBasedOnConfigData );
     }
@@ -11,15 +11,15 @@ public class SCController : AbstractController
     public void CalculateSCBasedOnConfigData( object data )
     {
         float SC = 0;
-        int atomsLength = model.User.Data.AtomsStock.Length;
+        int atomsLength = gameModel.User.Data.AtomsStock.Length;
         
         for( int atomIndex = 0; atomIndex < atomsLength; atomIndex++ )
         {
-            float atomicWeight = model.Atoms.Data[ atomIndex ].AtomicWeight;
-            int stock = model.User.Data.AtomsStock[ atomIndex ];
+            float atomicWeight = gameModel.Atoms.Data[ atomIndex ].AtomicWeight;
+            int stock = gameModel.User.Data.AtomsStock[ atomIndex ];
             SC += stock * atomicWeight;
         }
 
-        model.User.Data.SC = SC;
+        gameModel.User.Data.SC = SC;
     }
 }

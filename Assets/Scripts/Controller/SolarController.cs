@@ -8,15 +8,12 @@ public class SolarController : AbstractController
 {
     public GameObject galaxy;
     public GameObject solarPrefab;
-
-
-
-    private List<SolarView> solars = new List<SolarView>();
+    
+    private List<SolarView> solarViews = new List<SolarView>();
 
     void Start()
     {
         Messenger.Listen( SolarMessage.CREATE_SOLAR, handleCreateSolar );
-
     }
 
     private void handleCreateSolar( AbstractMessage message )
@@ -45,7 +42,7 @@ public class SolarController : AbstractController
 
             for( int atomIndex = 0; atomIndex < atomsAvailable; atomIndex++ )
             {
-                planetModel.AtomsAvailable[ atomIndex ] = UnityEngine.Random.Range( 1, model.atomsCount );
+                planetModel.AtomsAvailable[ atomIndex ] = UnityEngine.Random.Range( 1, gameModel.atomsCount );
                 planetModel.AtomsStock[ atomIndex ] = UnityEngine.Random.Range( 1, 100 );
                 planetModel.AtomsHarvestRates[ atomIndex ] = 1;
                 planetModel.AtomsUpgradeLevels[ atomIndex ] = 0;
@@ -55,7 +52,7 @@ public class SolarController : AbstractController
         }
 
         solarView.SetupView( solarModel );
-        solars.Add( solarView );
+        solarViews.Add( solarView );
         
         
     }

@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -96,6 +98,7 @@
     <Compile Include="Assets\Scripts\Model\PlanetModel.cs" />
     <Compile Include="Assets\Scripts\Model\SolarModel.cs" />
     <Compile Include="Assets\Scripts\Model\UserModel.cs" />
+    <Compile Include="Assets\Scripts\View\AbstractView.cs" />
     <Compile Include="Assets\Scripts\View\AtomView.cs" />
     <Compile Include="Assets\Scripts\View\PlanetAtomView.cs" />
     <Compile Include="Assets\Scripts\View\PlanetView.cs" />

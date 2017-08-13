@@ -5,7 +5,7 @@ using UnityEngine;
 public class SolarView : MonoBehaviour
 {
     public GameObject planetPrefab;
-    public List<PlanetModel> Planets = new List<PlanetModel>();
+    public List<PlanetView> planetViews = new List<PlanetView>();
 
     private SolarModel _model;
     private Transform _planetsContainer;  
@@ -40,5 +40,6 @@ public class SolarView : MonoBehaviour
         GameObject planet = Instantiate( planetPrefab, _planetsContainer );
         PlanetView planetView = planet.GetComponent<PlanetView>();
         planetView.SetupView( model );
+        planetViews.Add( planetView );
     }
 }
