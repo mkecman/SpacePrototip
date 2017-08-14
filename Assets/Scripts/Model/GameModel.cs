@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameModel
 {
-    public ConfigUser User = new ConfigUser();
-    public ConfigAtoms Atoms = new ConfigAtoms();
+    public UserConfig User = new UserConfig();
+    public AtomConfig Atoms = new AtomConfig();
     public int atomsCount = 0;
 
     private static GameModel gameModel;

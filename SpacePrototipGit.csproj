@@ -81,29 +81,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Controller\AbstractController.cs" />
-    <Compile Include="Assets\Scripts\Controller\AtomsController.cs" />
     <Compile Include="Assets\Scripts\Controller\GameController.cs" />
     <Compile Include="Assets\Scripts\Controller\SCController.cs" />
-    <Compile Include="Assets\Scripts\Controller\SolarController.cs" />
+    <Compile Include="Assets\Scripts\Features\Atoms\Components\AtomModel.cs" />
+    <Compile Include="Assets\Scripts\Features\Atoms\Managers\AtomsController.cs" />
+    <Compile Include="Assets\Scripts\Features\Atoms\Messages\AtomMessage.cs" />
+    <Compile Include="Assets\Scripts\Features\Galaxies\Components\GalaxyModel.cs" />
+    <Compile Include="Assets\Scripts\Features\Messenger\Components\Messenger.cs" />
+    <Compile Include="Assets\Scripts\Features\Messenger\Messages\AbstractMessage.cs" />
+    <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetComponent.cs" />
+    <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetModel.cs" />
+    <Compile Include="Assets\Scripts\Features\Planets\Managers\PlanetManager.cs" />
+    <Compile Include="Assets\Scripts\Features\Planets\Messages\PlanetMessage.cs" />
+    <Compile Include="Assets\Scripts\Features\Solars\Components\SolarComponent.cs" />
+    <Compile Include="Assets\Scripts\Features\Solars\Components\SolarModel.cs" />
+    <Compile Include="Assets\Scripts\Features\Solars\Managers\SolarManager.cs" />
+    <Compile Include="Assets\Scripts\Features\Solars\Messages\SolarMessage.cs" />
+    <Compile Include="Assets\Scripts\Features\Stores\Components\StoreComponent.cs" />
     <Compile Include="Assets\Scripts\Helpers\JsonHelper.cs" />
-    <Compile Include="Assets\Scripts\Messages\AbstractMessage.cs" />
-    <Compile Include="Assets\Scripts\Messages\Atom\AtomMessage.cs" />
-    <Compile Include="Assets\Scripts\Messages\Messenger.cs" />
-    <Compile Include="Assets\Scripts\Messages\Solar\SolarMessage.cs" />
-    <Compile Include="Assets\Scripts\Model\AtomModel.cs" />
-    <Compile Include="Assets\Scripts\Model\Configs\ConfigAtoms.cs" />
-    <Compile Include="Assets\Scripts\Model\Configs\ConfigUser.cs" />
-    <Compile Include="Assets\Scripts\Model\GalaxyModel.cs" />
+    <Compile Include="Assets\Scripts\Model\Configs\AtomConfig.cs" />
+    <Compile Include="Assets\Scripts\Model\Configs\UserConfig.cs" />
     <Compile Include="Assets\Scripts\Model\GameModel.cs" />
-    <Compile Include="Assets\Scripts\Model\PlanetModel.cs" />
-    <Compile Include="Assets\Scripts\Model\SolarModel.cs" />
     <Compile Include="Assets\Scripts\Model\UserModel.cs" />
     <Compile Include="Assets\Scripts\View\AbstractView.cs" />
-    <Compile Include="Assets\Scripts\View\AtomView.cs" />
-    <Compile Include="Assets\Scripts\View\PlanetAtomView.cs" />
-    <Compile Include="Assets\Scripts\View\PlanetView.cs" />
-    <Compile Include="Assets\Scripts\View\SolarView.cs" />
-    <Compile Include="Assets\Scripts\View\StoreView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
