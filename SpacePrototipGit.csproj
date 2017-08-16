@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Features\Atoms\Managers\AtomsManager.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Messages\AtomMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Galaxies\Components\GalaxyModel.cs" />
+    <Compile Include="Assets\Scripts\Features\Harvester\Components\HarvesterComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Messenger\Components\Messenger.cs" />
     <Compile Include="Assets\Scripts\Features\Messenger\Messages\AbstractMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetAtomModel.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Assets\Scripts\Model\UserModel.cs" />
     <Compile Include="Assets\Scripts\View\AbstractView.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

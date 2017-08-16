@@ -47,7 +47,7 @@ public class SolarManager : AbstractController
                     planetAtomModel.AtomicNumber = UnityEngine.Random.Range( 1, gameModel.User.AtomsUnlocked + 1 );
                     planetAtomModel.Stock = UnityEngine.Random.Range( 1, 100 );
                     planetAtomModel.HarvestRate = UnityEngine.Random.Range( 1, 3 );
-                    planetAtomModel.UpgradeLevels = 0;
+                    planetAtomModel.UpgradeLevel = 0;
                     planetModel.Atoms[ planetAtomModel.AtomicNumber ] = planetAtomModel;
                 }
 
@@ -58,6 +58,7 @@ public class SolarManager : AbstractController
             solars.Add( solar );
             gameModel.User.Galaxies.Add( solarModel );
             solar.Setup( solarModel );
+            Messenger.Dispatch( SolarMessage.SOLAR_CREATED );
         }
         else
         {

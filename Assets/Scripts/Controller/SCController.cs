@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,12 @@ public class SCController : AbstractController
         label = gameObject.GetComponent<Text>();
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated );
         Messenger.Listen( GameMessage.MODEL_LOADED, handleGameModelLoaded );
+        Messenger.Listen( SolarMessage.SOLAR_CREATED, handleSolarCreated );
+    }
+
+    private void handleSolarCreated( AbstractMessage message )
+    {
+        label.text = gameModel.User.SC + "";
     }
 
     public void handleAtomStockUpdated( AbstractMessage message )

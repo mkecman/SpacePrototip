@@ -27,7 +27,7 @@ public class PlanetComponent : AbstractView
             for( int index = 0; index < atoms.Count; index++ )
             {
                 atomStore = atoms[ index ];
-                int atomicNumber = int.Parse( atomStore.Property );
+                int atomicNumber = int.Parse( atomStore.ID );
                 if( atomStore.Stock > 0 )
                 {
                     remainingStock = atomStore.Stock - _model.Atoms[ atomicNumber ].HarvestRate;
@@ -59,9 +59,14 @@ public class PlanetComponent : AbstractView
             StoreComponent planetAtomStore = planetAtomPrefabInstance.GetComponent<StoreComponent>();
             AtomModel atomDefinition = gameModel.getAtomByAtomicNumber( kvp.Key );
             planetAtomStore.Name = atomDefinition.Symbol;
-            planetAtomStore.Property = atomDefinition.AtomicNumber + "";
+            planetAtomStore.ID = atomDefinition.AtomicNumber + "";
             planetAtomStore.MaxStock = kvp.Value.Stock;
             planetAtomStore.Stock = kvp.Value.Stock;
+
+            HarvesterComponent harvester = planetAtomPrefabInstance.GetComponent<HarvesterComponent>();
+            harvester.HarvestRate = kvp.Value.HarvestRate;
+            harvester.UpgradeLevel = kvp.Value.UpgradeLevel;
+
             atoms.Add( planetAtomStore );
         }
 
