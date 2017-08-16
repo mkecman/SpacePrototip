@@ -84,11 +84,12 @@
     <Compile Include="Assets\Scripts\Controller\GameController.cs" />
     <Compile Include="Assets\Scripts\Controller\SCController.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Components\AtomModel.cs" />
-    <Compile Include="Assets\Scripts\Features\Atoms\Managers\AtomsController.cs" />
+    <Compile Include="Assets\Scripts\Features\Atoms\Managers\AtomsManager.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Messages\AtomMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Galaxies\Components\GalaxyModel.cs" />
     <Compile Include="Assets\Scripts\Features\Messenger\Components\Messenger.cs" />
     <Compile Include="Assets\Scripts\Features\Messenger\Messages\AbstractMessage.cs" />
+    <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetAtomModel.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetModel.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Managers\PlanetManager.cs" />
@@ -99,8 +100,10 @@
     <Compile Include="Assets\Scripts\Features\Solars\Messages\SolarMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Stores\Components\StoreComponent.cs" />
     <Compile Include="Assets\Scripts\Helpers\JsonHelper.cs" />
+    <Compile Include="Assets\Scripts\Helpers\JSONObject.cs" />
     <Compile Include="Assets\Scripts\Model\Configs\AtomConfig.cs" />
     <Compile Include="Assets\Scripts\Model\Configs\UserConfig.cs" />
+    <Compile Include="Assets\Scripts\Model\GameMessage.cs" />
     <Compile Include="Assets\Scripts\Model\GameModel.cs" />
     <Compile Include="Assets\Scripts\Model\UserModel.cs" />
     <Compile Include="Assets\Scripts\View\AbstractView.cs" />

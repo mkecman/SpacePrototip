@@ -19,42 +19,52 @@ public class SolarManager : AbstractController
     private void handleCreateSolar( AbstractMessage message )
     {
         float SC = ( message as SolarMessage).SC;
-
-        GameObject solarPrefabInstance = Instantiate( solarPrefab, galaxy.transform );
-        SolarComponent solar = solarPrefabInstance.GetComponent<SolarComponent>();
-
-        SolarModel solarModel = new SolarModel();
-        solarModel.Radius = (int)( SC * 0.6f );
-        solarModel.Lifetime = ( solarModel.Radius / 6 ) * 36;
-
-        //Refactor: planetmanager should handle this
-        int PlanetsLength = 3;
-        solarModel.Planets = new List<PlanetModel>();
-        
-        for( int index = 0; index < PlanetsLength; index++ )
+        if( SC < gameModel.User.SC )
         {
-            PlanetModel planetModel = new PlanetModel();
-            planetModel.Radius = (int)( SC * 0.4f ) / PlanetsLength;
-            int atomsAvailable = UnityEngine.Random.Range( 1, 3 );
+            gameModel.User.SC -= SC;
 
-            planetModel.AtomsAvailable = new int[ atomsAvailable ];
-            planetModel.AtomsStock = new int[ atomsAvailable ];
-            planetModel.AtomsHarvestRates = new int[ atomsAvailable ];
-            planetModel.AtomsUpgradeLevels = new int[ atomsAvailable ];
+            GameObject solarPrefabInstance = Instantiate( solarPrefab, galaxy.transform );
+            SolarComponent solar = solarPrefabInstance.GetComponent<SolarComponent>();
 
-            for( int atomIndex = 0; atomIndex < atomsAvailable; atomIndex++ )
+            SolarModel solarModel = new SolarModel();
+            solarModel.Radius = (int)( SC * 0.6f );
+            solarModel.Lifetime = ( solarModel.Radius / 6 ) * 36;
+
+            //Refactor: planetmanager should handle this
+            int PlanetsLength = 3;
+            solarModel.Planets = new List<PlanetModel>();
+
+            for( int index = 0; index < PlanetsLength; index++ )
             {
-                planetModel.AtomsAvailable[ atomIndex ] = UnityEngine.Random.Range( 1, gameModel.atomsCount );
-                planetModel.AtomsStock[ atomIndex ] = UnityEngine.Random.Range( 1, 100 );
-                planetModel.AtomsHarvestRates[ atomIndex ] = 1;
-                planetModel.AtomsUpgradeLevels[ atomIndex ] = 0;
-            }
-            
-            solarModel.Planets.Add( planetModel );
-        }
-        //EndRefactor: planetmanager should handle this
+                PlanetModel planetModel = new PlanetModel();
+                planetModel.Radius = (int)( SC * 0.4f ) / PlanetsLength;
 
-        solar.Setup( solarModel );
-        solars.Add( solar );
+                int atomsAvailable = UnityEngine.Random.Range( 1, 3 );
+                PlanetAtomModel planetAtomModel;
+                for( int atomIndex = 0; atomIndex < atomsAvailable; atomIndex++ )
+                {
+                    planetAtomModel = new PlanetAtomModel();
+                    planetAtomModel.AtomicNumber = UnityEngine.Random.Range( 1, gameModel.User.AtomsUnlocked + 1 );
+                    planetAtomModel.Stock = UnityEngine.Random.Range( 1, 100 );
+                    planetAtomModel.HarvestRate = UnityEngine.Random.Range( 1, 3 );
+                    planetAtomModel.UpgradeLevels = 0;
+                    planetModel.Atoms[ planetAtomModel.AtomicNumber ] = planetAtomModel;
+                }
+
+                solarModel.Planets.Add( planetModel );
+            }
+            //EndRefactor: planetmanager should handle this
+
+            solars.Add( solar );
+            gameModel.User.Galaxies.Add( solarModel );
+            solar.Setup( solarModel );
+        }
+        else
+        {
+            Debug.Log( "Not enough SC to create Solar system!" );
+        }
+
+        
+        
     }
 }

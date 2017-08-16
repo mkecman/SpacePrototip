@@ -9,6 +9,7 @@ public class GameController : AbstractController
     
     public void Setup()
     {
+        Messenger.Dispatch( GameMessage.MODEL_LOADED );
         Messenger.Dispatch( AtomMessage.SETUP_ATOMS );
     }
     

@@ -8,6 +8,6 @@ public class AtomModel
     public string Symbol;
     public int AtomicNumber;
     public float AtomicWeight;
-    public float Stock;
-    public float MaxStock;
+    public int Stock;
+    public int MaxStock;
 }

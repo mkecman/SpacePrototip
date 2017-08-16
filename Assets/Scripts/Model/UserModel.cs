@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class UserModel
@@ -8,7 +9,6 @@ public class UserModel
     public float SC;
     public int HC;
     public int AtomsUnlocked;
-    public int[] AtomsStock;
-    public int[] AtomsMax;
-    public object[] Galaxies;
+    public Dictionary<int, AtomModel> Atoms;
+    public List<SolarModel> Galaxies;
 }

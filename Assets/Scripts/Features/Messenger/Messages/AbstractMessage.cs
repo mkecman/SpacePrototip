@@ -5,4 +5,5 @@ using UnityEngine.Events;
 
 public class AbstractMessage
 {
+    public GameObject caller;
 }

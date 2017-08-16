@@ -24,7 +24,9 @@ public class PlanetManager : MonoBehaviour
         {
             GameObject planet = Instantiate( planetPrefab, msg.Container );
             PlanetComponent planetView = planet.GetComponent<PlanetComponent>();
-            planetView.SetupView( msg.Planets[ index ] );
+            planetView.Setup( msg.Planets[ index ] );
         }
     }
+
+    
 }

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class GameModel
 {
-    public UserConfig User = new UserConfig();
-    public AtomConfig Atoms = new AtomConfig();
+    private UserConfig rawUser = new UserConfig();
+    private AtomConfig rawAtoms = new AtomConfig();
     public int atomsCount = 0;
+
+    public UserModel User;
+    public AtomModel[] Atoms;
 
     private static GameModel gameModel;
 
@@ -26,13 +29,15 @@ public class GameModel
 
     void Init()
     {
-        atomsCount = Atoms.Data.Length;
+        Atoms = rawAtoms.Data;
+        atomsCount = Atoms.Length;
+        User = rawUser.getUser( Atoms );
     }
     
-    public AtomModel getAtomByAtomicWeight( int weight )
+    public AtomModel getAtomByAtomicNumber( int atomicNumber )
     {
-        if( weight > 0 && weight <= instance.atomsCount )
-            return instance.Atoms.Data[ weight - 1 ];
+        if( atomicNumber > 0 && atomicNumber < instance.atomsCount )
+            return instance.Atoms[ atomicNumber ];
         else
             return null;
     }

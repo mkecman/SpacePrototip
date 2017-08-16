@@ -12,21 +12,12 @@ public class StoreComponent : MonoBehaviour
     public Text UIStock;
     public Text UIProperty;
 
+    public string ID;
     private string _name;
-    private float _stock;
     private string _property;
-    private float lastTime;
-
-    private void Update()
-    {
-        if( Time.time - lastTime > 1.0f )
-        {
-            lastTime = Time.time;
-            Stock -= 1.0f;
-        }
-    }
-
-    public float MaxStock
+    private int _stock;
+    
+    public int MaxStock
     {
         set
         {
@@ -34,7 +25,7 @@ public class StoreComponent : MonoBehaviour
         }
     }
 
-    public float Stock
+    public int Stock
     {
         set
         {
@@ -64,6 +55,11 @@ public class StoreComponent : MonoBehaviour
         {
             _property = value;
             UIProperty.text = _property;
+        }
+
+        get
+        {
+            return _property;
         }
     }
 }
