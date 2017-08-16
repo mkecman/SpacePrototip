@@ -39,7 +39,7 @@ public class SolarManager : AbstractController
                 PlanetModel planetModel = new PlanetModel();
                 planetModel.Radius = (int)( SC * 0.4f ) / PlanetsLength;
 
-                int atomsAvailable = UnityEngine.Random.Range( 1, 3 );
+                int atomsAvailable = UnityEngine.Random.Range( 1, 5 );
                 PlanetAtomModel planetAtomModel;
                 for( int atomIndex = 0; atomIndex < atomsAvailable; atomIndex++ )
                 {

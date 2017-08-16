@@ -17,14 +17,14 @@ public class SCController : AbstractController
 
     private void handleSolarCreated( AbstractMessage message )
     {
-        label.text = gameModel.User.SC + "";
+        UpdateLabel();
     }
 
     public void handleAtomStockUpdated( AbstractMessage message )
     {
         AtomMessage data = message as AtomMessage;
         gameModel.User.SC += gameModel.Atoms[ data.AtomicNumber ].AtomicWeight * data.Delta;
-        label.text = gameModel.User.SC + "";
+        UpdateLabel();
     }
 
     public void handleGameModelLoaded( AbstractMessage message )
@@ -38,6 +38,11 @@ public class SCController : AbstractController
         }
 
         gameModel.User.SC = SC;
-        label.text = SC + "";
+        UpdateLabel();
+    }
+
+    private void UpdateLabel()
+    {
+        label.text = "SC:" + gameModel.User.SC;
     }
 }

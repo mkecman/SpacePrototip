@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UserConfig
 {
-    public string userJSONString = "{  \"ID\": \"1\",  \"XP\": 1,  \"SC\": 0,  \"HC\": 0,  \"AtomsUnlocked\": 3,  \"Atoms\": {    \"1\": {      \"Stock\": 10,      \"MaxStock\": 100    },    \"2\": {      \"Stock\": 20,      \"MaxStock\": 100    },    \"3\": {      \"Stock\": 30,      \"MaxStock\": 100    }  },  \"Galaxies\": []}";
+    public string userJSONString = "{  \"ID\": \"1\",  \"XP\": 1,  \"SC\": 0,  \"HC\": 0,  \"AtomsUnlocked\": 10,  \"Atoms\": {    \"1\": {      \"Stock\": 10,      \"MaxStock\": 100    },    \"2\": {      \"Stock\": 20,      \"MaxStock\": 100    },    \"3\": {      \"Stock\": 30,      \"MaxStock\": 100    }  },  \"Galaxies\": []}";
     public UserModel Data;
 
     public UserConfig()

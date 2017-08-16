@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Controller\AbstractController.cs" />
     <Compile Include="Assets\Scripts\Controller\GameController.cs" />
+    <Compile Include="Assets\Scripts\Controller\XPManager.cs" />
     <Compile Include="Assets\Scripts\Controller\SCController.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Components\AtomModel.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Managers\AtomsManager.cs" />

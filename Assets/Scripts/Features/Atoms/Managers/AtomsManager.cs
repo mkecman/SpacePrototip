@@ -54,9 +54,19 @@ public class AtomsManager : AbstractController
             atomStore = Instantiate( atomPrefab, atomsContainer ).GetComponent<StoreComponent>();
             atomStore.Name = atomModel.Symbol;
             atomStore.Property = atomModel.AtomicNumber + "";
-            atomStore.MaxStock = gameModel.User.Atoms[ atomicNumber ].MaxStock;
-            atomStore.Stock = gameModel.User.Atoms[ atomicNumber ].Stock;
+
+            AtomModel userAtom;
+            if( !gameModel.User.Atoms.TryGetValue( atomicNumber, out userAtom ) )
+            {
+                userAtom = new AtomModel();
+                userAtom.Stock = 0;
+                userAtom.MaxStock = 100;
+                gameModel.User.Atoms[ atomicNumber ] = userAtom;
+            }
             
+            atomStore.MaxStock = userAtom.MaxStock;
+            atomStore.Stock = userAtom.Stock;
+
             atomStores.Add( atomicNumber, atomStore );
         }
     }
