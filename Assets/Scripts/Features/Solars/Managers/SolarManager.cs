@@ -28,7 +28,7 @@ public class SolarManager : AbstractController
 
             SolarModel solarModel = new SolarModel();
             solarModel.Radius = (int)( SC * 0.6f );
-            solarModel.Lifetime = ( solarModel.Radius / 6 ) * 36;
+            solarModel.Lifetime = ( solarModel.Radius / 6 ) * 10;
 
             //Refactor: planetmanager should handle this
             int PlanetsLength = 3;
