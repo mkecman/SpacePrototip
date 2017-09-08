@@ -37,6 +37,7 @@ public class SolarManager : AbstractController
             for( int index = 0; index < PlanetsLength; index++ )
             {
                 PlanetModel planetModel = new PlanetModel();
+                planetModel.Name = "Planet " + index;
                 planetModel.Radius = (int)( SC * 0.4f ) / PlanetsLength;
 
                 int atomsAvailable = UnityEngine.Random.Range( 1, 5 );
@@ -44,6 +45,7 @@ public class SolarManager : AbstractController
                 for( int atomIndex = 0; atomIndex < atomsAvailable; atomIndex++ )
                 {
                     planetAtomModel = new PlanetAtomModel();
+                    planetAtomModel.Name = "Planet " + atomIndex;
                     planetAtomModel.AtomicNumber = UnityEngine.Random.Range( 1, gameModel.User.AtomsUnlocked + 1 );
                     planetAtomModel.Stock = UnityEngine.Random.Range( 1, 100 );
                     planetAtomModel.HarvestRate = UnityEngine.Random.Range( 1, 3 );
