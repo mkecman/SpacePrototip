@@ -6,10 +6,11 @@ public class GameModel
 {
     private UserConfig rawUser = new UserConfig();
     private AtomConfig rawAtoms = new AtomConfig();
-    public int atomsCount = 0;
-
+    
     public UserModel User;
+
     public AtomModel[] Atoms;
+    public int atomsCount = 0;
 
     private static GameModel gameModel;
 

@@ -60,7 +60,7 @@ public class AtomsManager : AbstractController
             {
                 userAtom = new AtomModel();
                 userAtom.Stock = 0;
-                userAtom.MaxStock = 1000;
+                userAtom.MaxStock = 100;
                 gameModel.User.Atoms[ atomicNumber ] = userAtom;
             }
             
