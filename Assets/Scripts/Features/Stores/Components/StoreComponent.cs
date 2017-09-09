@@ -17,7 +17,7 @@ public class StoreComponent : MonoBehaviour
     private string _name;
     private string _property;
     private int _stock;
-    private Color _originalColor;
+
 
     public int MaxStock
     {
@@ -34,6 +34,14 @@ public class StoreComponent : MonoBehaviour
             _stock = value;
             Fill.value = value;
             UIStock.text = "" + value;
+            if( _stock >= Fill.maxValue )
+            {
+                FillImage.color = Color.red;
+            }
+            else
+            {
+                FillImage.color = Color.white;
+            }
         }
 
         get
@@ -64,19 +72,5 @@ public class StoreComponent : MonoBehaviour
             return _property;
         }
     }
-
-    public void Blink()
-    {
-        _originalColor = FillImage.color;
-        FillImage.color = Color.red;
-        StartCoroutine( Unblink( 1 ) );
-    }
-
-    IEnumerator Unblink( float time )
-    {
-        yield return new WaitForSeconds( time );
-
-        FillImage.color = _originalColor;
-        Debug.Log( _originalColor.ToString() );
-    }
+    
 }

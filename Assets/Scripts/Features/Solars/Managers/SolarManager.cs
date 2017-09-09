@@ -21,7 +21,7 @@ public class SolarManager : AbstractController
         float SC = ( message as SolarMessage ).SC;
 
         float minSC = 20;
-        float maxSC = 2000;
+        float maxSC = 5000;
         float minLT = 30;
         float maxLT = 240;
         float minPL = 1;
@@ -30,8 +30,8 @@ public class SolarManager : AbstractController
         float maxAT = 4;
         float minEL = 1;
         float maxEL = gameModel.User.AtomsUnlocked + 1;
-        float minST = minLT * 1.5f;
-        float maxST = maxLT * 1.5f;
+        float minST = minLT * 10.0f;
+        float maxST = maxLT * 10.0f;
 
         float factorLT = ( maxLT - minLT ) / ( maxSC - minSC );
 
@@ -102,6 +102,32 @@ public class SolarManager : AbstractController
 
         
         
+    }
+
+    float Choose( float[] probs )
+    {
+
+        float total = 0;
+
+        foreach( float elem in probs )
+        {
+            total += elem;
+        }
+
+        float randomPoint = UnityEngine.Random.value * total;
+
+        for( int i = 0; i < probs.Length; i++ )
+        {
+            if( randomPoint < probs[ i ] )
+            {
+                return i;
+            }
+            else
+            {
+                randomPoint -= probs[ i ];
+            }
+        }
+        return probs.Length - 1;
     }
 
     private void spendAtomsToUseSC( float SC )
