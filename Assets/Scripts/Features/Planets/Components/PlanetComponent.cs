@@ -39,7 +39,7 @@ public class PlanetComponent : AbstractView
                     }
                     else
                     {
-                        Messenger.Dispatch( AtomMessage.ATOM_STOCK_CHANGED, new AtomMessage( atomicNumber, atomStore.Stock ) );
+                        Messenger.Dispatch( AtomMessage.ATOM_STOCK_CHANGED, new AtomMessage( atomicNumber, 0 ) );
                         atomStore.Stock = 0;
                         _model.Atoms[ atomicNumber ].Stock = 0;
                     }
@@ -69,9 +69,8 @@ public class PlanetComponent : AbstractView
             planetAtomStore.Stock = kvp.Value.Stock;
 
             HarvesterComponent harvester = planetAtomPrefabInstance.GetComponent<HarvesterComponent>();
-            harvester.HarvestRate = kvp.Value.HarvestRate;
-            harvester.UpgradeLevel = kvp.Value.UpgradeLevel;
-
+            harvester.Setup( kvp.Value );
+            
             atoms.Add( planetAtomStore );
         }
 

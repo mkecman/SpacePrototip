@@ -20,18 +20,18 @@ public class SolarManager : AbstractController
     {
         float SC = ( message as SolarMessage ).SC;
 
-        float minSC = 5;
-        float maxSC = 1000;
+        float minSC = 20;
+        float maxSC = 2000;
         float minLT = 30;
-        float maxLT = 120;
+        float maxLT = 240;
         float minPL = 1;
-        float maxPL = 8;
+        float maxPL = 5;
         float minAT = 1;
         float maxAT = 4;
         float minEL = 1;
         float maxEL = gameModel.User.AtomsUnlocked + 1;
-        float minST = 50;
-        float maxST = 100;
+        float minST = minLT * 1.5f;
+        float maxST = maxLT * 1.5f;
 
         float factorLT = ( maxLT - minLT ) / ( maxSC - minSC );
 
@@ -45,7 +45,7 @@ public class SolarManager : AbstractController
 
         float factorEL = ( maxEL - minEL ) / ( maxSC - minSC );
         int maxELValue = (int)Math.Round( ( factorEL * ( SC - minSC ) ) + minEL, MidpointRounding.AwayFromZero );
-        int minELValue = (int)Math.Round( maxELValue * 0.75f, MidpointRounding.AwayFromZero );
+        int minELValue = (int)Math.Round( maxELValue * 0.51f, MidpointRounding.AwayFromZero );
 
         float factorST = ( maxST - minST ) / ( maxSC - minSC );
         int maxSTValue = (int)Math.Round( ( factorST * ( SC - minSC ) ) + minST, MidpointRounding.AwayFromZero );
@@ -107,25 +107,46 @@ public class SolarManager : AbstractController
     private void spendAtomsToUseSC( float SC )
     {
         float _sc = SC;
+        Dictionary<int, AtomModel> collectedAtoms = new Dictionary<int, AtomModel>();
+        Dictionary<int, AtomMessage> atomsMessages = new Dictionary<int, AtomMessage>();
 
         foreach( KeyValuePair<int, AtomModel> atomModel in gameModel.User.Atoms )
         {
-            int delta = 0;
-            //Debug.Log( "removing atom: " + atomModel.Value.Symbol + " || Stock: " + atomModel.Value.Stock);
-            for( int atomIndex = atomModel.Value.Stock; atomIndex > 0; atomIndex-- )
+            if( atomModel.Value.Stock > 0 )
             {
-                if( _sc - atomModel.Value.AtomicWeight >= 0 )
+                AtomModel atom = new AtomModel();
+                atom.AtomicNumber = atomModel.Value.AtomicNumber;
+                atom.AtomicWeight = atomModel.Value.AtomicWeight;
+                atom.Stock = atomModel.Value.Stock;
+                collectedAtoms.Add( atomModel.Key, atom );
+                atomsMessages.Add( atomModel.Key, new AtomMessage( atomModel.Key, 0 ) );
+            }
+        }
+
+        while( _sc > 0 )
+        {
+            foreach( KeyValuePair<int, AtomModel> atomModel in collectedAtoms )
+            {
+                if( atomModel.Value.Stock > 0 )
                 {
-                    _sc -= atomModel.Value.AtomicWeight;
-                    delta++;
-                }
-                else
-                {
-                    break;
+                    if( _sc - atomModel.Value.AtomicWeight >= 0 )
+                    {
+                        _sc -= atomModel.Value.AtomicWeight;
+                        atomModel.Value.Stock -= 1;
+                        atomsMessages[ atomModel.Value.AtomicNumber ].Delta -= 1;
+                    }
+                    else
+                    {
+                        _sc = 0;
+                        break;
+                    }
                 }
             }
-            Messenger.Dispatch( AtomMessage.ATOM_STOCK_CHANGED, new AtomMessage( atomModel.Key, -delta ) );
-            //Debug.Log( "Stock after change:" + gameModel.User.Atoms[ atomModel.Key ].Stock );
+        }
+
+        foreach( KeyValuePair<int, AtomMessage> atomMessage in atomsMessages )
+        {
+            Messenger.Dispatch( AtomMessage.ATOM_STOCK_CHANGED, atomMessage.Value );
         }
     }
 }

@@ -1,33 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class HarvesterComponent : AbstractView
 {
     public Text UIHarvestRate;
     public Slider UIUpgradeLevelSlider;
-    private int _harvestRate;
-    private float _upgradeLevel;
+    public Button UIUpgradeButton;
 
-    public int HarvestRate
+    private PlanetAtomModel _model;
+
+    void Start()
     {
-        set
-        {
-            _harvestRate = value;
-            UIHarvestRate.text = _harvestRate + "";
-        }
-        get
-        {
-            return _harvestRate;
-        }
+        UIUpgradeButton.onClick.AddListener( new UnityEngine.Events.UnityAction( Upgrade ) );
     }
 
-    public float UpgradeLevel
+    public void Upgrade()
     {
-        set
+        if( gameModel.User.XP - 1 >= 0 )
         {
-            _upgradeLevel = value;
-            UIUpgradeLevelSlider.value = _upgradeLevel;
+            gameModel.User.XP -= 1;
+            _model.HarvestRate += 1;
+            _model.UpgradeLevel += 1;
+            Messenger.Dispatch( HarversterMessage.HARVESTER_UPGRADED );
+            updateView();
         }
+        else
+        {
+            Debug.Log( "Not enough XP to upgrade! Create more Solars!" );
+        }
+        
     }
+
+    internal void Setup( PlanetAtomModel value )
+    {
+        _model = value;
+        updateView();
+    }
+
+    private void updateView()
+    {
+        UIHarvestRate.text = _model.HarvestRate + "";
+        UIUpgradeLevelSlider.value = _model.UpgradeLevel;
+    }
+    
 }

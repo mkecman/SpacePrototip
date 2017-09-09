@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class GameController : AbstractController
 {
-    public Slider SCSlider;
-    public Text SCText;
-
     // called zero
     void Awake()
     {
@@ -61,13 +58,5 @@ public class GameController : AbstractController
         Messenger.Dispatch( AtomMessage.GENERATE_ATOM );
     }
 
-    public void CreateSolar()
-    {
-        Messenger.Dispatch( SolarMessage.CREATE_SOLAR, new SolarMessage( SCSlider.value ) );
-    }
-
-    public void UpdateSCLabel()
-    {
-        SCText.text = SCSlider.value + "";
-    }
+    
 }

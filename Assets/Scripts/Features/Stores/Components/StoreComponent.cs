@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class StoreComponent : MonoBehaviour
 {
     public Slider Fill;
+    public Image FillImage;
     public Text UIName;
     public Text UIStock;
     public Text UIProperty;
@@ -16,7 +17,8 @@ public class StoreComponent : MonoBehaviour
     private string _name;
     private string _property;
     private int _stock;
-    
+    private Color _originalColor;
+
     public int MaxStock
     {
         set
@@ -61,5 +63,20 @@ public class StoreComponent : MonoBehaviour
         {
             return _property;
         }
+    }
+
+    public void Blink()
+    {
+        _originalColor = FillImage.color;
+        FillImage.color = Color.red;
+        StartCoroutine( Unblink( 1 ) );
+    }
+
+    IEnumerator Unblink( float time )
+    {
+        yield return new WaitForSeconds( time );
+
+        FillImage.color = _originalColor;
+        Debug.Log( _originalColor.ToString() );
     }
 }

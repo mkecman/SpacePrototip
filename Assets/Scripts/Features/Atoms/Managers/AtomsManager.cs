@@ -26,6 +26,10 @@ public class AtomsManager : AbstractController
             atomStores[ data.AtomicNumber ].Stock = gameModel.User.Atoms[ data.AtomicNumber ].Stock;
             Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED, data );
         }
+        else
+        {
+            atomStores[ data.AtomicNumber ].Blink();
+        }
     }
 
     private void GenerateAtom( AbstractMessage message )

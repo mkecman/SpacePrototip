@@ -83,12 +83,13 @@
     <Compile Include="Assets\Scripts\Controller\AbstractController.cs" />
     <Compile Include="Assets\Scripts\Controller\GameController.cs" />
     <Compile Include="Assets\Scripts\Controller\XPManager.cs" />
-    <Compile Include="Assets\Scripts\Controller\SCController.cs" />
+    <Compile Include="Assets\Scripts\Controller\SCManager.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Components\AtomModel.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Managers\AtomsManager.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Messages\AtomMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Galaxies\Components\GalaxyModel.cs" />
     <Compile Include="Assets\Scripts\Features\Harvester\Components\HarvesterComponent.cs" />
+    <Compile Include="Assets\Scripts\Features\Harvester\Messages\HarversterMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Messenger\Components\Messenger.cs" />
     <Compile Include="Assets\Scripts\Features\Messenger\Messages\AbstractMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetAtomModel.cs" />

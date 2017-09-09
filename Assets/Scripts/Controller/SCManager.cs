@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SCController : AbstractController
+public class SCManager : AbstractController
 {
-    private Text label;
+    public Text SCHUDLabel;
+    public Slider SCSlider;
+    public Text SCText;
 
     void Start()
     {
-        label = gameObject.GetComponent<Text>();
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated );
         Messenger.Listen( GameMessage.MODEL_LOADED, handleGameModelLoaded );
         Messenger.Listen( SolarMessage.SOLAR_CREATED, handleSolarCreated );
@@ -41,8 +42,20 @@ public class SCController : AbstractController
         UpdateLabel();
     }
 
+    public void CreateSolar()
+    {
+        Messenger.Dispatch( SolarMessage.CREATE_SOLAR, new SolarMessage( SCSlider.value ) );
+    }
+
+    public void UpdateSCSliderLabel()
+    {
+        SCText.text = SCSlider.value + "";
+    }
+
     private void UpdateLabel()
     {
-        label.text = "SC:" + gameModel.User.SC;
+        SCHUDLabel.text = "SC:" + (int)gameModel.User.SC;
     }
+
+   
 }
