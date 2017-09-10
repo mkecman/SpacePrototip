@@ -11,6 +11,7 @@ public class StoreComponent : MonoBehaviour
     public Image FillImage;
     public Text UIName;
     public Text UIStock;
+    public Text UIMaxStock;
     public Text UIProperty;
 
     public string ID;
@@ -24,6 +25,7 @@ public class StoreComponent : MonoBehaviour
         set
         {
             Fill.maxValue = value;
+            UIMaxStock.text = value.ToString();
         }
     }
 

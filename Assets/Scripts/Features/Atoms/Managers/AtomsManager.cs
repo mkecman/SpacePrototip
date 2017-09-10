@@ -53,7 +53,7 @@ public class AtomsManager : AbstractController
             atomModel = gameModel.getAtomByAtomicNumber( atomicNumber );
             atomStore = Instantiate( atomPrefab, atomsContainer ).GetComponent<StoreComponent>();
             atomStore.Name = atomModel.Symbol;
-            atomStore.Property = atomModel.AtomicNumber + "";
+            atomStore.Property = atomModel.AtomicWeight.ToString( "F2" );
 
             AtomModel userAtom;
             if( !gameModel.User.Atoms.TryGetValue( atomicNumber, out userAtom ) )
