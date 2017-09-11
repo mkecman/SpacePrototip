@@ -8,6 +8,9 @@ public class SolarManager : AbstractController
 {
     public GameObject galaxy;
     public GameObject solarPrefab;
+
+    private int _starsCreated = 1;
+    private int _planetsCreated = 1;
     
     private List<SolarComponent> solars = new List<SolarComponent>();
 
@@ -89,6 +92,8 @@ public class SolarManager : AbstractController
             SolarComponent solar = solarPrefabInstance.GetComponent<SolarComponent>();
 
             SolarModel solarModel = new SolarModel();
+            solarModel.Name = "Star " + _starsCreated;
+            _starsCreated++;
             solarModel.Radius = (int)( SC );
             solarModel.Lifetime = (int)( ( factorLT * ( SC - minSC ) ) + minLT );
 
@@ -100,7 +105,8 @@ public class SolarManager : AbstractController
             for( int index = 0; index < PlanetsLength; index++ )
             {
                 PlanetModel planetModel = new PlanetModel();
-                planetModel.Name = "Planet " + index;
+                planetModel.Name = "Planet " + _planetsCreated;
+                _planetsCreated++;
                 planetModel.Radius = (int)( SC * 0.4f ) / PlanetsLength;
 
                 int atomsAvailable = UnityEngine.Random.Range( minATValue, maxATValue );
