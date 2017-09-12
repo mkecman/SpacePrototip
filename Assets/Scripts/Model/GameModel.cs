@@ -35,8 +35,8 @@ public class GameModel
         atomsCount = Atoms.Length;
         
         rawUser = new UserConfig();
-        rawUser.Load();
-        //User = rawUser.getUser( Atoms );
+        //rawUser.Load();
+        User = rawUser.getUser( Atoms );
         User = rawUser.Data;
 
         Messenger.Dispatch(GameMessage.MODEL_LOADED);

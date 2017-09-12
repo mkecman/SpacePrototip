@@ -186,16 +186,16 @@ public class SolarManager : AbstractController
         Dictionary<int, AtomModel> collectedAtoms = new Dictionary<int, AtomModel>();
         Dictionary<int, AtomMessage> atomsMessages = new Dictionary<int, AtomMessage>();
 
-        foreach( KeyValuePair<int, AtomModel> atomModel in gameModel.User.Atoms )
+        foreach( AtomModel atomModel in gameModel.User.Atoms )
         {
-            if( atomModel.Value.Stock > 0 )
+            if( atomModel.Stock > 0 )
             {
                 AtomModel atom = new AtomModel();
-                atom.AtomicNumber = atomModel.Value.AtomicNumber;
-                atom.AtomicWeight = atomModel.Value.AtomicWeight;
-                atom.Stock = atomModel.Value.Stock;
-                collectedAtoms.Add( atomModel.Key, atom );
-                atomsMessages.Add( atomModel.Key, new AtomMessage( atomModel.Key, 0 ) );
+                atom.AtomicNumber = atomModel.AtomicNumber;
+                atom.AtomicWeight = atomModel.AtomicWeight;
+                atom.Stock = atomModel.Stock;
+                collectedAtoms.Add( atomModel.AtomicNumber, atom );
+                atomsMessages.Add( atomModel.AtomicNumber, new AtomMessage( atomModel.AtomicNumber, 0 ) );
             }
         }
 

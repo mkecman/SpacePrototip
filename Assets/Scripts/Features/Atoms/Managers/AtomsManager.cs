@@ -56,12 +56,17 @@ public class AtomsManager : AbstractController
             atomStore.Property = atomModel.AtomicWeight.ToString( "F2" );
 
             AtomModel userAtom;
-            if( !gameModel.User.Atoms.TryGetValue( atomicNumber, out userAtom ) )
+            //if( !gameModel.User.Atoms.TryGetValue( atomicNumber, out userAtom ) )
+            if ( gameModel.User.Atoms[ atomicNumber ] == null )
             {
                 userAtom = new AtomModel();
                 userAtom.Stock = 0;
                 userAtom.MaxStock = 100;
                 gameModel.User.Atoms[ atomicNumber ] = userAtom;
+            }
+            else
+            {
+                userAtom = gameModel.User.Atoms[atomicNumber];
             }
             
             atomStore.MaxStock = userAtom.MaxStock;

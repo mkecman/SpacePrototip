@@ -9,6 +9,6 @@ public class UserModel
     public float SC;
     public int HC;
     public int AtomsUnlocked;
-    public Dictionary<int, AtomModel> Atoms;
+    public List<AtomModel> Atoms;
     public List<SolarModel> Galaxies;
 }

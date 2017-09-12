@@ -29,6 +29,7 @@ public class UserConfig
 
     public void Save()
     {
+        Debug.Log(JsonUtility.ToJson(Data));
         FileStream file = File.Create(jsonFilePath);
         bf.Serialize(file, Data);
         file.Close();
@@ -45,7 +46,8 @@ public class UserConfig
         user.HC = (int) raw[ "HC" ].n;
         user.AtomsUnlocked = (int) raw[ "AtomsUnlocked" ].n;
 
-        user.Atoms = new Dictionary<int, AtomModel>();
+        user.Atoms = new List<AtomModel>();
+        user.Atoms.Add(new AtomModel()); //adding dummy non-existent zero atomic number object
         var rawAtoms = raw[ "Atoms" ];
 
         for( int atomicNumber = 1; atomicNumber <= user.AtomsUnlocked; atomicNumber++ )
@@ -69,8 +71,7 @@ public class UserConfig
                 
             }
             
-
-            user.Atoms[ atomicNumber ] = atomModel;
+            user.Atoms.Insert( atomicNumber, atomModel );
         }
 
         user.Galaxies = new List<SolarModel>();

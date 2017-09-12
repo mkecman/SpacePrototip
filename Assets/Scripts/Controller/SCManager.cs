@@ -33,9 +33,9 @@ public class SCManager : AbstractController
         float SC = 0;
         int atomsLength = gameModel.User.Atoms.Count;
 
-        foreach( KeyValuePair<int, AtomModel> atomModel in gameModel.User.Atoms )
+        foreach( AtomModel atomModel in gameModel.User.Atoms )
         {
-            SC += atomModel.Value.Stock * atomModel.Value.AtomicWeight;
+            SC += atomModel.Stock * atomModel.AtomicWeight;
         }
 
         gameModel.User.SC = SC;
