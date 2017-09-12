@@ -56,8 +56,12 @@ public class GameController : AbstractController
     
     public void GenerateAtom()
     {
-        Messenger.Dispatch( AtomMessage.GENERATE_ATOM );
-        gameModel.SaveUser();
+        for( int i = 0; i < 100; i++ )
+        {
+            Messenger.Dispatch( AtomMessage.GENERATE_ATOM );
+        }
+        
+        //gameModel.SaveUser();
     }
 
     

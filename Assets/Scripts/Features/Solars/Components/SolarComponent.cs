@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SolarComponent : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class SolarComponent : MonoBehaviour
     {
         if( isActive && Time.time - _lastTime > 1.0f )
         {
+            LayoutElement rt = gameObject.GetComponent<LayoutElement>();
+            RectTransform rt2 = (RectTransform)_planetsContainer.transform;
+            rt.minHeight = 50 + rt2.rect.height;
+
             _lastTime = Time.time;
 
             if ( solarStore.Stock > 0 )

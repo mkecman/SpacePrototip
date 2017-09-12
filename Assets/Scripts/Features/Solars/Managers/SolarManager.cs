@@ -25,12 +25,12 @@ public class SolarManager : AbstractController
         float SC = ( message as SolarMessage ).SC;
 
         float minSC = 20;
-        float maxSC = 5000;
-        float minLT = 30;
+        float maxSC = 3000;
+        float minLT = 60;
         float maxLT = 240;
-        float minPL = 1;
+        float minPL = 2;
         float maxPL = 5;
-        float minAT = 1;
+        float minAT = 2;
         float maxAT = 4;
         float minEL = 1;
         float maxEL = gameModel.User.AtomsUnlocked;

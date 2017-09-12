@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scripts\Features\Solars\Managers\SolarManager.cs" />
     <Compile Include="Assets\Scripts\Features\Solars\Messages\SolarMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Stores\Components\StoreComponent.cs" />
+    <Compile Include="Assets\Scripts\Helpers\FlowLayoutGroup.cs" />
     <Compile Include="Assets\Scripts\Helpers\JsonHelper.cs" />
     <Compile Include="Assets\Scripts\Helpers\JSONObject.cs" />
     <Compile Include="Assets\Scripts\Model\Configs\AtomConfig.cs" />
