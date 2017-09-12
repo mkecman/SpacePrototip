@@ -17,6 +17,7 @@ public class SolarManager : AbstractController
     void Start()
     {
         Messenger.Listen( SolarMessage.CREATE_SOLAR, handleCreateSolar );
+        Messenger.Listen(GameMessage.MODEL_LOADED, handleGameModelLoaded);
     }
 
     private void handleCreateSolar( AbstractMessage message )
@@ -115,7 +116,6 @@ public class SolarManager : AbstractController
                 {
                     planetAtomModel = new PlanetAtomModel();
                     planetAtomModel.AtomicNumber = (int)Choose( pmEL ) + 1;
-                    Debug.Log( planetAtomModel.AtomicNumber );
                     planetAtomModel.Stock = UnityEngine.Random.Range( minSTValue, maxSTValue );
                     planetAtomModel.HarvestRate = 1;
                     planetAtomModel.UpgradeLevel = 0;
@@ -138,6 +138,20 @@ public class SolarManager : AbstractController
 
         
         
+    }
+
+    void handleGameModelLoaded( AbstractMessage message )
+    {
+        int galaxiesCount = gameModel.User.Galaxies.Count;
+        if ( galaxiesCount > 0 )
+        {
+            for (int solarIndex = 0; solarIndex < galaxiesCount; solarIndex++)
+            {
+                GameObject solarPrefabInstance = Instantiate(solarPrefab, galaxy.transform);
+                SolarComponent solar = solarPrefabInstance.GetComponent<SolarComponent>();
+                solar.Setup(gameModel.User.Galaxies[solarIndex]);
+            }
+        }
     }
 
     float Choose( Dictionary<int, float> probs )
