@@ -24,7 +24,7 @@ public class GameController : AbstractController
     {
         //Debug.Log( "OnSceneLoaded: " + scene.name );
         //Debug.Log( mode );
-        StartCoroutine( ExecuteAfterTime(1) );
+        StartCoroutine(DelayedSetup(1) );
     }
 
     // called third
@@ -36,26 +36,28 @@ public class GameController : AbstractController
     // called when the game is terminated
     void OnDisable()
     {
-        //Debug.Log( "OnDisable" );
+        Debug.Log( "OnDisable" );
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    IEnumerator ExecuteAfterTime( float time )
+    IEnumerator DelayedSetup( float time )
     {
         yield return new WaitForSeconds( time );
 
-        Setup();
+        Messenger.Listen(GameMessage.MODEL_LOADED, Setup);
+
+        gameModel.Init();
     }
 
-    public void Setup()
+    public void Setup( AbstractMessage message )
     {
-        Messenger.Dispatch( GameMessage.MODEL_LOADED );
         Messenger.Dispatch( AtomMessage.SETUP_ATOMS );
     }
     
     public void GenerateAtom()
     {
         Messenger.Dispatch( AtomMessage.GENERATE_ATOM );
+        gameModel.SaveUser();
     }
 
     

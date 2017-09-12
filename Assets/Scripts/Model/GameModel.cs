@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameModel
 {
-    private UserConfig rawUser = new UserConfig();
-    private AtomConfig rawAtoms = new AtomConfig();
+    private UserConfig rawUser;
+    private AtomConfig rawAtoms;
     
     public UserModel User;
 
@@ -21,18 +21,30 @@ public class GameModel
             if( gameModel == null )
             {
                 gameModel = new GameModel();
-                gameModel.Init();
             }
 
             return gameModel;
         }
     }
 
-    void Init()
+    public void Init()
     {
+        rawAtoms = new AtomConfig();
+        rawAtoms.Load();
         Atoms = rawAtoms.Data;
         atomsCount = Atoms.Length;
-        User = rawUser.getUser( Atoms );
+        
+        rawUser = new UserConfig();
+        rawUser.Load();
+        //User = rawUser.getUser( Atoms );
+        User = rawUser.Data;
+
+        Messenger.Dispatch(GameMessage.MODEL_LOADED);
+    }
+
+    public void SaveUser()
+    {
+        rawUser.Save();
     }
     
     public AtomModel getAtomByAtomicNumber( int atomicNumber )
