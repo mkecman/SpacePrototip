@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
-
+using UnityEngine.UI;
 
 public class SolarManager : AbstractController
 {
@@ -89,9 +89,6 @@ public class SolarManager : AbstractController
         {
             spendAtomsToUseSC( SC );
 
-            GameObject solarPrefabInstance = Instantiate( solarPrefab, galaxy.transform );
-            SolarComponent solar = solarPrefabInstance.GetComponent<SolarComponent>();
-
             SolarModel solarModel = new SolarModel();
             solarModel.Name = "Star " + _starsCreated;
             _starsCreated++;
@@ -126,18 +123,28 @@ public class SolarManager : AbstractController
             }
             //EndRefactor: planetmanager should handle this
 
+            GameObject solarPrefabInstance = Instantiate(solarPrefab, galaxy.transform);
+            SolarComponent solar = solarPrefabInstance.GetComponent<SolarComponent>();
+
             solars.Add( solar );
             gameModel.User.Galaxies.Add( solarModel );
             solar.Setup( solarModel );
             Messenger.Dispatch( SolarMessage.SOLAR_CREATED );
+            StartCoroutine(UpdateLayoutGroup(1));
         }
         else
         {
             Debug.Log( "Not enough SC to create Solar system!" );
         }
+    }
 
-        
-        
+    IEnumerator UpdateLayoutGroup(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        //LayoutRebuilder.MarkLayoutForRebuild(galaxy.transform as RectTransform);
+        //FlowLayoutGroup flow = galaxy.GetComponent<FlowLayoutGroup>();
+        //flow.SetLayoutVertical();
     }
 
     void handleGameModelLoaded( AbstractMessage message )

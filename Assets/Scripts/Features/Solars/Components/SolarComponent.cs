@@ -13,12 +13,8 @@ public class SolarComponent : MonoBehaviour
 
     void Update()
     {
-        if( isActive && Time.time - _lastTime > 1.0f )
+        if ( isActive && Time.time - _lastTime > 1.0f )
         {
-            LayoutElement rt = gameObject.GetComponent<LayoutElement>();
-            RectTransform rt2 = (RectTransform)_planetsContainer.transform;
-            rt.minHeight = 50 + rt2.rect.height;
-
             _lastTime = Time.time;
 
             if ( solarStore.Stock > 0 )
@@ -35,8 +31,7 @@ public class SolarComponent : MonoBehaviour
     public void Setup( SolarModel model )
     {
         _model = model;
-        _planetsContainer = this.transform.Find( "PlanetsContainer" );
-
+        
         solarStore = GetComponent<StoreComponent>();
         solarStore.Name = _model.Name;
         solarStore.MaxStock = _model.Lifetime;

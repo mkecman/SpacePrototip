@@ -17,12 +17,8 @@ public class PlanetComponent : AbstractView
 
     void Update()
     {
-        if( _isHarvesting && Time.time - _lastTime > 1.0f )
+        if ( _isHarvesting && Time.time - _lastTime > 1.0f )
         {
-            LayoutElement rt = gameObject.GetComponent<LayoutElement>();
-            RectTransform rt2 = (RectTransform)planetAtomsContainer.transform;
-            rt.minHeight = 30 + rt2.rect.height;
-
             _lastTime = Time.time;
 
             int remainingStock = 0;

@@ -52,6 +52,10 @@ public class GameController : AbstractController
     public void Setup( AbstractMessage message )
     {
         Messenger.Dispatch( AtomMessage.SETUP_ATOMS );
+        GenerateAtom();
+        GenerateAtom();
+        GenerateAtom();
+        GenerateAtom();
     }
     
     public void GenerateAtom()
