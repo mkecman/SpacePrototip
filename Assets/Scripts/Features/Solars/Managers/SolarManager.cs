@@ -11,6 +11,7 @@ public class SolarManager : AbstractController
 
     private int _starsCreated = 1;
     private int _planetsCreated = 1;
+    private int _layoutUpdateCount = 0;
     
     private List<SolarComponent> solars = new List<SolarComponent>();
 
@@ -18,6 +19,15 @@ public class SolarManager : AbstractController
     {
         Messenger.Listen( SolarMessage.CREATE_SOLAR, handleCreateSolar );
         Messenger.Listen(GameMessage.MODEL_LOADED, handleGameModelLoaded);
+    }
+
+    void Update()
+    {
+        if( _layoutUpdateCount < 30 )
+        {
+            LayoutRebuilder.MarkLayoutForRebuild( galaxy.transform as RectTransform );
+            _layoutUpdateCount++;
+        }
     }
 
     private void handleCreateSolar( AbstractMessage message )
@@ -70,7 +80,7 @@ public class SolarManager : AbstractController
         Dictionary<int, float> pmEL = new Dictionary<int, float>();
         for( int i = 0; i < maxEL; i++ )
         {
-            float bellValue = ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( - Mathf.Pow( maxELValue - i, 2 ) / ( 2 * curve ) );
+            float bellValue = ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow( maxELValue - i, 2 ) / ( 2 * curve ) );
             pmEL.Add( i, bellValue );
         }
 
@@ -123,30 +133,23 @@ public class SolarManager : AbstractController
             }
             //EndRefactor: planetmanager should handle this
 
-            GameObject solarPrefabInstance = Instantiate(solarPrefab, galaxy.transform);
+            GameObject solarPrefabInstance = Instantiate( solarPrefab, galaxy.transform );
             SolarComponent solar = solarPrefabInstance.GetComponent<SolarComponent>();
 
             solars.Add( solar );
             gameModel.User.Galaxies.Add( solarModel );
+
             solar.Setup( solarModel );
             Messenger.Dispatch( SolarMessage.SOLAR_CREATED );
-            StartCoroutine(UpdateLayoutGroup(1));
+
+            _layoutUpdateCount = 0; //fix for layoutgroup update, check Update() function;
         }
         else
         {
             Debug.Log( "Not enough SC to create Solar system!" );
         }
     }
-
-    IEnumerator UpdateLayoutGroup(float time)
-    {
-        yield return new WaitForSeconds(time);
-
-        //LayoutRebuilder.MarkLayoutForRebuild(galaxy.transform as RectTransform);
-        //FlowLayoutGroup flow = galaxy.GetComponent<FlowLayoutGroup>();
-        //flow.SetLayoutVertical();
-    }
-
+    
     void handleGameModelLoaded( AbstractMessage message )
     {
         int galaxiesCount = gameModel.User.Galaxies.Count;

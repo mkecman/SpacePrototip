@@ -46,13 +46,7 @@ public class FlowLayoutGroup : LayoutGroup
 
     public override void CalculateLayoutInputVertical()
     {
-        int minRows = 0;
-
-        float width = rectTransform.rect.size.x;
-        int cellCountX = Mathf.Max( 1, Mathf.FloorToInt( ( width - padding.horizontal + spacing.x + 0.001f ) / ( cellSize.x + spacing.x ) ) );
-        //		minRows = Mathf.CeilToInt(rectChildren.Count / (float)cellCountX);
-        minRows = 1;
-        float minSpace = padding.vertical + ( cellSize.y + spacing.y ) * minRows - spacing.y;
+        float minSpace = padding.vertical + ( cellSize.y + spacing.y ) * 1 - spacing.y;
         SetLayoutInputForAxis( minSpace, minSpace, -1, 1 );
     }
 
@@ -74,7 +68,7 @@ public class FlowLayoutGroup : LayoutGroup
     float totalWidth = 0;
     float totalHeight = 0;
 
-    float lastMaxHeight = 0;
+    //float lastMaxHeight = 0;
     float lastMaxWidth = 0;
 
     private void SetCellsAlongAxis( int axis )
