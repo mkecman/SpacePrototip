@@ -34,8 +34,68 @@ public class SolarManager : AbstractController
     {
         float SC = ( message as SolarMessage ).SC;
 
-        float minSC = 20;
-        float maxSC = 3000;
+        if( SC >= gameModel.User.SC )
+        {
+            Debug.Log( "Not enough SC to create Solar system!" );
+            return;
+        }
+
+        float minSC = gameModel.minSC;
+        float maxSC = gameModel.maxSC;
+        float minLT = 60;
+        float maxLT = 240;
+        float minPL = 1;
+        float maxPL = 14;
+        float minEL = 1;
+        float maxEL = gameModel.User.AtomsUnlocked;
+        float minAT = 1;
+        float maxAT = maxEL / maxPL;
+        
+        float minST = SC * 1.1f;
+        float maxST = SC * 10.0f;
+
+        SolarModel solarModel = new SolarModel();
+        solarModel.Name = "Star " + _starsCreated;
+        _starsCreated++;
+        solarModel.Radius = (int)( SC );
+        float factorLT = ( maxLT - minLT ) / ( maxSC - minSC );
+        solarModel.Lifetime = (int)( ( factorLT * ( SC - minSC ) ) + minLT );
+
+        float factorPL = ( maxPL - minPL ) / ( maxSC - minSC );
+        int planetsCount = (int)Math.Ceiling( ( factorPL * ( SC - minSC ) ) + minPL );
+        Debug.Log( "planetsCount:"+planetsCount );
+
+        for( int indexPL = 1; indexPL <= planetsCount; indexPL++ )
+        {
+            PlanetModel planetModel = new PlanetModel();
+            planetModel.Name = "Planet " + _planetsCreated;
+            _planetsCreated++;
+            planetModel.Radius = planetsCount;
+
+            float factorMST = ( maxST - minST ) / ( planetsCount - 1 );
+            int planetMaxST = (int)Math.Ceiling( ( factorMST * ( indexPL - 1 ) ) + minST );
+            Debug.Log( "planetMaxST:"+planetMaxST );
+
+            solarModel.Planets.Add( planetModel );
+        }
+
+        float factorEL = ( maxEL - minEL ) / ( maxSC - minSC );
+        int maxAtomicNumber = (int)Math.Ceiling( ( factorEL * ( SC - minSC ) ) + minEL );
+
+        for( int indexAN = 1; indexAN <= maxAtomicNumber; indexAN++ )
+        {
+
+        }
+
+        Debug.Log( "-------------" );
+    }
+
+    private void handleCreateSolar2( AbstractMessage message )
+    {
+        float SC = ( message as SolarMessage ).SC;
+
+        float minSC = gameModel.minSC;
+        float maxSC = gameModel.maxSC;
         float minLT = 60;
         float maxLT = 240;
         float minPL = 2;
@@ -189,7 +249,7 @@ public class SolarManager : AbstractController
         }
         return probs.Count - 1;
     }
-
+    
     private void spendAtomsToUseSC( float SC )
     {
         float _sc = SC;

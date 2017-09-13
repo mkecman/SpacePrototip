@@ -30,6 +30,9 @@ public class SCManager : AbstractController
 
     public void handleGameModelLoaded( AbstractMessage message )
     {
+        SCSlider.minValue = gameModel.minSC;
+        SCSlider.maxValue = gameModel.maxSC;
+        
         float SC = 0;
         int atomsLength = gameModel.User.Atoms.Count;
 
@@ -39,6 +42,7 @@ public class SCManager : AbstractController
         }
 
         gameModel.User.SC = SC;
+        SCSlider.value = SC;
         UpdateLabel();
     }
 

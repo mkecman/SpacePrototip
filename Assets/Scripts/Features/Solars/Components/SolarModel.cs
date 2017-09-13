@@ -7,5 +7,5 @@ public class SolarModel
     public string Name = "DefaultStar";
     public int Radius = 10;
     public int Lifetime = 60;
-    public List<PlanetModel> Planets;
+    public List<PlanetModel> Planets = new List<PlanetModel>();
 }
