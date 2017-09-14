@@ -86,7 +86,24 @@ public class SolarManager : AbstractController
         {
 
         }
-
+        Debug.Log("-------------");
+        int given = (int)SC;
+        int current = 0;
+        int index = 1;
+        bool needMore = true;
+        while ( needMore )
+        {
+            if( current + index <= given )
+            {
+                current += index;
+                index++;
+            }
+            else
+            {
+                needMore = false;
+            }
+        }
+        Debug.Log(index + "::" + current);
         Debug.Log( "-------------" );
     }
 
