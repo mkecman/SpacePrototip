@@ -74,7 +74,7 @@ public class SolarManager : AbstractController
 
             float factorMST = ( maxST - minST ) / ( planetsCount - 1 );
             int planetMaxST = (int)Math.Ceiling( ( factorMST * ( indexPL - 1 ) ) + minST );
-            Debug.Log( "planetMaxST:"+planetMaxST );
+            //Debug.Log( "planetMaxST:"+planetMaxST );
 
             solarModel.Planets.Add( planetModel );
         }
@@ -86,24 +86,42 @@ public class SolarManager : AbstractController
         {
 
         }
+
         Debug.Log("-------------");
-        int given = (int)SC;
-        int current = 0;
+        int given = (int)maxST;
+        float total = 0;
         int index = 1;
         bool needMore = true;
+        Dictionary<int, float> pieces = new Dictionary<int, float>();
+        for (int i = 1; i <= maxAtomicNumber; i++)
+        {
+            pieces[i] = 0;
+        }
+
         while ( needMore )
         {
-            if( current + index <= given )
+            float currentAtomWeight = gameModel.Atoms[index].AtomicWeight;
+            if ( total + currentAtomWeight <= given )
             {
-                current += index;
-                index++;
+                total += currentAtomWeight;
+                pieces[index] += 1;
+                if (index < maxAtomicNumber)
+                    index++;
+                else
+                    index = 1;
             }
             else
             {
                 needMore = false;
             }
         }
-        Debug.Log(index + "::" + current);
+
+        for (int i = 1; i <= pieces.Count; i++)
+        {
+            Debug.Log(gameModel.Atoms[i].Symbol + ": " + pieces[i] + "::" + pieces[i] * gameModel.Atoms[i].AtomicWeight);
+        }
+
+        Debug.Log(index + "::" + total);
         Debug.Log( "-------------" );
     }
 
