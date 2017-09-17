@@ -52,15 +52,18 @@ public class GameController : AbstractController
     public void Setup( AbstractMessage message )
     {
         Messenger.Dispatch( AtomMessage.SETUP_ATOMS );
+
+        /*
         GenerateAtom();
         GenerateAtom();
         GenerateAtom();
         GenerateAtom();
+        */
     }
     
-    public void GenerateAtom()
+    public void GenerateAtom( int times = 1 )
     {
-        for( int i = 0; i < 100; i++ )
+        for( int i = 0; i < times; i++ )
         {
             Messenger.Dispatch( AtomMessage.GENERATE_ATOM );
         }
