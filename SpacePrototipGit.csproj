@@ -84,7 +84,9 @@
     <Compile Include="Assets\Scripts\Controller\GameController.cs" />
     <Compile Include="Assets\Scripts\Controller\XPManager.cs" />
     <Compile Include="Assets\Scripts\Controller\SCManager.cs" />
+    <Compile Include="Assets\Scripts\Features\Atoms\Components\AtomComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Components\AtomModel.cs" />
+    <Compile Include="Assets\Scripts\Features\Atoms\Components\AtomStockUpgradeComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Managers\AtomsManager.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Messages\AtomMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Galaxies\Components\GalaxyModel.cs" />

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class AtomsManager : AbstractController
 {
@@ -13,6 +14,37 @@ public class AtomsManager : AbstractController
         Messenger.Listen( AtomMessage.SETUP_ATOMS, SetupAtoms );
         Messenger.Listen( AtomMessage.GENERATE_ATOM, GenerateAtom );
         Messenger.Listen( AtomMessage.ATOM_STOCK_CHANGED, AtomStockChanged );
+        Messenger.Listen( AtomMessage.ATOM_STOCK_UPGRADE, AtomStockUpgrade );
+    }
+
+    private void AtomStockUpgrade( AbstractMessage msg )
+    {
+        int nextLevelMaxStock = 10;
+
+
+        AtomMessage message = msg as AtomMessage;
+        int atomicNumber = message.AtomicNumber;
+        AtomModel atomModel = gameModel.User.Atoms[ atomicNumber ];
+        
+        int upgradeLevel = atomModel.UpgradeLevel;
+        int nextLevelPrice = (int)Math.Round( upgradeLevel * atomModel.AtomicWeight * atomModel.MaxStock );
+        if( gameModel.User.SC < nextLevelPrice )
+        {
+            Debug.Log( "NOT ENOUGH ATOMIC MASS TO UPGRADE!" );
+            return;
+        }
+
+        atomModel.UpgradeLevel += 1;
+        atomModel.MaxStock += nextLevelMaxStock;
+
+        gameModel.User.SC -= nextLevelPrice;
+        int nextLevelSC = (int)Math.Round( atomModel.UpgradeLevel * atomModel.AtomicWeight * atomModel.MaxStock );
+
+        AtomStockUpgradeComponent upgradeComp = message.dispatcherGO.GetComponent<AtomStockUpgradeComponent>();
+        upgradeComp.Setup( message.AtomicNumber, atomModel.MaxStock + nextLevelMaxStock, nextLevelSC );
+
+        //TODO: update SC properly, update Atom view
+
     }
 
     private void AtomStockChanged( AbstractMessage message )
@@ -30,7 +62,7 @@ public class AtomsManager : AbstractController
 
     private void GenerateAtom( AbstractMessage message )
     {
-        int randomAtomIndex = Random.Range( 1, gameModel.User.AtomsUnlocked +1 );
+        int randomAtomIndex = UnityEngine.Random.Range( 1, gameModel.User.AtomsUnlocked +1 );
         int maxStock = gameModel.User.Atoms[ randomAtomIndex ].MaxStock;
         int newStock = gameModel.User.Atoms[ randomAtomIndex ].Stock + 1;
 
@@ -51,12 +83,12 @@ public class AtomsManager : AbstractController
         for( int atomicNumber = 1; atomicNumber <= gameModel.User.AtomsUnlocked; atomicNumber++ )
         {
             atomModel = gameModel.getAtomByAtomicNumber( atomicNumber );
-            atomStore = Instantiate( atomPrefab, atomsContainer ).GetComponent<StoreComponent>();
+            GameObject go = Instantiate( atomPrefab, atomsContainer );
+            atomStore = go.GetComponentInChildren<StoreComponent>();
             atomStore.Name = atomModel.Symbol;
             atomStore.Property = atomModel.AtomicWeight.ToString( "F2" );
 
             AtomModel userAtom;
-            //if( !gameModel.User.Atoms.TryGetValue( atomicNumber, out userAtom ) )
             if ( gameModel.User.Atoms[ atomicNumber ] == null )
             {
                 userAtom = new AtomModel();
@@ -68,13 +100,17 @@ public class AtomsManager : AbstractController
             {
                 userAtom = gameModel.User.Atoms[atomicNumber];
             }
+            userAtom.UpgradeLevel = 1;
             
             atomStore.MaxStock = userAtom.MaxStock;
             atomStore.Stock = userAtom.Stock;
+            
 
             atomStores.Add( atomicNumber, atomStore );
+
+            AtomStockUpgradeComponent stockUpgradeComp = go.GetComponentInChildren<AtomStockUpgradeComponent>();
+            stockUpgradeComp.Setup( atomicNumber, 1, 1 );
         }
     }
-
-
+    
 }
