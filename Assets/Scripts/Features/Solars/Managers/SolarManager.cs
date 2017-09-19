@@ -73,7 +73,7 @@ public class SolarManager : AbstractController
         bool needMore = true;
         Dictionary<int, int> pieces = new Dictionary<int, int>();
         Dictionary<int, float> atomWeights = new Dictionary<int, float>();
-        float curve = 10.0f;
+        float curve = 100.0f;
         for( int i = 1; i <= maxAtomicNumber; i++ )
         {
             pieces[ i ] = 0;
@@ -81,7 +81,7 @@ public class SolarManager : AbstractController
             atomWeights.Add
             (
                 i,
-                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - i, 2 ) / ( 2 * curve ) )
+                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - 0, 2 ) / ( 2 * curve ) )
             );
         }
 

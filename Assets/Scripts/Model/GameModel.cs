@@ -13,7 +13,7 @@ public class GameModel
     public int atomsCount = 0;
 
     public float minSC = 10;
-    public float maxSC = 1000;
+    public float maxSC = 10000;
 
     private static GameModel gameModel;
 
