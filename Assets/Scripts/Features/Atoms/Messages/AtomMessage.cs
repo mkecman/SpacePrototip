@@ -10,24 +10,24 @@ public class AtomMessage : AbstractMessage
     public static string ATOM_STOCK_CHANGED = "AtomStockChanged";
     public static string ATOM_STOCK_UPDATED = "AtomStockUpdated";
     public static string ATOM_STOCK_UPGRADE = "AtomStockUpgrade";
-
+    public static string DEDUCT_ATOMS_WORTH_SC = "DeductAtomsWorthSC";
 
     private int _atomicNumber;
     private int _delta;
-    private GameObject _dispatcherGO;
+    private float _SC;
 
-    public AtomMessage( int atomicNumber, int delta, GameObject dispatcherGO = null )
+    public AtomMessage( int atomicNumber, int delta, float SC = 0 )
     {
         _atomicNumber = atomicNumber;
         _delta = delta;
-        _dispatcherGO = dispatcherGO;
+        _SC = SC;
     }
 
-    public GameObject dispatcherGO
+    public float SC
     {
-        get { return _dispatcherGO; }
+        get { return _SC; }
     }
-
+    
     public int AtomicNumber
     {
         get { return _atomicNumber; }

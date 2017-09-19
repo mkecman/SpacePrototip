@@ -25,6 +25,6 @@ public class AtomStockUpgradeComponent : MonoBehaviour
 
     private void DispatchUpgradeMessage()
     {
-        Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPGRADE, new AtomMessage( _atomicNumber, 1, gameObject ) );
+        Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPGRADE, new AtomMessage( _atomicNumber, 1 ) );
     }
 }

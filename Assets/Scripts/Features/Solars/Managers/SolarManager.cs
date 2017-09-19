@@ -40,12 +40,12 @@ public class SolarManager : AbstractController
             return;
         }
 
-        spendAtomsToUseSC( SC );
-
+        Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, SC ) );
+        
         float minSC = gameModel.minSC;
         float maxSC = gameModel.maxSC;
-        float minLT = 10;
-        float maxLT = 900;
+        float minLT = 30;
+        float maxLT = 90;
         float minEL = 1;
         float maxEL = gameModel.User.AtomsUnlocked;
         
@@ -185,49 +185,5 @@ public class SolarManager : AbstractController
         return probs.Count;
     }
     
-    private void spendAtomsToUseSC( float SC )
-    {
-        float _sc = SC;
-        Dictionary<int, AtomModel> collectedAtoms = new Dictionary<int, AtomModel>();
-        Dictionary<int, AtomMessage> atomsMessages = new Dictionary<int, AtomMessage>();
-
-        foreach( AtomModel atomModel in gameModel.User.Atoms )
-        {
-            if( atomModel.Stock > 0 )
-            {
-                AtomModel atom = new AtomModel();
-                atom.AtomicNumber = atomModel.AtomicNumber;
-                atom.AtomicWeight = atomModel.AtomicWeight;
-                atom.Stock = atomModel.Stock;
-                collectedAtoms.Add( atomModel.AtomicNumber, atom );
-                atomsMessages.Add( atomModel.AtomicNumber, new AtomMessage( atomModel.AtomicNumber, 0 ) );
-            }
-        }
-
-        while( _sc > 0 )
-        {
-            foreach( KeyValuePair<int, AtomModel> atomModel in collectedAtoms )
-            {
-                if( atomModel.Value.Stock > 0 )
-                {
-                    if( _sc - atomModel.Value.AtomicWeight >= 0 )
-                    {
-                        _sc -= atomModel.Value.AtomicWeight;
-                        atomModel.Value.Stock -= 1;
-                        atomsMessages[ atomModel.Value.AtomicNumber ].Delta -= 1;
-                    }
-                    else
-                    {
-                        _sc = 0;
-                        break;
-                    }
-                }
-            }
-        }
-
-        foreach( KeyValuePair<int, AtomMessage> atomMessage in atomsMessages )
-        {
-            Messenger.Dispatch( AtomMessage.ATOM_STOCK_CHANGED, atomMessage.Value );
-        }
-    }
+    
 }
