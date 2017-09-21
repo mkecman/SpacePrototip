@@ -11,14 +11,8 @@ public class XPManager : AbstractController
     {
         label = gameObject.GetComponent<Text>();
         Messenger.Listen( SolarMessage.SOLAR_CREATED, handleSolarCreated );
-        Messenger.Listen( HarversterMessage.HARVESTER_UPGRADED, handleHarvesterUpgraded );
     }
-
-    private void handleHarvesterUpgraded( AbstractMessage message )
-    {
-        updateView();
-    }
-
+    
     private void handleSolarCreated( AbstractMessage message )
     {
         gameModel.User.XP += 1;

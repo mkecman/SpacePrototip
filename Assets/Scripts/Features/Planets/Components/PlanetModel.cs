@@ -9,6 +9,6 @@ public class PlanetModel
     public string Name = "DefaultPlanet";
     public int Radius = 10;
     public int Distance = 10;
-    public Dictionary<int,PlanetAtomModel> Atoms = new Dictionary<int, PlanetAtomModel>();
+    public List<PlanetAtomModel> Atoms = new List<PlanetAtomModel>();
     
 }

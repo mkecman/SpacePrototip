@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -82,22 +80,24 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Controller\AbstractController.cs" />
     <Compile Include="Assets\Scripts\Controller\GameController.cs" />
-    <Compile Include="Assets\Scripts\Controller\XPManager.cs" />
     <Compile Include="Assets\Scripts\Controller\SCManager.cs" />
+    <Compile Include="Assets\Scripts\Controller\XPManager.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Components\AtomComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Components\AtomModel.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Components\AtomStockUpgradeComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Managers\AtomsManager.cs" />
     <Compile Include="Assets\Scripts\Features\Atoms\Messages\AtomMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Galaxies\Components\GalaxyModel.cs" />
-    <Compile Include="Assets\Scripts\Features\Harvester\Components\HarvesterComponent.cs" />
-    <Compile Include="Assets\Scripts\Features\Harvester\Messages\HarversterMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Messenger\Components\Messenger.cs" />
     <Compile Include="Assets\Scripts\Features\Messenger\Messages\AbstractMessage.cs" />
+    <Compile Include="Assets\Scripts\Features\Planets\Components\HarvesterComponent.cs" />
+    <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetAtomComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetAtomModel.cs" />
+    <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetAtomUpgradeComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetModel.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Managers\PlanetManager.cs" />
+    <Compile Include="Assets\Scripts\Features\Planets\Messages\HarversterMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Messages\PlanetMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Solars\Components\SolarComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Solars\Components\SolarModel.cs" />
@@ -114,7 +114,6 @@
     <Compile Include="Assets\Scripts\Model\UserModel.cs" />
     <Compile Include="Assets\Scripts\View\AbstractView.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

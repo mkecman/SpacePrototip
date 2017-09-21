@@ -14,7 +14,7 @@ public class AtomsManager : AbstractController
     {
         Messenger.Listen( AtomMessage.SETUP_ATOMS, SetupAtoms );
         Messenger.Listen( AtomMessage.GENERATE_ATOM, GenerateAtom );
-        Messenger.Listen( AtomMessage.ATOM_STOCK_CHANGED, AtomStockChanged );
+        Messenger.Listen( AtomMessage.ATOM_HARVESTED, AtomHarvested );
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPGRADE, AtomStockUpgrade );
         Messenger.Listen( AtomMessage.DEDUCT_ATOMS_WORTH_SC, DeductAtomsWorthSC );
         
@@ -73,7 +73,7 @@ public class AtomsManager : AbstractController
         }
     }
 
-    private void AtomStockChanged( AbstractMessage message )
+    private void AtomHarvested( AbstractMessage message )
     {
         AtomMessage data = message as AtomMessage;
         AtomModel atom = gameModel.User.Atoms[ data.AtomicNumber ];
@@ -163,7 +163,7 @@ public class AtomsManager : AbstractController
 
         foreach( KeyValuePair<int, AtomMessage> atomMessage in atomsMessages )
         {
-            AtomStockChanged( atomMessage.Value );
+            AtomHarvested( atomMessage.Value );
         }
     }
 

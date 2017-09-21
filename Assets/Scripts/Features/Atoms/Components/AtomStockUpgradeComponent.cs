@@ -16,11 +16,11 @@ public class AtomStockUpgradeComponent : MonoBehaviour
         btn.onClick.AddListener( new UnityAction( DispatchUpgradeMessage ) );
     }
 
-    public void Setup( int atomicNumber, int stock, int SC )
+    public void Setup( int atomicNumber, int stock, int price )
     {
         _atomicNumber = atomicNumber;
         UIStockLabel.text = stock.ToString();
-        UISCLabel.text = SC.ToString();
+        UISCLabel.text = price.ToString();
     }
 
     private void DispatchUpgradeMessage()

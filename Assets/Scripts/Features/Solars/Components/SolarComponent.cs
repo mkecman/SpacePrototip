@@ -19,6 +19,7 @@ public class SolarComponent : MonoBehaviour
 
             if ( solarStore.Stock > 0 )
             {
+                _model.Lifetime -= 1;
                 solarStore.Stock -= 1;
             }
             else

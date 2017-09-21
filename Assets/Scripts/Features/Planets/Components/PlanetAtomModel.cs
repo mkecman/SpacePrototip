@@ -8,6 +8,6 @@ public class PlanetAtomModel
     public string Name;
     public int AtomicNumber;
     public int Stock;
-    public int HarvestRate;
+    public float HarvestRate;
     public int UpgradeLevel;
 }

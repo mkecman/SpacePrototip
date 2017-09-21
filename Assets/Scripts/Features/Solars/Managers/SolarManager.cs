@@ -125,7 +125,7 @@ public class SolarManager : AbstractController
                 planetAtomModel.Stock = pieces[ i ];
                 planetAtomModel.HarvestRate = 1;
                 planetAtomModel.UpgradeLevel = 0;
-                planetModel.Atoms[ planetAtomModel.AtomicNumber ] = planetAtomModel;
+                planetModel.Atoms.Add( planetAtomModel );
                 addedAtoms++;
             }
         }
