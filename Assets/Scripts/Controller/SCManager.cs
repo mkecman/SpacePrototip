@@ -26,7 +26,10 @@ public class SCManager : AbstractController
         AtomMessage data = message as AtomMessage;
         gameModel.User.SC += gameModel.Atoms[ data.AtomicNumber ].AtomicWeight * data.Delta;
         if( gameModel.User.SC > SCSlider.maxValue )
-            SCSlider.maxValue = gameModel.User.SC;
+            if( gameModel.User.SC <= gameModel.maxSC )
+                SCSlider.maxValue = gameModel.User.SC;
+            else
+                SCSlider.maxValue = gameModel.maxSC;
 
         UpdateLabel();
     }
@@ -34,16 +37,13 @@ public class SCManager : AbstractController
     public void handleGameModelLoaded( AbstractMessage message )
     {
         float SC = 0;
-        int atomsLength = gameModel.User.Atoms.Count;
-
+        
         foreach( AtomModel atomModel in gameModel.User.Atoms )
         {
             SC += atomModel.Stock * atomModel.AtomicWeight;
         }
-
-
+        
         gameModel.User.SC = SC;
-
         SCSlider.minValue = gameModel.minSC + 2;
         SCSlider.maxValue = SC;
         SCSlider.value = SC;
@@ -62,7 +62,7 @@ public class SCManager : AbstractController
 
     private void UpdateLabel()
     {
-        SCHUDLabel.text = "SC:" + (int)gameModel.User.SC;
+        SCHUDLabel.text = "AM:" + (int)gameModel.User.SC;
     }
 
    

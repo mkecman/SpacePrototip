@@ -10,13 +10,16 @@ public class HarvesterComponent : AbstractView
     private bool _isHarvesting = false;
     private PlanetAtomModel _model;
     private StoreComponent _store;
+    private float _startTime;
 
     void Update()
     {
         if( !_isHarvesting )
             return;
 
-        UISlider.value += 1;
+        
+        UISlider.value += (float)( _model.HarvestRate / 1.0 );
+
         if( UISlider.value == UISlider.maxValue )
         {
             if( _model.Stock > 0 )
@@ -39,6 +42,7 @@ public class HarvesterComponent : AbstractView
         _store = store;
         _model = model;
         _isHarvesting = true;
+        _startTime = Time.time;
     }
     
 }

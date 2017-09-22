@@ -12,8 +12,8 @@ public class GameModel
     public AtomModel[] Atoms;
     public int atomsCount = 0;
 
-    public float minSC = 10;
-    public float maxSC = 10000;
+    public float minSC = 8;
+    public float maxSC = 1000;
 
     private static GameModel gameModel;
 
@@ -35,7 +35,7 @@ public class GameModel
         rawAtoms = new AtomConfig();
         rawAtoms.Load();
         Atoms = rawAtoms.Data;
-        atomsCount = Atoms.Length;
+        atomsCount = Atoms.Length-1;
         
         rawUser = new UserConfig();
         //rawUser.Load();
@@ -49,13 +49,5 @@ public class GameModel
     {
         rawUser.Save();
     }
-    
-    public AtomModel getAtomByAtomicNumber( int atomicNumber )
-    {
-        if( atomicNumber > 0 && atomicNumber < instance.atomsCount )
-            return instance.Atoms[ atomicNumber ];
-        else
-            return null;
-    }
-
+   
 }

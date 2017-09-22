@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UserConfig
 {
-    public string userJSONString = "{  \"ID\": \"1\",  \"XP\": 1,  \"SC\": 0,  \"HC\": 0,  \"AtomsUnlocked\": 18,  \"Atoms\": {    \"0\": {      \"Stock\": 0,      \"MaxStock\": 0    }, \"1\": {      \"Stock\": 20,      \"MaxStock\": 20    }, \"2\": {      \"Stock\": 10,      \"MaxStock\": 20    }  },  \"Galaxies\": []}";
+    public string userJSONString = "{  \"ID\": \"1\",  \"XP\": 1,  \"SC\": 0,  \"HC\": 0,  \"AtomsUnlocked\": 2,  \"Atoms\": {    \"0\": {      \"Stock\": 0,      \"MaxStock\": 0    }, \"1\": {      \"Stock\": 20,      \"MaxStock\": 20    }, \"2\": {      \"Stock\": 100,      \"MaxStock\": 1000    }  },  \"Galaxies\": []}";
     public UserModel Data;
     private string jsonFilePath;
     BinaryFormatter bf;
@@ -44,13 +44,12 @@ public class UserConfig
         user.XP = (int) raw[ "XP" ].n;
         user.SC = raw[ "SC" ].n;
         user.HC = (int) raw[ "HC" ].n;
-        user.AtomsUnlocked = (int) raw[ "AtomsUnlocked" ].n;
-
+        
         user.Atoms = new List<AtomModel>();
         user.Atoms.Add(new AtomModel()); //adding dummy non-existent zero atomic number object
         var rawAtoms = raw[ "Atoms" ];
 
-        for( int atomicNumber = 1; atomicNumber <= user.AtomsUnlocked; atomicNumber++ )
+        for( int atomicNumber = 1; atomicNumber < rawAtoms.Count; atomicNumber++ )
         {
             AtomModel atomDef = atomsDef[ atomicNumber ];
             AtomModel atomModel = new AtomModel();
@@ -59,19 +58,10 @@ public class UserConfig
             atomModel.AtomicWeight = atomDef.AtomicWeight;
             atomModel.Name = atomDef.Name;
             atomModel.Symbol = atomDef.Symbol;
-            if( rawAtoms.Count > atomicNumber )
-            {
-                atomModel.Stock = (int)rawAtoms[ atomicNumber ][ "Stock" ].n;
-                atomModel.MaxStock = (int)rawAtoms[ atomicNumber ][ "MaxStock" ].n;
-            }
-            else
-            {
-                atomModel.Stock = 0;
-                atomModel.MaxStock = 1;
-                
-            }
+            atomModel.Stock = (int)rawAtoms[ atomicNumber ][ "Stock" ].n;
+            atomModel.MaxStock = (int)rawAtoms[ atomicNumber ][ "MaxStock" ].n;
             
-            user.Atoms.Insert( atomicNumber, atomModel );
+            user.Atoms.Add( atomModel );
         }
 
         user.Galaxies = new List<SolarModel>();

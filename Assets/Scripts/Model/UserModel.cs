@@ -8,7 +8,6 @@ public class UserModel
     public int XP;
     public float SC;
     public int HC;
-    public int AtomsUnlocked;
     public List<AtomModel> Atoms;
     public List<SolarModel> Galaxies;
 }

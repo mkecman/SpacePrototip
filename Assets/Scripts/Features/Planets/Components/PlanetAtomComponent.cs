@@ -9,7 +9,7 @@ public class PlanetAtomComponent : AbstractView
     {
         _model = model;
 
-        AtomModel atomDefinition = gameModel.getAtomByAtomicNumber( model.AtomicNumber );
+        AtomModel atomDefinition = gameModel.Atoms[ model.AtomicNumber ];
         StoreComponent planetAtomStore = gameObject.GetComponent<StoreComponent>();
         planetAtomStore.ID = atomDefinition.AtomicNumber + "";
         planetAtomStore.Name = atomDefinition.Symbol;

@@ -44,12 +44,12 @@ public class SolarManager : AbstractController
         
         float minSC = gameModel.minSC;
         float maxSC = gameModel.maxSC;
-        float minLT = 30;
-        float maxLT = 90;
+        float minLT = 60;
+        float maxLT = 1440;
         float minEL = 1;
-        float maxEL = gameModel.User.AtomsUnlocked;
+        float maxEL = gameModel.atomsCount;
         
-        float minST = SC * 1.1f;
+        float minST = SC * 2.0f;
         float maxST = SC * 10.0f;
 
         SolarModel solarModel = new SolarModel();
@@ -58,14 +58,14 @@ public class SolarManager : AbstractController
         solarModel.Radius = (int)( SC );
         float factorLT = ( maxLT - minLT ) / ( maxSC - minSC );
         solarModel.Lifetime = (int)( ( factorLT * ( SC - minSC ) ) + minLT );
-        Debug.Log( "SOLAR: "+ solarModel.Name + " created. -------------" );
+        //Debug.Log( "SOLAR: "+ solarModel.Name + " created. -------------" );
 
 
         ///
         //Randomizing Atoms amount for the whole Solar
         ///
         float factorEL = ( maxEL - minEL ) / ( maxSC - minSC );
-        int maxAtomicNumber = (int)Math.Ceiling( ( factorEL * ( SC - minSC ) ) + minEL );
+        int maxAtomicNumber = (int)Math.Floor( ( factorEL * ( SC - minSC ) ) + minEL );
         
         int given = (int)maxST;
         float total = 0;
@@ -73,7 +73,7 @@ public class SolarManager : AbstractController
         bool needMore = true;
         Dictionary<int, int> pieces = new Dictionary<int, int>();
         Dictionary<int, float> atomWeights = new Dictionary<int, float>();
-        float curve = 100.0f;
+        float curve = 2.0f;
         for( int i = 1; i <= maxAtomicNumber; i++ )
         {
             pieces[ i ] = 0;
@@ -81,7 +81,7 @@ public class SolarManager : AbstractController
             atomWeights.Add
             (
                 i,
-                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - 0, 2 ) / ( 2 * curve ) )
+                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - i, 2 ) / ( 2 * curve ) )
             );
         }
 
