@@ -73,7 +73,7 @@ public class SolarManager : AbstractController
         bool needMore = true;
         Dictionary<int, int> pieces = new Dictionary<int, int>();
         Dictionary<int, float> atomWeights = new Dictionary<int, float>();
-        float curve = 2.0f;
+        float curve = 20.0f;
         for( int i = 1; i <= maxAtomicNumber; i++ )
         {
             pieces[ i ] = 0;
