@@ -9,6 +9,6 @@ public class AtomModel
     public int AtomicNumber;
     public float AtomicWeight;
     public int Stock = 0;
-    public int MaxStock = 1;
+    public int MaxStock = 10;
     public int UpgradeLevel = 1;
 }

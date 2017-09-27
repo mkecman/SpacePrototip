@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UserConfig
 {
-    public string userJSONString = "{  \"ID\": \"1\",  \"XP\": 1,  \"SC\": 0,  \"HC\": 0,  \"AtomsUnlocked\": 2,  \"Atoms\": {    \"0\": {      \"Stock\": 0,      \"MaxStock\": 0    }, \"1\": {      \"Stock\": 20,      \"MaxStock\": 20    }, \"2\": {      \"Stock\": 100,      \"MaxStock\": 1000    }  },  \"Galaxies\": []}";
+    public string userJSONString = "{  \"ID\": \"1\",  \"XP\": 1,  \"SC\": 0,  \"HC\": 0,  \"AtomsUnlocked\": 2,  \"Atoms\": {    \"0\": {      \"Stock\": 0,      \"MaxStock\": 0    }, \"1\": {      \"Stock\": 10,      \"MaxStock\": 10    }, \"2\": {      \"Stock\": 1000,      \"MaxStock\": 10    }  },  \"Galaxies\": []}";
     public UserModel Data;
     private string jsonFilePath;
     BinaryFormatter bf;

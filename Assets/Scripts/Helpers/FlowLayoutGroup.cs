@@ -68,7 +68,7 @@ public class FlowLayoutGroup : LayoutGroup
     float totalWidth = 0;
     float totalHeight = 0;
 
-    //float lastMaxHeight = 0;
+    float lastMaxHeight = 0;
     float lastMaxWidth = 0;
 
     private void SetCellsAlongAxis( int axis )
@@ -111,6 +111,7 @@ public class FlowLayoutGroup : LayoutGroup
 
         totalWidth = 0;
         totalHeight = 0;
+        lastMaxHeight = 0;
         Vector2 currentSpacing = Vector2.zero;
         for( int i = 0; i < rectChildren.Count; i++ )
         {
@@ -125,6 +126,11 @@ public class FlowLayoutGroup : LayoutGroup
             if( rectChildren[ i ].rect.width > lastMaxWidth )
             {
                 lastMaxWidth = rectChildren[ i ].rect.width;
+            }
+
+            if( rectChildren[ i ].rect.height > lastMaxHeight )
+            {
+                lastMaxHeight = rectChildren[ i ].rect.height;
             }
 
             if( i < rectChildren.Count - 1 )
@@ -156,5 +162,22 @@ public class FlowLayoutGroup : LayoutGroup
             }
             */
         }
+
+        IncreaseHeight( lastMaxHeight );
     }
+
+    public void IncreaseHeight( float height )
+    {
+        var parentTransform = gameObject.transform.parent.GetComponent<RectTransform>();
+        var rectTransform = gameObject.GetComponent<RectTransform>();
+        if( rectTransform != null && parentTransform != null )
+        {
+            if( height < parentTransform.rect.height )
+                rectTransform.sizeDelta = new Vector2( rectTransform.sizeDelta.x, parentTransform.rect.height );
+
+            if( height >= rectTransform.sizeDelta.y )
+                rectTransform.sizeDelta = new Vector2( rectTransform.sizeDelta.x, height );
+        }
+    }
+
 }

@@ -30,10 +30,46 @@ public class SolarManager : AbstractController
         }
     }
 
+    private float easeInOutQuint( float currentTime, float startValue, float changeInValue, float duration )
+    {
+        currentTime /= duration / 2;
+        if( currentTime < 1 ) return changeInValue / 2 * currentTime * currentTime * currentTime * currentTime * currentTime + startValue;
+        currentTime -= 2;
+        return changeInValue / 2 * ( currentTime * currentTime * currentTime * currentTime * currentTime + 2 ) + startValue;
+    }
+
+    private float easeInOutCirc( float t, float b, float c, float d)
+    {
+        t /= d / 2;
+        if( t < 1 ) return -c / 2 * ( Mathf.Sqrt( 1 - t * t ) - 1 ) + b;
+        t -= 2;
+        return c / 2 * ( Mathf.Sqrt( 1 - t * t ) + 1 ) + b;
+    }
+
+    private float easeOutQuad( float t, float b, float c, float d )
+    {
+        t /= d;
+        return -c * t * ( t - 2 ) + b;
+    }
+
+    private float easeOutCirc( float t, float b, float c, float d )
+    {
+        t /= d;
+        t--;
+        return c * Mathf.Sqrt( 1 - t * t ) + b;
+    }
+
+
+    private float execEaseFunc( float currentTime, float startValue, float changeInValue, float duration )
+    {
+        return easeOutCirc( currentTime, startValue, changeInValue, duration );
+    }
+
     private void handleCreateSolar( AbstractMessage message )
     {
         float SC = ( message as SolarMessage ).SC;
 
+        /*
         if( SC >= gameModel.User.SC )
         {
             Debug.Log( "Not enough SC to create Solar system!" );
@@ -41,16 +77,17 @@ public class SolarManager : AbstractController
         }
 
         Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, SC ) );
-        
+        */    
+
         float minSC = gameModel.minSC;
         float maxSC = gameModel.maxSC;
-        float minLT = 60;
-        float maxLT = 1440;
+        float minLT = 10;
+        float maxLT = 20;
         float minEL = 1;
         float maxEL = gameModel.atomsCount;
         
         float minST = SC * 2.0f;
-        float maxST = SC * 10.0f;
+        float maxST = SC * 5.0f;
 
         SolarModel solarModel = new SolarModel();
         solarModel.Name = "Star " + _starsCreated;
@@ -66,14 +103,16 @@ public class SolarManager : AbstractController
         ///
         float factorEL = ( maxEL - minEL ) / ( maxSC - minSC );
         int maxAtomicNumber = (int)Math.Floor( ( factorEL * ( SC - minSC ) ) + minEL );
-        
+        maxAtomicNumber = (int)Math.Floor( execEaseFunc( SC, 1.0f, maxEL-1, maxSC ) );
+        Debug.Log( maxAtomicNumber );
+
         int given = (int)maxST;
         float total = 0;
         int index = 1;
         bool needMore = true;
         Dictionary<int, int> pieces = new Dictionary<int, int>();
         Dictionary<int, float> atomWeights = new Dictionary<int, float>();
-        float curve = 20.0f;
+        float curve = 100.0f;
         for( int i = 1; i <= maxAtomicNumber; i++ )
         {
             pieces[ i ] = 0;
@@ -81,7 +120,7 @@ public class SolarManager : AbstractController
             atomWeights.Add
             (
                 i,
-                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - i, 2 ) / ( 2 * curve ) )
+                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow( i, 2 ) / ( 2 * curve ) )
             );
         }
 
