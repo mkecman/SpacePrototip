@@ -17,11 +17,15 @@ public class HarvesterComponent : AbstractView
         if( !_isHarvesting )
             return;
 
+        float maxPercent = 1.0f / _model.HarvestRate;
+        float timePercent = ( Time.time - _startTime ) / maxPercent;
         
-        UISlider.value += (float)( _model.HarvestRate / 1.0 );
-
-        if( UISlider.value == UISlider.maxValue )
+        UISlider.value = (float)UISlider.maxValue * timePercent;
+        
+        if( timePercent >= 1.0f )
         {
+            _startTime = Time.time;
+            
             if( _model.Stock > 0 )
             {
                 _store.Stock -= 1;

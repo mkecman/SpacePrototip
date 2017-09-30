@@ -12,8 +12,8 @@ public class GameModel
     public AtomModel[] Atoms;
     public int atomsCount = 0;
 
-    public float minSC = 8;
-    public float maxSC = 15000;
+    public float minSC = 8.0f;
+    public float maxSC = 15000.0f;
 
     private static GameModel gameModel;
 

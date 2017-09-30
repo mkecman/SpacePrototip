@@ -30,46 +30,51 @@ public class SolarManager : AbstractController
         }
     }
 
-    private float easeInOutQuint( float currentTime, float startValue, float changeInValue, float duration )
+    Vector3 p0 = new Vector3( 0.0f, 0.0f );
+    Vector3 p1 = new Vector3( 0.0f, 6.0f );
+    Vector3 p2 = new Vector3( 12000.0f, 11.0f );
+    Vector3 p3 = new Vector3( 15000.0f, 20.0f );
+
+    Vector3 getBezier( float time )
     {
-        currentTime /= duration / 2;
-        if( currentTime < 1 ) return changeInValue / 2 * currentTime * currentTime * currentTime * currentTime * currentTime + startValue;
-        currentTime -= 2;
-        return changeInValue / 2 * ( currentTime * currentTime * currentTime * currentTime * currentTime + 2 ) + startValue;
+        return Bezier.GetPoint( p0, p1, p2, p3, time );
     }
 
-    private float easeInOutCirc( float t, float b, float c, float d)
+    float yFromX( float xTarget )
     {
-        t /= d / 2;
-        if( t < 1 ) return -c / 2 * ( Mathf.Sqrt( 1 - t * t ) - 1 ) + b;
-        t -= 2;
-        return c / 2 * ( Mathf.Sqrt( 1 - t * t ) + 1 ) + b;
+        
+        float xTolerance = 0.1f; //adjust as you please
+        
+        //establish bounds
+        float lower = 0.0f;
+        float upper = 1.0f;
+        float percent = ( upper + lower ) / 2;
+
+        //get initial x
+        float x = getBezier( percent ).x;
+
+        //loop until completion
+        while(Mathf.Abs(xTarget - x) > xTolerance)
+        {
+            if(xTarget > x) 
+                lower = percent;
+            else 
+                upper = percent;
+
+            percent = (upper + lower) / 2;
+            x = getBezier( percent ).x;
+        }
+        //we're within tolerance of the desired x value.
+        //return the y value.
+        return getBezier( percent ).y;
     }
 
-    private float easeOutQuad( float t, float b, float c, float d )
-    {
-        t /= d;
-        return -c * t * ( t - 2 ) + b;
-    }
-
-    private float easeOutCirc( float t, float b, float c, float d )
-    {
-        t /= d;
-        t--;
-        return c * Mathf.Sqrt( 1 - t * t ) + b;
-    }
-
-
-    private float execEaseFunc( float currentTime, float startValue, float changeInValue, float duration )
-    {
-        return easeOutCirc( currentTime, startValue, changeInValue, duration );
-    }
 
     private void handleCreateSolar( AbstractMessage message )
     {
         float SC = ( message as SolarMessage ).SC;
 
-        /*
+        /**/
         if( SC >= gameModel.User.SC )
         {
             Debug.Log( "Not enough SC to create Solar system!" );
@@ -77,17 +82,17 @@ public class SolarManager : AbstractController
         }
 
         Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, SC ) );
-        */    
+        /**/
 
         float minSC = gameModel.minSC;
         float maxSC = gameModel.maxSC;
-        float minLT = 10;
-        float maxLT = 20;
+        float minLT = 60;
+        float maxLT = 720;
         float minEL = 1;
         float maxEL = gameModel.atomsCount;
         
         float minST = SC * 2.0f;
-        float maxST = SC * 5.0f;
+        float maxST = SC * 100.0f;
 
         SolarModel solarModel = new SolarModel();
         solarModel.Name = "Star " + _starsCreated;
@@ -101,10 +106,7 @@ public class SolarManager : AbstractController
         ///
         //Randomizing Atoms amount for the whole Solar
         ///
-        float factorEL = ( maxEL - minEL ) / ( maxSC - minSC );
-        int maxAtomicNumber = (int)Math.Floor( ( factorEL * ( SC - minSC ) ) + minEL );
-        maxAtomicNumber = (int)Math.Floor( execEaseFunc( SC, 1.0f, maxEL-1, maxSC ) );
-        Debug.Log( maxAtomicNumber );
+        int maxAtomicNumber = (int)Math.Ceiling( yFromX( SC ) );
 
         int given = (int)maxST;
         float total = 0;
