@@ -30,11 +30,13 @@ public class FormulaAtomComponent : AbstractView
         {
             if( atom.Stock >= _model.Amount )
             {
+                _model.HaveEnough = true;
                 Symbol.color = Color.green;
                 Amount.color = Color.green;
             }
             else
             {
+                _model.HaveEnough = false;
                 Symbol.color = Color.red;
                 Amount.color = Color.red;
             }

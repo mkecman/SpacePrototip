@@ -8,14 +8,14 @@ public class RecipeConfig
 {
     public List<RecipeModel> Data;
 
-    internal void Load()
+    internal void Load( AtomModel[] Atoms )
     {
         TextAsset targetFile = Resources.Load<TextAsset>( "Configs/Recipes" );
         Data = JsonHelper.FromJsonList<RecipeModel>( targetFile.text );
 
         foreach( RecipeModel recipe in Data )
         {
-            recipe.Setup();
+            recipe.Setup( Atoms );
         }
     }
 }

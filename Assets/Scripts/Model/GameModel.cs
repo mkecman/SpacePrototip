@@ -45,7 +45,7 @@ public class GameModel
         User = rawUser.Data;
 
         rawRecipes = new RecipeConfig();
-        rawRecipes.Load();
+        rawRecipes.Load( Atoms );
         Recipes = rawRecipes.Data;
 
         Messenger.Dispatch(GameMessage.MODEL_LOADED);
