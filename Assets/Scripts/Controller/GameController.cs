@@ -2,10 +2,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 public class GameController : AbstractController
 {
+    public GameObject CraftingPanel;
+
     // called zero
     void Awake()
     {
@@ -59,6 +62,14 @@ public class GameController : AbstractController
         GenerateAtom();
         GenerateAtom();
         */
+    }
+
+    public void ShowHideCrafting()
+    {
+        if( CraftingPanel.activeSelf )
+            CraftingPanel.SetActive( false );
+        else
+            CraftingPanel.SetActive( true );
     }
     
     public void GenerateAtom( int times = 1 )

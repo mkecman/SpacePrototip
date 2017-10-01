@@ -111,6 +111,11 @@
     <Compile Include="Assets\Scripts\Features\Planets\Managers\PlanetManager.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Messages\HarversterMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Messages\PlanetMessage.cs" />
+    <Compile Include="Assets\Scripts\Features\Recipes\Component\FormulaAtomComponent.cs" />
+    <Compile Include="Assets\Scripts\Features\Recipes\Component\FormulaAtomModel.cs" />
+    <Compile Include="Assets\Scripts\Features\Recipes\Component\RecipeComponent.cs" />
+    <Compile Include="Assets\Scripts\Features\Recipes\Component\RecipeModel.cs" />
+    <Compile Include="Assets\Scripts\Features\Recipes\Component\RecipesListComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Solars\Components\SolarComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Solars\Components\SolarModel.cs" />
     <Compile Include="Assets\Scripts\Features\Solars\Managers\SolarManager.cs" />
@@ -120,6 +125,7 @@
     <Compile Include="Assets\Scripts\Helpers\JsonHelper.cs" />
     <Compile Include="Assets\Scripts\Helpers\JSONObject.cs" />
     <Compile Include="Assets\Scripts\Model\Configs\AtomConfig.cs" />
+    <Compile Include="Assets\Scripts\Model\Configs\RecipeConfig.cs" />
     <Compile Include="Assets\Scripts\Model\Configs\UserConfig.cs" />
     <Compile Include="Assets\Scripts\Model\GameMessage.cs" />
     <Compile Include="Assets\Scripts\Model\GameModel.cs" />
@@ -127,11 +133,7 @@
     <Compile Include="Assets\Scripts\View\AbstractView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\AppData\LocalLow\DefaultCompany\SpaceShooter-User.json">
-      <Link>SpaceShooter-User.json</Link>
-    </None>
     <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
-    <None Include="Assets\Resources\Configs\Atoms.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

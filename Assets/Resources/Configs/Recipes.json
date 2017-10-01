@@ -1,0 +1,13 @@
+{
+	"Items":
+	[
+		{ "Name":"Water", "Formula":"H2O", "MolecularMass":15.07, "ExchangeRate":1.02 },
+		{ "Name":"Something", "Formula":"C9H2F5N3OS", "MolecularMass":295.188, "ExchangeRate":2.00 },
+		{ "Name":"LITHIUM HYDRIDE", "Formula":"LiH", "MolecularMass":7.948, "ExchangeRate":1.00 },
+		{ "Name":"Lithium metaborate", "Formula":"BLiO2", "MolecularMass":49.75, "ExchangeRate":1.00 },
+		{ "Name":"Beryllium hydride", "Formula":"BeH2", "MolecularMass":11.03, "ExchangeRate":1.00 },
+		{ "Name":"Methyllithium", "Formula":"CH3Li", "MolecularMass":21.98, "ExchangeRate":1.00 },
+		{ "Name":"Lithium tetra-methyl-hydroxyquinolinato boron", "Formula":"C40H32BLiN4O4", "MolecularMass":650.458, "ExchangeRate":1.00 },
+		{ "Name":"TRINITROACETONITRILE", "Formula":"C2N4O6", "MolecularMass":176.044, "ExchangeRate":1.00 }
+	]
+}

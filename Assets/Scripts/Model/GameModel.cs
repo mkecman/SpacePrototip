@@ -6,6 +6,7 @@ public class GameModel
 {
     private UserConfig rawUser;
     private AtomConfig rawAtoms;
+    private RecipeConfig rawRecipes;
     
     public UserModel User;
 
@@ -14,6 +15,8 @@ public class GameModel
 
     public float minSC = 8.0f;
     public float maxSC = 15000.0f;
+
+    public List<RecipeModel> Recipes;
 
     private static GameModel gameModel;
 
@@ -40,6 +43,10 @@ public class GameModel
         rawUser = new UserConfig();
         rawUser.Load();
         User = rawUser.Data;
+
+        rawRecipes = new RecipeConfig();
+        rawRecipes.Load();
+        Recipes = rawRecipes.Data;
 
         Messenger.Dispatch(GameMessage.MODEL_LOADED);
     }
