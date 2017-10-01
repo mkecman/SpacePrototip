@@ -1,0 +1,42 @@
+{
+    "ID": "1",
+    "XP": 1,
+    "SC": 0.0,
+    "HC": 0,
+    "Atoms": [
+        {
+            "Name": "",
+            "Symbol": "",
+            "AtomicNumber": 0,
+            "AtomicWeight": 0.0,
+            "HexColor": "",
+            "GroupBlock": "",
+            "Stock": 0,
+            "MaxStock": 10,
+            "UpgradeLevel": 1
+        },
+        {
+            "Name": "Hydrogen",
+            "Symbol": "H",
+            "AtomicNumber": 1,
+            "AtomicWeight": 1.0079400539398194,
+            "HexColor": "",
+            "GroupBlock": "",
+            "Stock": 10,
+            "MaxStock": 10,
+            "UpgradeLevel": 1
+        },
+        {
+            "Name": "Helium",
+            "Symbol": "He",
+            "AtomicNumber": 2,
+            "AtomicWeight": 4.0026021003723148,
+            "HexColor": "",
+            "GroupBlock": "",
+            "Stock": 1000,
+            "MaxStock": 10,
+            "UpgradeLevel": 1
+        }
+    ],
+    "Galaxies": []
+}
