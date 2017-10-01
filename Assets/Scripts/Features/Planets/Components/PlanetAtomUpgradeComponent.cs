@@ -25,7 +25,7 @@ public class PlanetAtomUpgradeComponent : AbstractView
 
     private int getPrice()
     {
-        return (int)gameModel.Atoms[ _model.AtomicNumber ].AtomicWeight * _model.HarvestRate * 20;
+        return (int)Mathf.Pow( gameModel.Atoms[ _model.AtomicNumber ].AtomicWeight, 2 ) * _model.HarvestRate;
     }
 
     private void Upgrade()

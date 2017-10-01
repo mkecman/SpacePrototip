@@ -11,13 +11,14 @@ public class HarvesterComponent : AbstractView
     private PlanetAtomModel _model;
     private StoreComponent _store;
     private float _startTime;
+    private float _longestHarvestTime = 3.0f;
 
     void Update()
     {
         if( !_isHarvesting )
             return;
 
-        float maxPercent = 1.0f / _model.HarvestRate;
+        float maxPercent = _longestHarvestTime / _model.HarvestRate;
         float timePercent = ( Time.time - _startTime ) / maxPercent;
         
         UISlider.value = (float)UISlider.maxValue * timePercent;

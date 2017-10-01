@@ -174,7 +174,7 @@ public class AtomsManager : AbstractController
 
     private int getNextUpgradePrice( AtomModel model )
     {
-        return (int)Math.Round( model.AtomicWeight * ( model.MaxStock -5 ) );
+        return (int)Math.Round( Mathf.Pow( model.AtomicWeight, 2 ) * ( model.MaxStock -5 ) );
     }
 
 }

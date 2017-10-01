@@ -69,10 +69,41 @@ public class SolarManager : AbstractController
         return getBezier( percent ).y;
     }
 
+    private void getRanges()
+    {
+        Dictionary<int, Vector2> ranges = new Dictionary<int, Vector2>();
+        Vector3 bezier;
+        int currentY = 0;
+        float maxX = 0;
+
+        for( float i = 0.00001f; i <= 1.0f; i += 0.00001f )
+        {
+            bezier = getBezier( i );
+
+            if( bezier.x > maxX )
+            {
+                maxX = bezier.x;
+            }
+
+            if( (int)Mathf.Ceil( bezier.y ) > currentY )
+            {
+                currentY = (int)Mathf.Ceil( bezier.y );
+                ranges[ currentY ] = new Vector2( bezier.x, 0.0f );
+            }
+            else
+            {
+                ranges[ currentY ] = new Vector2( ranges[ currentY ].x, maxX );
+            }
+        }
+
+        Debug.Log( ranges );
+    }
+
 
     private void handleCreateSolar( AbstractMessage message )
     {
         float SC = ( message as SolarMessage ).SC;
+        
 
         /**/
         if( SC >= gameModel.User.SC )
