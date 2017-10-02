@@ -34,7 +34,6 @@ public class PlanetAtomUpgradeComponent : AbstractView
         if( price > gameModel.User.HC )
             return;
 
-        //Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, price ) );
         Messenger.Dispatch(HCMessage.UPDATED, new HCMessage(-price));
         _model.HarvestRate += 1;
 
