@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 using UnityEngine.UI;
 using System;
@@ -12,8 +13,25 @@ public class RecipeComponent : AbstractView
     public Text HardCurrencyLabel;
     public Slider AmountSlider;
     public Text SliderLabel;
+    public Button ConvertButton;
 
     private RecipeModel _model;
+    private ColorBlock _buttonColors;
+
+    void Start()
+    {
+        _buttonColors = ColorBlock.defaultColorBlock;
+    }
+
+    void OnEnable()
+    {
+        Messenger.Listen(AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated);
+    }
+
+    void OnDisable()
+    {
+        Messenger.StopListening(AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated);
+    }
 
     public void Setup( RecipeModel model )
     {
@@ -21,16 +39,23 @@ public class RecipeComponent : AbstractView
         MolecularWeightLabel.text = _model.MolecularMass.ToString();
         ExchangeRateLabel.text = _model.ExchangeRate.ToString();
         HardCurrencyLabel.text = "0";
-        AmountSlider.onValueChanged.AddListener( new UnityEngine.Events.UnityAction<float>( UpdateSliderLabel ) );
+        AmountSlider.onValueChanged.AddListener( new UnityAction<float>( UpdateSliderLabel ) );
+        ConvertButton.onClick.AddListener(new UnityAction(handleConvertButtonClick));
 
         for( int i = 0; i < _model.FormulaAtomsList.Count; i++ )
         {
             GameObject go = Instantiate( FormulaAtomPrefab, RecipeFormula );
             FormulaAtomComponent formulaAtom = go.GetComponent<FormulaAtomComponent>();
             formulaAtom.Setup( _model.FormulaAtomsList[ i ] );
+            handleAtomStockUpdated(new AtomMessage(_model.FormulaAtomsList[i].AtomicNumber, 0));
         }
 
         UpdateSliderLabel( 0 );
+    }
+
+    private void handleConvertButtonClick()
+    {
+        Messenger.Dispatch(RecipeMessage.CRAFT_COMPOUND_REQUEST, new RecipeMessage( _model, AmountSlider.value ));
     }
 
     private void UpdateSliderLabel( float value )
@@ -39,13 +64,7 @@ public class RecipeComponent : AbstractView
         int HCAmount = (int)( _model.MolecularMass * value * _model.ExchangeRate );
         HardCurrencyLabel.text = HCAmount.ToString();
     }
-
-    // Use this for initialization
-    void Start()
-    {
-        Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated );
-    }
-
+    
     private void handleAtomStockUpdated( AbstractMessage message )
     {
         AtomMessage msg = message as AtomMessage;
@@ -60,14 +79,16 @@ public class RecipeComponent : AbstractView
         }
         if( isEnough )
         {
+            _buttonColors.normalColor = new Color(0,1,0);
             AmountSlider.maxValue = calculateMaxSliderValue();
+            AmountSlider.value = AmountSlider.maxValue;
         }
         else
         {
+            _buttonColors.normalColor = Color.white;
             AmountSlider.maxValue = 0;
-            
         }
-
+        ConvertButton.colors = _buttonColors;
     }
 
     private int calculateMaxSliderValue()
@@ -97,11 +118,5 @@ public class RecipeComponent : AbstractView
         maxValue = atomStock / maxAmount;
 
         return maxValue;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

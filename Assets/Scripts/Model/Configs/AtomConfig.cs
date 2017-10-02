@@ -11,7 +11,6 @@ public class AtomConfig
     public AtomConfig()
     {
         jsonFilePath = Application.persistentDataPath + "atoms.json";
-        Debug.Log(jsonFilePath);
     }
 
     internal void Load()

@@ -20,6 +20,12 @@ public class UserConfig
         {
             Data = JsonUtility.FromJson<UserModel>( File.ReadAllText( jsonFilePath ) );
         }
+        else
+        {
+            TextAsset targetFile = Resources.Load<TextAsset>("Configs/DefaultUser");
+            Data = JsonUtility.FromJson<UserModel>(targetFile.text);
+            Save();
+        }
     }
 
     public void Save()

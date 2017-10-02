@@ -14,25 +14,34 @@ public class FormulaAtomComponent : AbstractView
         _model = model;
         Symbol.text = _model.Symbol;
         Amount.text = _model.Amount.ToString();
+        handleAtomStockUpdated(new AtomMessage(_model.AtomicNumber, 0));
     }
-
-    // Use this for initialization
-    void Start()
+    
+    void OnEnable()
     {
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated );
+    }
+
+    void OnDisable()
+    {
+        Messenger.StopListening(AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated);
     }
 
     private void handleAtomStockUpdated( AbstractMessage message )
     {
         AtomMessage msg = message as AtomMessage;
+        if (msg.AtomicNumber >= gameModel.User.Atoms.Count)
+            return;
+
+
         AtomModel atom = gameModel.User.Atoms[ msg.AtomicNumber ];
         if( atom.Symbol == _model.Symbol )
         {
             if( atom.Stock >= _model.Amount )
             {
                 _model.HaveEnough = true;
-                Symbol.color = Color.green;
-                Amount.color = Color.green;
+                Symbol.color = gameModel.GreenColor;
+                Amount.color = gameModel.GreenColor;
             }
             else
             {

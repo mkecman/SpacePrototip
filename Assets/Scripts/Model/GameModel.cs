@@ -18,6 +18,9 @@ public class GameModel
 
     public List<RecipeModel> Recipes;
 
+    public Color32 GreenColor = new Color32(0, 120, 20, 255);
+    
+
     private static GameModel gameModel;
 
     public static GameModel instance

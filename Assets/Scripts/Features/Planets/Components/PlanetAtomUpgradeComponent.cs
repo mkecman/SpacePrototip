@@ -31,14 +31,14 @@ public class PlanetAtomUpgradeComponent : AbstractView
     private void Upgrade()
     {
         int price = getPrice();
-        if( price > gameModel.User.SC )
+        if( price > gameModel.User.HC )
             return;
 
-        Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, price ) );
+        //Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, price ) );
+        Messenger.Dispatch(HCMessage.UPDATED, new HCMessage(-price));
         _model.HarvestRate += 1;
 
         updateView();
-
     }
 
     private void updateView()

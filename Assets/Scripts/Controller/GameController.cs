@@ -56,6 +56,8 @@ public class GameController : AbstractController
     {
         Messenger.Dispatch( AtomMessage.SETUP_ATOMS );
 
+        CraftingPanel.SetActive(false);
+
         /*
         GenerateAtom();
         GenerateAtom();
