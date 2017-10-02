@@ -117,8 +117,8 @@ public class SolarManager : AbstractController
 
         float minSC = gameModel.minSC;
         float maxSC = gameModel.maxSC;
-        float minLT = 60;
-        float maxLT = 720;
+        float minLT = 360;
+        float maxLT = 3220;
         float minEL = 1;
         float maxEL = gameModel.atomsCount;
         

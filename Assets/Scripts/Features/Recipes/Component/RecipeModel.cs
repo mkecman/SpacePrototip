@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using UnityEngine;
 
 [Serializable]
 public class RecipeModel
@@ -11,32 +12,55 @@ public class RecipeModel
     public float ExchangeRate;
     public List<FormulaAtomModel> FormulaAtomsList;
 
-    public void Setup( AtomModel[] Atoms )
+    private void splitFormula( AtomModel[] Atoms, string formula, int multiplier = 1 )
     {
-        string[] splitFormula = Regex.Split( Formula, "([A-Z][a-z])|/d+|([A-Z])" );
+        var pattern = @"\((.*?)\)|([A-Z][a-z])|([A-Z])|\d"; //find between brackets, Uppercase+lowercase, Uppercase, digit
+        var matches = Regex.Matches( formula, pattern );
 
-        FormulaAtomsList = new List<FormulaAtomModel>();
-        for( int i = 0; i < splitFormula.Length; i++ )
+        for( int i = 0; i < matches.Count; i++ )
         {
-            if( splitFormula[ i ] != "" )
+            string symbol = matches[ i ].ToString();
+            if( symbol.StartsWith( "(" ) )
             {
-                if( splitFormula[ i + 1 ] == "" )
-                    splitFormula[ i + 1 ] = "1";
-
+                symbol = symbol.Substring( 1, symbol.Length - 1 );
+                int result = 1;
+                int.TryParse( matches[ i + 1 ].ToString(), out result );
+                splitFormula( Atoms, symbol, result );
+                i++;
+            }
+            else
+            {
                 AtomModel atom = new AtomModel();
                 for( int j = 1; j < Atoms.Length; j++ )
                 {
-                    if( Atoms[ j ].Symbol == splitFormula[ i ] )
+                    if( Atoms[ j ].Symbol == symbol )
                     {
                         atom = Atoms[ j ];
                         break;
                     }
                 }
 
-                FormulaAtomsList.Add( new FormulaAtomModel( atom.AtomicNumber, splitFormula[ i ], int.Parse( splitFormula[ i + 1 ] ) ) );
-                i++;
+                int amount = 1;
+                if( i + 1 < matches.Count )
+                {
+                    int number;
+                    var isNumeric = int.TryParse( matches[ i + 1 ].ToString(), out number );
+                    if( isNumeric )
+                    {
+                        amount = number;
+                        i++;
+                    }
+                }
+                amount *= multiplier;
+
+                FormulaAtomsList.Add( new FormulaAtomModel( atom.AtomicNumber, symbol, amount ) );
             }
         }
-        
+    }
+
+    public void Setup( AtomModel[] Atoms )
+    {
+        FormulaAtomsList = new List<FormulaAtomModel>();
+        splitFormula( Atoms, Formula );
     }
 }
