@@ -40,8 +40,8 @@ public class FormulaAtomComponent : AbstractView
             if( atom.Stock >= _model.Amount )
             {
                 _model.HaveEnough = true;
-                Symbol.color = gameModel.GreenColor;
-                Amount.color = gameModel.GreenColor;
+                Symbol.color = gameModel.Config.GreenColor;
+                Amount.color = gameModel.Config.GreenColor;
             }
             else
             {

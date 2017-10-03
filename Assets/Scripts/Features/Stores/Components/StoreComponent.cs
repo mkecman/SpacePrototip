@@ -35,7 +35,7 @@ public class StoreComponent : MonoBehaviour
         {
             _stock = value;
             Fill.value = value;
-            UIStock.text = "" + value;
+            UIStock.text = value.ToString();
             if( _stock >= Fill.maxValue )
             {
                 FillImage.color = Color.red;

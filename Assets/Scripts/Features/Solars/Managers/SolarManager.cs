@@ -31,9 +31,9 @@ public class SolarManager : AbstractController
     }
 
     Vector3 p0 = new Vector3( 0.0f, 0.0f );
-    Vector3 p1 = new Vector3( 0.0f, 6.0f );
-    Vector3 p2 = new Vector3( 12000.0f, 11.0f );
-    Vector3 p3 = new Vector3( 15000.0f, 20.0f );
+    Vector3 p1 = new Vector3( 15000.0f, 30.0f );
+    Vector3 p2 = new Vector3( 120000.0f, 60.0f );
+    Vector3 p3 = new Vector3( 150000.0f, 118.0f );
 
     Vector3 getBezier( float time )
     {
@@ -104,7 +104,6 @@ public class SolarManager : AbstractController
     {
         float SC = ( message as SolarMessage ).SC;
         
-
         /**/
         if( SC >= gameModel.User.SC )
         {
@@ -115,12 +114,12 @@ public class SolarManager : AbstractController
         Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, SC ) );
         /**/
 
-        float minSC = gameModel.minSC;
-        float maxSC = gameModel.maxSC;
+        float minSC = gameModel.Config.minSC;
+        float maxSC = gameModel.Config.maxSC;
         float minLT = 360;
         float maxLT = 3220;
         float minEL = 1;
-        float maxEL = gameModel.atomsCount;
+        float maxEL = gameModel.Config.MaxAtomicNumber;
         
         float minST = SC * 2.0f;
         float maxST = SC * 100.0f;
@@ -145,7 +144,7 @@ public class SolarManager : AbstractController
         bool needMore = true;
         Dictionary<int, int> pieces = new Dictionary<int, int>();
         Dictionary<int, float> atomWeights = new Dictionary<int, float>();
-        float curve = 100.0f;
+        float curve = 10.0f;
         for( int i = 1; i <= maxAtomicNumber; i++ )
         {
             pieces[ i ] = 0;
@@ -153,9 +152,12 @@ public class SolarManager : AbstractController
             atomWeights.Add
             (
                 i,
-                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow( i, 2 ) / ( 2 * curve ) )
+                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * i ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - i, 2 ) / ( 2 * i ) )
+              //( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - i, 2 ) / ( 2 * curve ) )
             );
         }
+
+
 
         while( needMore )
         {

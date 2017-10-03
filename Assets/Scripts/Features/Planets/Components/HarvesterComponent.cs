@@ -12,6 +12,7 @@ public class HarvesterComponent : AbstractView
     private StoreComponent _store;
     private float _startTime;
     private float _longestHarvestTime = 3.0f;
+    private float maxPercent;
 
     void Update()
     {
@@ -21,7 +22,7 @@ public class HarvesterComponent : AbstractView
         float maxPercent = _longestHarvestTime / _model.HarvestRate;
         float timePercent = ( Time.time - _startTime ) / maxPercent;
         
-        UISlider.value = (float)UISlider.maxValue * timePercent;
+        UISlider.value = UISlider.maxValue * timePercent;
         
         if( timePercent >= 1.0f )
         {
