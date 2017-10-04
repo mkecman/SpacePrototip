@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class SCManager : AbstractController
 {
     public Text SCHUDLabel;
-    public Slider SCSlider;
+    public AtomSliderComponent SCSlider;
     public Text SCText;
+    private float _lastTime;
+    private bool _isActive = false;
 
     void Start()
     {
@@ -19,6 +21,18 @@ public class SCManager : AbstractController
     private void handleSolarCreated( AbstractMessage message )
     {
         UpdateLabel();
+    }
+
+    void Update()
+    {
+
+        if( _isActive && Time.time - _lastTime > 1.0f )
+        {
+            if( SCSlider.maxValue >= gameModel.Config.maxSC )
+                _isActive = false;
+
+            SCSlider.maxValue += 10;
+        }
     }
 
     public void handleAtomStockUpdated( AbstractMessage message )
@@ -44,22 +58,16 @@ public class SCManager : AbstractController
         }
         
         gameModel.User.SC = SC;
-        SCSlider.minValue = gameModel.Config.minSC + 2;
-        SCSlider.maxValue = SC;
-        SCSlider.value = SC;
+        SCSlider.Setup( SC );
         UpdateLabel();
+        //_isActive = true;
     }
 
     public void CreateSolar()
     {
-        Messenger.Dispatch( SolarMessage.CREATE_SOLAR, new SolarMessage( SCSlider.value ) );
+        Messenger.Dispatch( SolarMessage.CREATE_SOLAR, new SolarMessage( SCSlider.SCSlider.value ) );
     }
-
-    public void UpdateSCSliderLabel()
-    {
-        SCText.text = SCSlider.value + "";
-    }
-
+    
     private void UpdateLabel()
     {
         SCHUDLabel.text = "AM:" + (int)gameModel.User.SC;

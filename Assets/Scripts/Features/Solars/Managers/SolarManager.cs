@@ -15,8 +15,6 @@ public class SolarManager : AbstractController
     
     private List<SolarComponent> solars = new List<SolarComponent>();
 
-    Dictionary<int, int> atomSCUnlockRanges;
-
     Vector3 p0;
     Vector3 p1;
     Vector3 p2;
@@ -31,33 +29,13 @@ public class SolarManager : AbstractController
         p2 = new Vector3( 120000.0f, 60.0f );
         p3 = new Vector3( 150000.0f, 118.0f );
 
-        atomSCUnlockRanges = new Dictionary<int, int>();
-        atomSCUnlockRanges[ 1 ] = 0;
-        atomSCUnlockRanges[ 2 ] = 55;
-        atomSCUnlockRanges[ 3 ] = 320;
-        atomSCUnlockRanges[ 4 ] = 699;
-        atomSCUnlockRanges[ 5 ] = 1557;
-        atomSCUnlockRanges[ 6 ] = 2357;
-        atomSCUnlockRanges[ 7 ] = 3271;
-        atomSCUnlockRanges[ 8 ] = 4307;
-        atomSCUnlockRanges[ 9 ] = 5468;
-        atomSCUnlockRanges[ 10 ] = 6777;
-        atomSCUnlockRanges[ 11 ] = 8215;
-        atomSCUnlockRanges[ 12 ] = 9796;
-        atomSCUnlockRanges[ 13 ] = 11508;
-        atomSCUnlockRanges[ 14 ] = 13361;
-        atomSCUnlockRanges[ 15 ] = 15342;
-        atomSCUnlockRanges[ 16 ] = 17461;
-        atomSCUnlockRanges[ 17 ] = 19709;
-        atomSCUnlockRanges[ 18 ] = 22101;
-        atomSCUnlockRanges[ 19 ] = 24662;
-        atomSCUnlockRanges[ 20 ] = 27357;
+        
     }
 
     int getMaxAtomicNumberFromSC( float SC )
     {
         int result = 1;
-        foreach( KeyValuePair<int,int> range in atomSCUnlockRanges )
+        foreach( KeyValuePair<int,int> range in gameModel.Config.atomSCUnlockRanges )
         {
             if( SC >= range.Value )
             {
@@ -109,7 +87,7 @@ public class SolarManager : AbstractController
         solarModel.Radius = (int)( SC );
         float factorLT = ( maxLT - minLT ) / ( maxSC - minSC );
         //solarModel.Lifetime = (int)( ( factorLT * ( SC - minSC ) ) + minLT );
-        solarModel.Lifetime = (int)(1.1f * SC * gameModel.Config.MaxHarvestTime);
+        
 
 
         ///
@@ -128,7 +106,6 @@ public class SolarManager : AbstractController
             (
                 i,
                 ( 1 / Mathf.Sqrt( 2 * Mathf.PI * i ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - i, 2 ) / ( 2 * i ) )
-              //( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - i, 2 ) / ( 2 * curve ) )
             );
         }
 
@@ -144,9 +121,12 @@ public class SolarManager : AbstractController
             chosenAtoms[ currentAtomIndex ] = true;
         }
 
-        float given = SC * gameModel.Config.MaxHarvestTime;
+        
+
+        float given = (int)( gameModel.Config.MaxHarvestTime * SC );
         float SCSoFar = 0;
         bool needMore = true;
+        int lifetime = 0;
         while (needMore)
         {
             foreach (KeyValuePair<int, bool> item in chosenAtoms)
@@ -162,8 +142,10 @@ public class SolarManager : AbstractController
                     stocks[item.Key] += 1;
                 }
             }
+            lifetime++;
         }
-        
+
+        solarModel.Lifetime = lifetime;
 
         PlanetModel planetModel = new PlanetModel();
         PlanetAtomModel planetAtomModel;
