@@ -93,30 +93,16 @@ public class RecipeComponent : AbstractView
 
     private int calculateMaxSliderValue()
     {
-        int maxValue = 0;
-        int maxAmountAtomicNumber = 0;
-        int maxAmount = 0;
-
-
+        int minValue = int.MaxValue;
+        int currentAmount = 0;
+        
         for( int i = 0; i < _model.FormulaAtomsList.Count; i++ )
         {
-            if( maxAmount <= _model.FormulaAtomsList[ i ].Amount )
-            {
-                int candidateAN = _model.FormulaAtomsList[ i ].AtomicNumber;
-                if( maxAmountAtomicNumber == 0 )
-                    maxAmountAtomicNumber = candidateAN;
-
-                if( gameModel.User.Atoms[ candidateAN ].Stock <= gameModel.User.Atoms[ maxAmountAtomicNumber ].Stock )
-                {
-                    maxAmount = _model.FormulaAtomsList[ i ].Amount;
-                    maxAmountAtomicNumber = _model.FormulaAtomsList[ i ].AtomicNumber;
-                }
-            }
+            currentAmount = gameModel.User.Atoms[_model.FormulaAtomsList[i].AtomicNumber].Stock / _model.FormulaAtomsList[i].Amount;
+            if ( currentAmount < minValue )
+                minValue = currentAmount;
         }
-
-        int atomStock = gameModel.User.Atoms[ maxAmountAtomicNumber ].Stock;
-        maxValue = atomStock / maxAmount;
-
-        return maxValue;
+        
+        return minValue;
     }
 }

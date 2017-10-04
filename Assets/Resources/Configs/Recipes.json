@@ -2,6 +2,12 @@
 	"Items":
 	[
  {
+   "Name": "R-alpine-hydride™",
+   "Formula": "C18H32BLi",
+   "MolecularMass": 266.2,
+   "ExchangeRate": 1
+ },
+ {
    "Name": "Liquid hydrogen",
    "Formula": "H2",
    "MolecularMass": 2.02,
@@ -61,12 +67,7 @@
    "MolecularMass": 21.98,
    "ExchangeRate": 1
  },
- {
-   "Name": "R-alpine-hydride™",
-   "Formula": "C18H32BLi",
-   "MolecularMass": 266.2,
-   "ExchangeRate": 1
- },
+
  {
    "Name": "Beryllium nitrate",
    "Formula": "Be(NO3)2",

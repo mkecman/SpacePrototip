@@ -12,9 +12,15 @@ public class RecipeModel
     public float ExchangeRate;
     public List<FormulaAtomModel> FormulaAtomsList;
 
-    private void splitFormula( AtomModel[] Atoms, string formula, int multiplier = 1 )
+    public void Setup(Dictionary<string, AtomModel> Atoms)
     {
-        var pattern = @"\((.*?)\)|([A-Z][a-z])|([A-Z])|\d"; //find between brackets, Uppercase+lowercase, Uppercase, digit
+        FormulaAtomsList = new List<FormulaAtomModel>();
+        splitFormula(Atoms, Formula);
+    }
+
+    private void splitFormula(Dictionary<string, AtomModel> Atoms, string formula, int multiplier = 1 )
+    {
+        var pattern = @"\((.*?)\)|([A-Z][a-z])|([A-Z])|\d+"; //find between brackets, Uppercase+lowercase, Uppercase, digit
         var matches = Regex.Matches( formula, pattern );
 
         for( int i = 0; i < matches.Count; i++ )
@@ -30,16 +36,6 @@ public class RecipeModel
             }
             else
             {
-                AtomModel atom = new AtomModel();
-                for( int j = 1; j < Atoms.Length; j++ )
-                {
-                    if( Atoms[ j ].Symbol == symbol )
-                    {
-                        atom = Atoms[ j ];
-                        break;
-                    }
-                }
-
                 int amount = 1;
                 if( i + 1 < matches.Count )
                 {
@@ -52,15 +48,10 @@ public class RecipeModel
                     }
                 }
                 amount *= multiplier;
-
-                FormulaAtomsList.Add( new FormulaAtomModel( atom.AtomicNumber, symbol, amount ) );
+                FormulaAtomsList.Add( new FormulaAtomModel(Atoms[symbol].AtomicNumber, symbol, amount ) );
             }
         }
     }
 
-    public void Setup( AtomModel[] Atoms )
-    {
-        FormulaAtomsList = new List<FormulaAtomModel>();
-        splitFormula( Atoms, Formula );
-    }
+    
 }

@@ -79,71 +79,6 @@ public class SolarManager : AbstractController
         }
     }
     
-    Vector3 getBezier( float time )
-    {
-        return Bezier.GetPoint( p0, p1, p2, p3, time );
-    }
-
-    float yFromX( float xTarget )
-    {
-        
-        float xTolerance = 0.1f; //adjust as you please
-        
-        //establish bounds
-        float lower = 0.0f;
-        float upper = 1.0f;
-        float percent = ( upper + lower ) / 2;
-
-        //get initial x
-        float x = getBezier( percent ).x;
-
-        //loop until completion
-        while(Mathf.Abs(xTarget - x) > xTolerance)
-        {
-            if(xTarget > x) 
-                lower = percent;
-            else 
-                upper = percent;
-
-            percent = (upper + lower) / 2;
-            x = getBezier( percent ).x;
-        }
-        //we're within tolerance of the desired x value.
-        //return the y value.
-        return getBezier( percent ).y;
-    }
-
-    private void getRanges()
-    {
-        Dictionary<int, Vector2> ranges = new Dictionary<int, Vector2>();
-        Vector3 bezier;
-        int currentY = 0;
-        float maxX = 0;
-
-        for( float i = 0.00001f; i <= 1.0f; i += 0.00001f )
-        {
-            bezier = getBezier( i );
-
-            if( bezier.x > maxX )
-            {
-                maxX = bezier.x;
-            }
-
-            if( (int)Mathf.Ceil( bezier.y ) > currentY )
-            {
-                currentY = (int)Mathf.Ceil( bezier.y );
-                ranges[ currentY ] = new Vector2( bezier.x, 0.0f );
-            }
-            else
-            {
-                ranges[ currentY ] = new Vector2( ranges[ currentY ].x, maxX );
-            }
-        }
-
-        Debug.Log( ranges );
-    }
-
-
     private void handleCreateSolar( AbstractMessage message )
     {
         float SC = ( message as SolarMessage ).SC;
@@ -174,24 +109,20 @@ public class SolarManager : AbstractController
         solarModel.Radius = (int)( SC );
         float factorLT = ( maxLT - minLT ) / ( maxSC - minSC );
         //solarModel.Lifetime = (int)( ( factorLT * ( SC - minSC ) ) + minLT );
-        solarModel.Lifetime = (int)SC * 5;
+        solarModel.Lifetime = (int)(1.1f * SC * gameModel.Config.MaxHarvestTime);
 
 
         ///
         //Randomizing Atoms amount for the whole Solar
         ///
         int maxAtomicNumber = getMaxAtomicNumberFromSC( SC );//(int)Math.Ceiling( yFromX( SC ) );
-
-        int given = (int)maxST;
-        float total = 0;
-        int index = 1;
-        bool needMore = true;
-        Dictionary<int, int> pieces = new Dictionary<int, int>();
+        Dictionary<int, int> stocks = new Dictionary<int, int>();
         Dictionary<int, float> atomWeights = new Dictionary<int, float>();
         float curve = 10.0f;
+
         for( int i = 1; i <= maxAtomicNumber; i++ )
         {
-            pieces[ i ] = 0;
+            stocks[ i ] = 0;
 
             atomWeights.Add
             (
@@ -213,7 +144,25 @@ public class SolarManager : AbstractController
             chosenAtoms[ currentAtomIndex ] = true;
         }
 
-
+        float given = SC * gameModel.Config.MaxHarvestTime;
+        float SCSoFar = 0;
+        bool needMore = true;
+        while (needMore)
+        {
+            foreach (KeyValuePair<int, bool> item in chosenAtoms)
+            {
+                if( SCSoFar + gameModel.Atoms[ item.Key ].AtomicWeight > given )
+                {
+                    needMore = false;
+                    break;
+                }
+                else
+                {
+                    SCSoFar += gameModel.Atoms[item.Key].AtomicWeight;
+                    stocks[item.Key] += 1;
+                }
+            }
+        }
         
 
         PlanetModel planetModel = new PlanetModel();
@@ -228,9 +177,7 @@ public class SolarManager : AbstractController
         {
             planetAtomModel = new PlanetAtomModel();
             planetAtomModel.AtomicNumber = item.Key;
-            planetAtomModel.Stock = 9999;
-            planetAtomModel.HarvestRate = 1;
-            planetAtomModel.UpgradeLevel = 0;
+            planetAtomModel.Stock = stocks[ item.Key ];
             planetModel.Atoms.Add( planetAtomModel );
         }
         
@@ -288,6 +235,68 @@ public class SolarManager : AbstractController
         }
         return probs.Count;
     }
-    
-    
+
+    Vector3 getBezier(float time)
+    {
+        return Bezier.GetPoint(p0, p1, p2, p3, time);
+    }
+
+    float yFromX(float xTarget)
+    {
+
+        float xTolerance = 0.1f; //adjust as you please
+
+        //establish bounds
+        float lower = 0.0f;
+        float upper = 1.0f;
+        float percent = (upper + lower) / 2;
+
+        //get initial x
+        float x = getBezier(percent).x;
+
+        //loop until completion
+        while (Mathf.Abs(xTarget - x) > xTolerance)
+        {
+            if (xTarget > x)
+                lower = percent;
+            else
+                upper = percent;
+
+            percent = (upper + lower) / 2;
+            x = getBezier(percent).x;
+        }
+        //we're within tolerance of the desired x value.
+        //return the y value.
+        return getBezier(percent).y;
+    }
+
+    private void getRanges()
+    {
+        Dictionary<int, Vector2> ranges = new Dictionary<int, Vector2>();
+        Vector3 bezier;
+        int currentY = 0;
+        float maxX = 0;
+
+        for (float i = 0.00001f; i <= 1.0f; i += 0.00001f)
+        {
+            bezier = getBezier(i);
+
+            if (bezier.x > maxX)
+            {
+                maxX = bezier.x;
+            }
+
+            if ((int)Mathf.Ceil(bezier.y) > currentY)
+            {
+                currentY = (int)Mathf.Ceil(bezier.y);
+                ranges[currentY] = new Vector2(bezier.x, 0.0f);
+            }
+            else
+            {
+                ranges[currentY] = new Vector2(ranges[currentY].x, maxX);
+            }
+        }
+
+        Debug.Log(ranges);
+    }
 }

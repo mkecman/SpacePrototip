@@ -8,7 +8,7 @@ public class RecipeConfig
 {
     public List<RecipeModel> Data;
 
-    internal void Load( AtomModel[] Atoms )
+    internal void Load( Dictionary<string, AtomModel> Atoms )
     {
         TextAsset targetFile = Resources.Load<TextAsset>( "Configs/Recipes" );
         Data = JsonHelper.FromJsonList<RecipeModel>( targetFile.text );

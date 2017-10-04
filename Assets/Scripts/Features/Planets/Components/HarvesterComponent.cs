@@ -11,15 +11,13 @@ public class HarvesterComponent : AbstractView
     private PlanetAtomModel _model;
     private StoreComponent _store;
     private float _startTime;
-    private float _longestHarvestTime = 4.0f;
-    private float maxPercent;
-
+    
     void Update()
     {
         if( !_isHarvesting )
             return;
 
-        float maxPercent = _longestHarvestTime / _model.HarvestRate;
+        float maxPercent = gameModel.Config.MaxHarvestTime / _model.HarvestRate;
         float timePercent = ( Time.time - _startTime ) / maxPercent;
         
         UISlider.value = UISlider.maxValue * timePercent;

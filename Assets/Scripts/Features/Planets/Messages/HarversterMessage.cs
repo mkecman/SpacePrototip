@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HarversterMessage : AbstractMessage
+public class HarvesterMessage : AbstractMessage
 {
 
     public static string HARVESTER_UPGRADED = "HarversterUpgraded";
@@ -9,7 +9,7 @@ public class HarversterMessage : AbstractMessage
     private int _atomicNumber;
     private int _delta;
 
-    public HarversterMessage( int atomicNumber, int delta )
+    public HarvesterMessage( int atomicNumber, int delta )
     {
         _atomicNumber = atomicNumber;
         _delta = delta;
