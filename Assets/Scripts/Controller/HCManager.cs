@@ -11,9 +11,15 @@ public class HCManager : AbstractController
     {
         label = gameObject.GetComponent<Text>();
         Messenger.Listen( HCMessage.UPDATED, handleHCUpdate );
+        Messenger.Listen( GameMessage.MODEL_LOADED, handleGameModelLoaded );
     }
-    
-    private void handleHCUpdate( AbstractMessage message )
+
+    public void handleGameModelLoaded( AbstractMessage message )
+    {
+        updateView();
+    }
+
+        private void handleHCUpdate( AbstractMessage message )
     {
         HCMessage hcMessage = message as HCMessage;
         gameModel.User.HC += hcMessage.Amount;

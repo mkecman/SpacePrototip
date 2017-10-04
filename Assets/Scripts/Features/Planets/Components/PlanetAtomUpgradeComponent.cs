@@ -25,7 +25,7 @@ public class PlanetAtomUpgradeComponent : AbstractView
 
     private int getPrice()
     {
-        return (int)Mathf.Pow( gameModel.Atoms[ _model.AtomicNumber ].AtomicWeight, 1 );// * _model.HarvestRate;
+        return (int)(Mathf.Pow( 5f, _model.HarvestRate ) * gameModel.Atoms[ _model.AtomicNumber ].AtomicWeight);
     }
 
     private void Upgrade()
@@ -35,7 +35,7 @@ public class PlanetAtomUpgradeComponent : AbstractView
             return;
 
         Messenger.Dispatch(HCMessage.UPDATED, new HCMessage(-price));
-        _model.HarvestRate += 1;
+        _model.HarvestRate += 0.2f;
 
         updateView();
     }

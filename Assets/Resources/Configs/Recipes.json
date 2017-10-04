@@ -2,309 +2,183 @@
 	"Items":
 	[
  {
-   "Name": "Aluminium nitrate",
-   "Formula": "Al(NO3)3",
-   "MolecularMass": 212.994,
+   "Name": "Liquid hydrogen",
+   "Formula": "H2",
+   "MolecularMass": 2.02,
    "ExchangeRate": 1
  },
  {
-   "Name": "Acetaldehyde",
-   "Formula": "C2H4O",
-   "MolecularMass": 44.053,
+   "Name": "Helium hydride ion",
+   "Formula": "HeH",
+   "MolecularMass": 5.01,
    "ExchangeRate": 1
  },
  {
-   "Name": "Acetamide",
-   "Formula": "C2H5NO",
-   "MolecularMass": 59.068,
+   "Name": "Lithium hydride",
+   "Formula": "LiH",
+   "MolecularMass": 7.95,
    "ExchangeRate": 1
  },
  {
-   "Name": "Acetic acid",
-   "Formula": "CH3COOH",
-   "MolecularMass": 60.052,
+   "Name": "Beryllium hydride",
+   "Formula": "BeH2",
+   "MolecularMass": 11.03,
    "ExchangeRate": 1
  },
  {
-   "Name": "Acetone",
-   "Formula": "C3H6O",
-   "MolecularMass": 58.08,
+   "Name": "Diborane ",
+   "Formula": "B2H6",
+   "MolecularMass": 27.67,
    "ExchangeRate": 1
  },
  {
-   "Name": "Acetonitrile",
-   "Formula": "C2H3N",
-   "MolecularMass": 41.053,
+   "Name": "beryllium acetate",
+   "Formula": "C4H6BeO4",
+   "MolecularMass": 406.31,
    "ExchangeRate": 1
  },
  {
-   "Name": "Aluminium chloride",
-   "Formula": "AlCl3",
-   "MolecularMass": 133.33,
+   "Name": "beryllium boride",
+   "Formula": "B2Be",
+   "MolecularMass": 30.63,
    "ExchangeRate": 1
  },
  {
-   "Name": "Aluminium sulfate",
-   "Formula": "Al2(SO4)3",
-   "MolecularMass": 342.132,
+   "Name": "Lithium borohydride",
+   "Formula": "LiBH4",
+   "MolecularMass": 21.78,
    "ExchangeRate": 1
  },
  {
-   "Name": "Ammonia",
-   "Formula": "NH3",
-   "MolecularMass": 17.031,
+   "Name": "Superhydride",
+   "Formula": "Li(C2H5)3BH",
+   "MolecularMass": 105.95,
    "ExchangeRate": 1
  },
  {
-   "Name": "Ammonium acetate",
-   "Formula": "CH3COONH4",
-   "MolecularMass": 77.083,
+   "Name": "Methyllithium ",
+   "Formula": "CH3Li",
+   "MolecularMass": 21.98,
    "ExchangeRate": 1
  },
  {
-   "Name": "Ammonium carbonate",
-   "Formula": "(NH4)2CO3",
-   "MolecularMass": 96.086,
+   "Name": "R-alpine-hydride™",
+   "Formula": "C18H32BLi",
+   "MolecularMass": 266.2,
    "ExchangeRate": 1
  },
  {
-   "Name": "Ammonium chloride",
-   "Formula": "NH4Cl",
-   "MolecularMass": 53.49,
+   "Name": "Beryllium nitrate",
+   "Formula": "Be(NO3)2",
+   "MolecularMass": 133.02,
    "ExchangeRate": 1
  },
  {
-   "Name": "Ammonium dichromate",
-   "Formula": "(NH4)2Cr2O7",
-   "MolecularMass": 252.063,
+   "Name": "Lithium amide",
+   "Formula": "LiNH2",
+   "MolecularMass": 22.96,
    "ExchangeRate": 1
  },
  {
-   "Name": "Ammonium hydroxide",
-   "Formula": "NH4OH",
-   "MolecularMass": 35.046,
+   "Name": "lithium pyrrolidinoborohydride",
+   "Formula": "C4H11BLiN",
+   "MolecularMass": 90.89,
    "ExchangeRate": 1
  },
  {
-   "Name": "Ammonium nitrate",
-   "Formula": "NH4NO3",
-   "MolecularMass": 80.043,
+   "Name": "Beryllium hydroxide",
+   "Formula": "Be(OH)2",
+   "MolecularMass": 43.03,
    "ExchangeRate": 1
  },
  {
-   "Name": "Ammonium oxalate",
-   "Formula": "(NH4)2C2O4",
-   "MolecularMass": 124.096,
+   "Name": "Water",
+   "Formula": "H2O",
+   "MolecularMass": 18.01,
    "ExchangeRate": 1
  },
  {
-   "Name": "Ammonium sulfate",
-   "Formula": "(NH4)2SO4",
-   "MolecularMass": 132.13,
+   "Name": "Lithium hydroxide",
+   "Formula": "LiOH",
+   "MolecularMass": 23.95,
    "ExchangeRate": 1
  },
  {
-   "Name": "Antimony(III) chloride",
-   "Formula": "SbCl3",
-   "MolecularMass": 228.11,
+   "Name": "Boron oxide",
+   "Formula": "B2O3",
+   "MolecularMass": 69.61,
    "ExchangeRate": 1
  },
  {
-   "Name": "Antimony(V) chloride",
-   "Formula": "SbCl5",
-   "MolecularMass": 299.01,
+   "Name": "Carbon dioxide",
+   "Formula": "CO2",
+   "MolecularMass": 44.01,
    "ExchangeRate": 1
  },
  {
-   "Name": "Barium chloride",
-   "Formula": "BaCl2",
-   "MolecularMass": 208.23,
+   "Name": "Nitrogen dioxide",
+   "Formula": "NO2",
+   "MolecularMass": 46.0055,
    "ExchangeRate": 1
  },
  {
-   "Name": "Barium hydroxide",
-   "Formula": "Ba(OH)2",
-   "MolecularMass": 171.34,
+   "Name": "sodium tetrafluoroberyllate",
+   "Formula": "Na2BeF4",
+   "MolecularMass": 130.98,
    "ExchangeRate": 1
  },
  {
-   "Name": "Barium nitrate",
-   "Formula": "Ba(NO3)2",
-   "MolecularMass": 261.34,
+   "Name": "aspartate beryllium trifluoride",
+   "Formula": "C4H8BeF3NO4",
+   "MolecularMass": 200.11,
    "ExchangeRate": 1
  },
  {
-   "Name": "Bismuth(III) chloride",
-   "Formula": "BiCl3",
-   "MolecularMass": 315.33,
+   "Name": "lithium 3-fluoropyridine-2-carboxylate",
+   "Formula": "C6H3LiFNO2",
+   "MolecularMass": 147.03,
    "ExchangeRate": 1
  },
  {
-   "Name": "Bismuth(III) nitrate",
-   "Formula": "Bi(NO3)3",
-   "MolecularMass": 394.99,
+   "Name": "Sodium borohydride",
+   "Formula": "NaBH4",
+   "MolecularMass": 37.83,
    "ExchangeRate": 1
  },
  {
-   "Name": "Butan-1-ol",
-   "Formula": "C4H10O",
-   "MolecularMass": 74.123,
+   "Name": "Borax",
+   "Formula": "Na2B4O7",
+   "MolecularMass": 201.21,
    "ExchangeRate": 1
  },
  {
-   "Name": "Butyric acid",
-   "Formula": "C4H8O2",
-   "MolecularMass": 88.106,
+   "Name": "magnesium oxalate",
+   "Formula": "MgC2O4",
+   "MolecularMass": 112.32,
    "ExchangeRate": 1
  },
  {
-   "Name": "Cadmium nitrate",
-   "Formula": "Cd(NO3)2",
-   "MolecularMass": 236.42,
+   "Name": "Hydrotalcite",
+   "Formula": "CH24Al2Mg6O23",
+   "MolecularMass": 603.98,
    "ExchangeRate": 1
  },
  {
-   "Name": "Cadmium sulfate",
-   "Formula": "CdSO4",
-   "MolecularMass": 208.47,
+   "Name": "Lithium aluminium hydride",
+   "Formula": "LiAlH4",
+   "MolecularMass": 37.95,
    "ExchangeRate": 1
  },
  {
-   "Name": "Calcium chloride",
-   "Formula": "CaCl2",
-   "MolecularMass": 110.98,
+   "Name": "trimethylsilyl",
+   "Formula": "C24H30ClOPSi",
+   "MolecularMass": 429,
    "ExchangeRate": 1
  },
  {
-   "Name": "Calcium hydroxide",
-   "Formula": "Ca(OH)2",
-   "MolecularMass": 74.092,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Calcium nitrate",
-   "Formula": "Ca(NO3)2",
-   "MolecularMass": 164.086,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Calcium sulfate",
-   "Formula": "CaSO4",
-   "MolecularMass": 136.13,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Carbon disulfide",
-   "Formula": "CS2",
-   "MolecularMass": 76.13,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Chloroacetic acid",
-   "Formula": "C2H3ClO2",
-   "MolecularMass": 94.49,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Chloroauric acid",
-   "Formula": "HAuCl4",
-   "MolecularMass": 339.78,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Chloroform",
-   "Formula": "CHCl3",
-   "MolecularMass": 119.37,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Chloroplatinic acid",
-   "Formula": "H2PtCl6",
-   "MolecularMass": 409.8,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Chromium(III) chloride",
-   "Formula": "CrCl3",
-   "MolecularMass": 158.35,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Chromium(III) nitrate",
-   "Formula": "Cr(NO3)3",
-   "MolecularMass": 238.008,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Chromium(III) sulfate",
-   "Formula": "Cr2(SO4)3",
-   "MolecularMass": 392.16,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Chromium(VI) oxide",
-   "Formula": "CrO3",
-   "MolecularMass": 99.993,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Citric acid",
-   "Formula": "C6H8O7",
-   "MolecularMass": 192.123,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Cobalt(II) nitrate",
-   "Formula": "Co(NO3)2",
-   "MolecularMass": 182.941,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Cobalt(II) sulfate",
-   "Formula": "CoSO4",
-   "MolecularMass": 154.99,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Copper(I) chloride",
-   "Formula": "Cu2Cl2",
-   "MolecularMass": 197.99,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Copper(II) chloride",
-   "Formula": "CuCl2",
-   "MolecularMass": 134.45,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Copper(II) nitrate",
-   "Formula": "Cu(NO3)2",
-   "MolecularMass": 187.554,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Copper(II) sulfate",
-   "Formula": "CuSO4",
-   "MolecularMass": 159.6,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Dichloroacetic acid",
-   "Formula": "C2H2Cl2O2",
-   "MolecularMass": 128.94,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Diethyl ether",
-   "Formula": "(C2H5)2O",
-   "MolecularMass": 74.123,
-   "ExchangeRate": 1
- },
- {
-   "Name": "Dimethylglyoxime",
-   "Formula": "(CH3CNOH)2",
-   "MolecularMass": 116.12,
+   "Name": "calcium aluminate",
+   "Formula": "Al2CaO4",
+   "MolecularMass": 158.03,
    "ExchangeRate": 1
  }
 ]

@@ -15,10 +15,59 @@ public class SolarManager : AbstractController
     
     private List<SolarComponent> solars = new List<SolarComponent>();
 
+    Dictionary<int, int> atomSCUnlockRanges;
+
+    Vector3 p0;
+    Vector3 p1;
+    Vector3 p2;
+    Vector3 p3;
+
     void Start()
     {
         Messenger.Listen( SolarMessage.CREATE_SOLAR, handleCreateSolar );
         Messenger.Listen(GameMessage.MODEL_LOADED, handleGameModelLoaded);
+        p0 = new Vector3( 0.0f, 0.0f );
+        p1 = new Vector3( 15000.0f, 30.0f );
+        p2 = new Vector3( 120000.0f, 60.0f );
+        p3 = new Vector3( 150000.0f, 118.0f );
+
+        atomSCUnlockRanges = new Dictionary<int, int>();
+        atomSCUnlockRanges[ 1 ] = 0;
+        atomSCUnlockRanges[ 2 ] = 55;
+        atomSCUnlockRanges[ 3 ] = 320;
+        atomSCUnlockRanges[ 4 ] = 699;
+        atomSCUnlockRanges[ 5 ] = 1557;
+        atomSCUnlockRanges[ 6 ] = 2357;
+        atomSCUnlockRanges[ 7 ] = 3271;
+        atomSCUnlockRanges[ 8 ] = 4307;
+        atomSCUnlockRanges[ 9 ] = 5468;
+        atomSCUnlockRanges[ 10 ] = 6777;
+        atomSCUnlockRanges[ 11 ] = 8215;
+        atomSCUnlockRanges[ 12 ] = 9796;
+        atomSCUnlockRanges[ 13 ] = 11508;
+        atomSCUnlockRanges[ 14 ] = 13361;
+        atomSCUnlockRanges[ 15 ] = 15342;
+        atomSCUnlockRanges[ 16 ] = 17461;
+        atomSCUnlockRanges[ 17 ] = 19709;
+        atomSCUnlockRanges[ 18 ] = 22101;
+        atomSCUnlockRanges[ 19 ] = 24662;
+        atomSCUnlockRanges[ 20 ] = 27357;
+    }
+
+    int getMaxAtomicNumberFromSC( float SC )
+    {
+        int result = 1;
+        foreach( KeyValuePair<int,int> range in atomSCUnlockRanges )
+        {
+            if( SC >= range.Value )
+            {
+                result = range.Key;
+            }
+            else
+                break;
+        }
+
+        return result;
     }
 
     void Update()
@@ -29,12 +78,7 @@ public class SolarManager : AbstractController
             _layoutUpdateCount++;
         }
     }
-
-    Vector3 p0 = new Vector3( 0.0f, 0.0f );
-    Vector3 p1 = new Vector3( 15000.0f, 30.0f );
-    Vector3 p2 = new Vector3( 120000.0f, 60.0f );
-    Vector3 p3 = new Vector3( 150000.0f, 118.0f );
-
+    
     Vector3 getBezier( float time )
     {
         return Bezier.GetPoint( p0, p1, p2, p3, time );
@@ -116,7 +160,7 @@ public class SolarManager : AbstractController
 
         float minSC = gameModel.Config.minSC;
         float maxSC = gameModel.Config.maxSC;
-        float minLT = 360;
+        float minLT = 90;
         float maxLT = 3220;
         float minEL = 1;
         float maxEL = gameModel.Config.MaxAtomicNumber;
@@ -129,14 +173,14 @@ public class SolarManager : AbstractController
         _starsCreated++;
         solarModel.Radius = (int)( SC );
         float factorLT = ( maxLT - minLT ) / ( maxSC - minSC );
-        solarModel.Lifetime = (int)( ( factorLT * ( SC - minSC ) ) + minLT );
-        //Debug.Log( "SOLAR: "+ solarModel.Name + " created. -------------" );
+        //solarModel.Lifetime = (int)( ( factorLT * ( SC - minSC ) ) + minLT );
+        solarModel.Lifetime = (int)SC * 5;
 
 
         ///
         //Randomizing Atoms amount for the whole Solar
         ///
-        int maxAtomicNumber = (int)Math.Ceiling( yFromX( SC ) );
+        int maxAtomicNumber = getMaxAtomicNumberFromSC( SC );//(int)Math.Ceiling( yFromX( SC ) );
 
         int given = (int)maxST;
         float total = 0;
@@ -157,53 +201,39 @@ public class SolarManager : AbstractController
             );
         }
 
+        Dictionary<int, bool> chosenAtoms = new Dictionary<int, bool>();
+        int minimum = maxAtomicNumber;
+        if( minimum > 12 )
+            minimum = 12;
 
-
-        while( needMore )
+        int currentAtomIndex;
+        for( int i = 0; i < minimum; i++ )
         {
-            float currentAtomWeight = gameModel.Atoms[ index ].AtomicWeight;
-            if( total + currentAtomWeight <= given )
-            {
-                total += currentAtomWeight;
-                pieces[ index ] += 1;
-                index = (int)Choose( atomWeights );
-            }
-            else
-            {
-                needMore = false;
-            }
+            currentAtomIndex = (int)Choose( atomWeights );
+            chosenAtoms[ currentAtomIndex ] = true;
         }
-        ///
-        //END Randomizing Atoms amount for the whole Solar
-        ///
+
+
+        
 
         PlanetModel planetModel = new PlanetModel();
         PlanetAtomModel planetAtomModel;
-        int addedAtoms = 0;
-        int maxAtomsPerPlanet = 3;
-        for( int i = 1; i <= pieces.Count; i++ )
+        planetModel = new PlanetModel();
+        planetModel.Name = "Planet " + _planetsCreated;
+        planetModel.Radius = _planetsCreated;
+        _planetsCreated++;
+        solarModel.Planets.Add( planetModel );
+
+        foreach( KeyValuePair<int,bool> item in chosenAtoms )
         {
-            if( addedAtoms % maxAtomsPerPlanet == 0 )
-            {
-                planetModel = new PlanetModel();
-                planetModel.Name = "Planet " + _planetsCreated;
-                planetModel.Radius = _planetsCreated;
-                _planetsCreated++;
-                solarModel.Planets.Add( planetModel );
-            }
-
-            if( pieces[ i ] > 0 )
-            {
-                planetAtomModel = new PlanetAtomModel();
-                planetAtomModel.AtomicNumber = i;
-                planetAtomModel.Stock = pieces[ i ];
-                planetAtomModel.HarvestRate = 1;
-                planetAtomModel.UpgradeLevel = 0;
-                planetModel.Atoms.Add( planetAtomModel );
-                addedAtoms++;
-            }
+            planetAtomModel = new PlanetAtomModel();
+            planetAtomModel.AtomicNumber = item.Key;
+            planetAtomModel.Stock = 9999;
+            planetAtomModel.HarvestRate = 1;
+            planetAtomModel.UpgradeLevel = 0;
+            planetModel.Atoms.Add( planetAtomModel );
         }
-
+        
         GameObject solarPrefabInstance = Instantiate( solarPrefab, galaxy.transform );
         SolarComponent solar = solarPrefabInstance.GetComponent<SolarComponent>();
 

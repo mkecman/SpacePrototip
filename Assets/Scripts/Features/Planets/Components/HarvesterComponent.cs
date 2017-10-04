@@ -11,7 +11,7 @@ public class HarvesterComponent : AbstractView
     private PlanetAtomModel _model;
     private StoreComponent _store;
     private float _startTime;
-    private float _longestHarvestTime = 3.0f;
+    private float _longestHarvestTime = 4.0f;
     private float maxPercent;
 
     void Update()
