@@ -7,7 +7,8 @@ public class AtomMessage : AbstractMessage
 {
     public static string SETUP_ATOMS = "SetupAtoms";
     public static string GENERATE_ATOM = "GenerateAtom";
-    public static string ATOM_HARVESTED = "AtomHarvested";
+    public static string ATOM_HARVEST = "AtomHarvest";
+    public static string ATOM_STOCK_UPDATE = "AtomStockUpdate";
     public static string ATOM_STOCK_UPDATED = "AtomStockUpdated";
     public static string ATOM_STOCK_UPGRADE = "AtomStockUpgrade";
     public static string DEDUCT_ATOMS_WORTH_SC = "DeductAtomsWorthSC";

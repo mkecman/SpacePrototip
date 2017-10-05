@@ -4,11 +4,15 @@ using System;
 
 public class RecipesListComponent : AbstractView
 {
-    public GameObject recipePrefab;   
+    public GameObject recipePrefab;
+    private bool _started;
 
     void OnEnable()
     {
-        
+        if( !_started )
+        {
+            handleGameModelLoaded( null );
+        }
     }
     
     // Use this for initialization
@@ -25,6 +29,7 @@ public class RecipesListComponent : AbstractView
             RecipeComponent rc = go.GetComponent<RecipeComponent>();
             rc.Setup(gameModel.Recipes[i]);
         }
+        _started = true;
     }
 
     // Update is called once per frame

@@ -21,12 +21,11 @@ public class RecipesManager : AbstractController
             for (int j = 0; j < model.FormulaAtomsList.Count; j++)
             {
                 FormulaAtomModel atom = model.FormulaAtomsList[j];
-                gameModel.User.Atoms[atom.AtomicNumber].Stock -= atom.Amount;
-                Messenger.Dispatch(AtomMessage.ATOM_STOCK_UPDATED, new AtomMessage(atom.AtomicNumber, -atom.Amount));
+                Messenger.Dispatch(AtomMessage.ATOM_STOCK_UPDATE, new AtomMessage(atom.AtomicNumber, -atom.Amount));
             }
         }
 
-        Messenger.Dispatch(HCMessage.UPDATED, new HCMessage(Mathf.RoundToInt(model.MolecularMass * model.ExchangeRate * recipeMessage.Amount)));
+        Messenger.Dispatch(HCMessage.UPDATE_REQUEST, new HCMessage(Mathf.RoundToInt(model.MolecularMass * model.ExchangeRate * recipeMessage.Amount)));
     }
 
     // Update is called once per frame

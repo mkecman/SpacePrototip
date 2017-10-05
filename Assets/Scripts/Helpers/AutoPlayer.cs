@@ -4,9 +4,19 @@ using System;
 
 public class AutoPlayer : MonoBehaviour
 {
-    private float lastTime;
-    private bool _isActive;
+    [SerializeField]
+    private float _timeScale;
 
+    private float _currentTimeScale;
+
+    public int spawnEvery = 10;
+    public int SC = 100;
+
+    private SolarMessage message = new SolarMessage( 0 );
+    
+    private float lastTime;
+    private bool _isActive = true;
+    
     // Use this for initialization
     void Start()
     {
@@ -21,9 +31,16 @@ public class AutoPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( _isActive && Time.time - lastTime > 0.3f )
+        if( _timeScale != _currentTimeScale )
         {
-            Messenger.Dispatch(SolarMessage.CREATE_SOLAR, new SolarMessage(10000));
+            Time.timeScale = _timeScale;
+            _currentTimeScale = _timeScale;
+        }
+
+        if( _isActive && Time.time - lastTime > spawnEvery )
+        {
+            message.SC = SC;
+            Messenger.Dispatch(SolarMessage.CREATE_SOLAR, message);
             lastTime = Time.time;
         }
     }

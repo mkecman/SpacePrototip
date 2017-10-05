@@ -62,15 +62,19 @@ public class SolarManager : AbstractController
         float SC = ( message as SolarMessage ).SC;
         float maxSC = (message as SolarMessage).maxSC;
         
-        /*
-        if( SC >= gameModel.User.SC )
+        /**/
+        if( SC > gameModel.User.SC )
         {
             Debug.Log( "Not enough SC to create Solar system!" );
             return;
         }
 
+        Debug.Log( "-beforeDEDUCT-" );
+
         Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, SC ) );
-        */
+        /**/
+
+        Debug.Log( "-afterDEDUCT-" );
 
         float minSC = gameModel.Config.minSC;
         //float maxSC = gameModel.Config.maxSC;
@@ -128,7 +132,7 @@ public class SolarManager : AbstractController
             chosenAtoms[ currentAtomIndex ] = true;
         }
 
-        
+        Debug.Log( "-before-" );
 
         float given = (int)( gameModel.Config.MaxHarvestTime * SC );
         float SCSoFar = 0;
@@ -152,7 +156,9 @@ public class SolarManager : AbstractController
             lifetime++;
         }
 
-        solarModel.Lifetime = 3;// lifetime;
+        Debug.Log( "-after-" );
+
+        solarModel.Lifetime = lifetime;
 
         PlanetModel planetModel = new PlanetModel();
         PlanetAtomModel planetAtomModel;
@@ -181,7 +187,7 @@ public class SolarManager : AbstractController
 
         _layoutUpdateCount = 0; //fix for layoutgroup update, check Update() function;
 
-        //Debug.Log( "-------------" );
+        Debug.Log( "-------------" );
 
     }
  

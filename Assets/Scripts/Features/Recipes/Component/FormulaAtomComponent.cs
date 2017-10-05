@@ -29,26 +29,36 @@ public class FormulaAtomComponent : AbstractView
 
     private void handleAtomStockUpdated( AbstractMessage message )
     {
-        AtomMessage msg = message as AtomMessage;
-        if (msg.AtomicNumber >= gameModel.User.Atoms.Count)
-            return;
-
-
-        AtomModel atom = gameModel.User.Atoms[ msg.AtomicNumber ];
-        if( atom.Symbol == _model.Symbol )
+        if (_model.AtomicNumber >= gameModel.User.Atoms.Count)
         {
-            if( atom.Stock >= _model.Amount )
-            {
-                _model.HaveEnough = true;
-                Symbol.color = gameModel.Config.GreenColor;
-                Amount.color = gameModel.Config.GreenColor;
-            }
-            else
-            {
-                _model.HaveEnough = false;
-                Symbol.color = Color.red;
-                Amount.color = Color.red;
-            }
+            setHaveEnough( false );
+            return;
+        }
+        
+        AtomModel atom = gameModel.User.Atoms[ _model.AtomicNumber ];
+        if( atom.Stock >= _model.Amount )
+        {
+            setHaveEnough( true );
+        }
+        else
+        {
+            setHaveEnough( false );
+        }
+    }
+
+    private void setHaveEnough( bool itHas )
+    {
+        if( itHas )
+        {
+            _model.HaveEnough = true;
+            Symbol.color = gameModel.Config.GreenColor;
+            Amount.color = gameModel.Config.GreenColor;
+        }
+        else
+        {
+            _model.HaveEnough = false;
+            Symbol.color = Color.red;
+            Amount.color = Color.red;
         }
     }
     

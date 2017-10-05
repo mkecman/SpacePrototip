@@ -30,8 +30,7 @@ public class HarvesterComponent : AbstractView
             {
                 _store.Stock -= 1;
                 _model.Stock -= 1;
-                Messenger.Dispatch( AtomMessage.ATOM_HARVESTED, new AtomMessage( _model.AtomicNumber, 1 ) );
-
+                Messenger.Dispatch( AtomMessage.ATOM_HARVEST, new AtomMessage( _model.AtomicNumber, 1 ) );
                 UISlider.value = 0;
             }
             else
