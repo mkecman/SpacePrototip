@@ -43,4 +43,10 @@ public class SolarComponent : MonoBehaviour
 
         isActive = true;
     }
+
+    private void OnDestroy()
+    {
+        //_model = null;
+        //solarStore = null;
+    }
 }

@@ -5,6 +5,7 @@ public class GameConfig
 {
     public int MaxAtomicNumber = 20;
     public float MaxHarvestTime = 2f;
+    public float curve = 3f;
     public float HarvestRateUpgradeStep = 0.3f;
 
     public Color32 GreenColor = new Color32( 0, 120, 20, 255 );

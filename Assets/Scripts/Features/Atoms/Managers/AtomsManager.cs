@@ -34,7 +34,7 @@ public class AtomsManager : AbstractController
         GameObject go = Instantiate( atomPrefab, atomsContainer );
         atomStore = go.GetComponentInChildren<StoreComponent>();
         atomStore.Name = atomModel.Symbol;
-        atomStore.Property = atomModel.AtomicWeight.ToString( "F2" );
+        atomStore.Property = "x" + atomModel.AtomicWeight.ToString( "F2" );
         atomStore.MaxStock = atomModel.MaxStock;
         atomStore.Stock = atomModel.Stock;
 
@@ -109,7 +109,7 @@ public class AtomsManager : AbstractController
 
         int nextLevelPrice = getNextUpgradePrice( atomModel );
         AtomStockUpgradeComponent upgradeComp = gameObjects[ message.AtomicNumber ].GetComponentInChildren<AtomStockUpgradeComponent>();
-        upgradeComp.Setup( message.AtomicNumber, atomModel.MaxStock + nextLevelMaxStock, nextLevelPrice );
+        upgradeComp.Setup( message.AtomicNumber, nextLevelMaxStock, nextLevelPrice );
 
         getStore( message.AtomicNumber ).MaxStock = atomModel.MaxStock;
     }

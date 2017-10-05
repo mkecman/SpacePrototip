@@ -14,7 +14,7 @@ public class PlanetComponent : AbstractView
     
     void OnDestroy()
     {
-        //Debug.Log("planet destroyed");   
+        Debug.Log("planet destroyed");   
     }
 
     public void Setup( PlanetModel model )

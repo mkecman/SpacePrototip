@@ -60,8 +60,9 @@ public class SolarManager : AbstractController
     private void handleCreateSolar( AbstractMessage message )
     {
         float SC = ( message as SolarMessage ).SC;
+        float maxSC = (message as SolarMessage).maxSC;
         
-        /**/
+        /*
         if( SC >= gameModel.User.SC )
         {
             Debug.Log( "Not enough SC to create Solar system!" );
@@ -69,10 +70,10 @@ public class SolarManager : AbstractController
         }
 
         Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, SC ) );
-        /**/
+        */
 
         float minSC = gameModel.Config.minSC;
-        float maxSC = gameModel.Config.maxSC;
+        //float maxSC = gameModel.Config.maxSC;
         float minLT = 90;
         float maxLT = 3220;
         float minEL = 1;
@@ -85,18 +86,22 @@ public class SolarManager : AbstractController
         solarModel.Name = "Star " + _starsCreated;
         _starsCreated++;
         solarModel.Radius = (int)( SC );
-        float factorLT = ( maxLT - minLT ) / ( maxSC - minSC );
+        //float factorLT = ( maxLT - minLT ) / ( maxSC - minSC );
         //solarModel.Lifetime = (int)( ( factorLT * ( SC - minSC ) ) + minLT );
-        
+
 
 
         ///
         //Randomizing Atoms amount for the whole Solar
         ///
         int maxAtomicNumber = getMaxAtomicNumberFromSC( SC );//(int)Math.Ceiling( yFromX( SC ) );
+
+        
         Dictionary<int, int> stocks = new Dictionary<int, int>();
         Dictionary<int, float> atomWeights = new Dictionary<int, float>();
-        float curve = 10.0f;
+        float curve = gameModel.Config.curve;
+
+        string output = "weights: ";
 
         for( int i = 1; i <= maxAtomicNumber; i++ )
         {
@@ -105,9 +110,11 @@ public class SolarManager : AbstractController
             atomWeights.Add
             (
                 i,
-                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * i ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - i, 2 ) / ( 2 * i ) )
+                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow(maxAtomicNumber - i, 2 ) / ( 2 * curve ) )
             );
+            output += i + ":"+Math.Round( 100f * atomWeights[i] ) + ", ";
         }
+        Debug.Log(output);
 
         Dictionary<int, bool> chosenAtoms = new Dictionary<int, bool>();
         int minimum = maxAtomicNumber;
@@ -145,7 +152,7 @@ public class SolarManager : AbstractController
             lifetime++;
         }
 
-        solarModel.Lifetime = lifetime;
+        solarModel.Lifetime = 3;// lifetime;
 
         PlanetModel planetModel = new PlanetModel();
         PlanetAtomModel planetAtomModel;

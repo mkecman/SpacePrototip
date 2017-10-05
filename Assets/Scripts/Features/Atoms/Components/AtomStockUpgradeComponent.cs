@@ -19,7 +19,7 @@ public class AtomStockUpgradeComponent : MonoBehaviour
     public void Setup( int atomicNumber, int stock, int price )
     {
         _atomicNumber = atomicNumber;
-        UIStockLabel.text = stock.ToString();
+        UIStockLabel.text = "+" + stock.ToString();
         UISCLabel.text = price.ToString();
     }
 

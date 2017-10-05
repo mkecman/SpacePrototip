@@ -65,7 +65,7 @@ public class SCManager : AbstractController
 
     public void CreateSolar()
     {
-        Messenger.Dispatch( SolarMessage.CREATE_SOLAR, new SolarMessage( SCSlider.SCSlider.value ) );
+        Messenger.Dispatch( SolarMessage.CREATE_SOLAR, new SolarMessage( SCSlider.SCSlider.value, SCSlider.maxValue ) );
     }
     
     private void UpdateLabel()

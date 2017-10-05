@@ -7,10 +7,13 @@ public class SolarMessage : AbstractMessage
 {
     public static string CREATE_SOLAR = "CreateSolar";
     public static string SOLAR_CREATED = "SolarCreated";
-    public float SC = 0;
 
-    public SolarMessage( float SC = 0 )
+    public float SC;
+    public float maxSC;
+
+    public SolarMessage( float SC = 0, float maxSC = 0 )
     {
         this.SC = SC;
+        this.maxSC = maxSC;
     }
 }
