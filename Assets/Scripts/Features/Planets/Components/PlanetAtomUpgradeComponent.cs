@@ -45,16 +45,18 @@ public class PlanetAtomUpgradeComponent : AbstractView
 
     private void Upgrade()
     {
-        Messenger.Dispatch(HCMessage.UPDATE_REQUEST, new HCMessage(-_currentPrice));
-        _model.HarvestRate += gameModel.Config.HarvestRateUpgradeStep;
-        _currentPrice = getPrice();
-        updateView();
+        if( gameModel.User.HC >= _currentPrice )
+        {
+
+            Messenger.Dispatch( HCMessage.UPDATE_REQUEST, new HCMessage( -_currentPrice ) );
+            _model.HarvestRate += gameModel.Config.HarvestRateUpgradeStep;
+            _currentPrice = getPrice();
+            updateView();
 
 
 
-        Debug.Log( _model.HarvestRate );
-
-        
+            Debug.Log( _model.HarvestRate );
+        }
     }
 
     private void updateView()

@@ -74,11 +74,6 @@ public class Messenger : MonoBehaviour
             thisEvent.Invoke( message );
         }
     }
-
-    internal static void Dispatch( object aTOM_STOCK_UPDATED )
-    {
-        throw new NotImplementedException();
-    }
 }
 
 [System.Serializable]

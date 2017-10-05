@@ -69,13 +69,9 @@ public class SolarManager : AbstractController
             return;
         }
 
-        Debug.Log( "-beforeDEDUCT-" );
-
         Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, SC ) );
         /**/
-
-        Debug.Log( "-afterDEDUCT-" );
-
+        
         float minSC = gameModel.Config.minSC;
         //float maxSC = gameModel.Config.maxSC;
         float minLT = 90;
@@ -131,9 +127,7 @@ public class SolarManager : AbstractController
             currentAtomIndex = (int)Choose( atomWeights );
             chosenAtoms[ currentAtomIndex ] = true;
         }
-
-        Debug.Log( "-before-" );
-
+        
         float given = (int)( gameModel.Config.MaxHarvestTime * SC );
         float SCSoFar = 0;
         bool needMore = true;
@@ -155,8 +149,6 @@ public class SolarManager : AbstractController
             }
             lifetime++;
         }
-
-        Debug.Log( "-after-" );
 
         solarModel.Lifetime = lifetime;
 

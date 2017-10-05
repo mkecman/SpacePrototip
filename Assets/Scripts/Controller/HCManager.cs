@@ -20,13 +20,13 @@ public class HCManager : AbstractController
     }
 
         private void handleHCUpdate( AbstractMessage message )
-    {
-        HCMessage hcMessage = message as HCMessage;
-        gameModel.User.HC += hcMessage.Amount;
-        Messenger.Dispatch( HCMessage.UPDATED );
-        updateView();
+        {
+            HCMessage hcMessage = message as HCMessage;
+            gameModel.User.HC += hcMessage.Amount;
+            Messenger.Dispatch( HCMessage.UPDATED );
+            updateView();
 
-    }
+        }
 
     private void updateView()
     {

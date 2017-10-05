@@ -126,8 +126,7 @@ public class AtomsManager : AbstractController
 
         atomsList.Sort();
         atomsList.Reverse();
-        Debug.Log( "Deduct Start" );
-
+        
         bool needMore = true;
         while( _sc > 0 )
         {
@@ -161,7 +160,6 @@ public class AtomsManager : AbstractController
         {
             handleAtomStockUpdate( atomMessage.Value );
         }
-        Debug.Log( "Deduct End" );
     }
 
     public void handleAtomStockUpdate( AbstractMessage message )
