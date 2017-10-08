@@ -12,4 +12,5 @@ public class AtomModel
     public int Stock = 0;
     public int MaxStock = 10;
     public int UpgradeLevel = 1;
+    public float HarvestRate = .1f;
 }

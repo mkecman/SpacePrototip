@@ -10,24 +10,24 @@ public class PlanetComponent : AbstractView
     public GameObject planetAtomsContainer;
     
     private PlanetModel _model;
-    private List<PlanetAtomComponent> atoms = new List<PlanetAtomComponent>();
+    //private List<PlanetAtomComponent> atoms = new List<PlanetAtomComponent>();
     
     void OnDestroy()
     {
-        //Debug.Log("planet destroyed");   
+        _model = null;
     }
 
     public void Setup( PlanetModel model )
     {
         _model = model;
-        UIName.text = model.Name;
+        UIName.text = _model.Name;
 
         for( int i = 0; i < _model.Atoms.Count; i++ )
         {
             GameObject planetAtomPrefabInstance = Instantiate( planetAtomPrefab, planetAtomsContainer.transform );
             PlanetAtomComponent planetAtomComp = planetAtomPrefabInstance.GetComponent<PlanetAtomComponent>();
             planetAtomComp.Setup( _model.Atoms[ i ] );
-            atoms.Add( planetAtomComp );
+            //atoms.Add( planetAtomComp );
         }
     }
 }

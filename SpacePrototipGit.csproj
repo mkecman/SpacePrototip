@@ -104,13 +104,10 @@
     <Compile Include="Assets\Scripts\Features\Messenger\Messages\AbstractMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\HarvesterComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetAtomComponent.cs" />
-    <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetAtomModel.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetAtomUpgradeComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Components\PlanetModel.cs" />
-    <Compile Include="Assets\Scripts\Features\Planets\Managers\PlanetManager.cs" />
     <Compile Include="Assets\Scripts\Features\Planets\Messages\HarversterMessage.cs" />
-    <Compile Include="Assets\Scripts\Features\Planets\Messages\PlanetMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Recipes\Component\FormulaAtomComponent.cs" />
     <Compile Include="Assets\Scripts\Features\Recipes\Component\FormulaAtomModel.cs" />
     <Compile Include="Assets\Scripts\Features\Recipes\Component\RecipeComponent.cs" />

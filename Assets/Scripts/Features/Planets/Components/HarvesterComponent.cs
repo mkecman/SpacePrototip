@@ -8,7 +8,7 @@ public class HarvesterComponent : AbstractView
     public Slider UISlider;
     
     private bool _isHarvesting = false;
-    private PlanetAtomModel _model;
+    private AtomModel _model;
     private StoreComponent _store;
     private float _startTime;
     
@@ -17,7 +17,7 @@ public class HarvesterComponent : AbstractView
         if( !_isHarvesting )
             return;
 
-        float maxPercent = gameModel.Config.MaxHarvestTime / _model.HarvestRate;
+        float maxPercent = 1f / _model.HarvestRate;
         float timePercent = ( Time.time - _startTime ) / maxPercent;
         
         UISlider.value = UISlider.maxValue * timePercent;
@@ -40,12 +40,19 @@ public class HarvesterComponent : AbstractView
         }
     }
 
-    internal void Setup( StoreComponent store, PlanetAtomModel model )
+    internal void Setup( StoreComponent store, AtomModel model )
     {
         _store = store;
         _model = model;
         _isHarvesting = true;
         _startTime = Time.time;
     }
-    
+
+    void OnDestroy()
+    {
+        _store = null;
+        _model = null;
+        _isHarvesting = false;
+    }
+
 }

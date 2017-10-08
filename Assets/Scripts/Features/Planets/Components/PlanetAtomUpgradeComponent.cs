@@ -10,7 +10,7 @@ public class PlanetAtomUpgradeComponent : AbstractView
     public Text UIPriceLabel;
     public Button UIUpgradeButton;
     
-    private PlanetAtomModel _model;
+    private AtomModel _model;
     private int _currentPrice;
 
     void Start()
@@ -31,7 +31,7 @@ public class PlanetAtomUpgradeComponent : AbstractView
         }
     }
 
-    public void Setup( PlanetAtomModel model )
+    public void Setup( AtomModel model )
     {
         _model = model;
         _currentPrice = getPrice();
@@ -40,7 +40,7 @@ public class PlanetAtomUpgradeComponent : AbstractView
 
     private int getPrice()
     {
-        return (int)(Mathf.Pow( 3f, _model.HarvestRate ) * gameModel.Atoms[ _model.AtomicNumber ].AtomicWeight);
+        return (int)(Mathf.Pow( 5f, _model.HarvestRate ) * gameModel.Atoms[ _model.AtomicNumber ].AtomicWeight);
     }
 
     private void Upgrade()
@@ -55,13 +55,20 @@ public class PlanetAtomUpgradeComponent : AbstractView
 
 
 
-            Debug.Log( _model.HarvestRate );
+            //Debug.Log( _model.HarvestRate );
         }
     }
 
     private void updateView()
     {
-        UIStockLabel.text = ( 1 / ( gameModel.Config.MaxHarvestTime / _model.HarvestRate ) ).ToString("F1") + "/s";
+        UIStockLabel.text = ( 1 / ( 1 / _model.HarvestRate ) ).ToString("F1") + "/s";
         UIPriceLabel.text = _currentPrice.ToString();
+    }
+
+    void OnDestroy()
+    {
+        _model = null;
+        UIUpgradeButton.onClick.RemoveListener( new UnityAction( Upgrade ) );
+        Messenger.StopListening( HCMessage.UPDATED, handleHCUpdated );
     }
 }

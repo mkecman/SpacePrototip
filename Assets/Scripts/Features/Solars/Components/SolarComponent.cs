@@ -5,22 +5,24 @@ using UnityEngine.UI;
 
 public class SolarComponent : MonoBehaviour
 {
+    public GameObject PlanetPrefab;
+    public Transform PlanetsContainer;
+
     private SolarModel _model;
-    private StoreComponent solarStore;
-    public Transform _planetsContainer;
+    private StoreComponent _solarStore;
     private float _lastTime;
-    private bool isActive;
+    private bool _isActive;
 
     void Update()
     {
-        if ( isActive && Time.time - _lastTime > 1.0f )
+        if ( _isActive && Time.time - _lastTime > 1.0f )
         {
             _lastTime = Time.time;
 
-            if ( solarStore.Stock > 0 )
+            if ( _solarStore.Stock > 0 )
             {
                 _model.Lifetime -= 1;
-                solarStore.Stock -= 1;
+                _solarStore.Stock -= 1;
             }
             else
             {
@@ -33,20 +35,26 @@ public class SolarComponent : MonoBehaviour
     {
         _model = model;
         
-        solarStore = GetComponent<StoreComponent>();
-        solarStore.Name = _model.Name;
-        solarStore.MaxStock = _model.Lifetime;
-        solarStore.Stock = _model.Lifetime;
-        solarStore.Property = _model.Radius + "";
+        _solarStore = GetComponent<StoreComponent>();
+        _solarStore.Name = _model.Name;
+        _solarStore.MaxStock = _model.Lifetime;
+        _solarStore.Stock = _model.Lifetime;
+        _solarStore.Property = _model.Radius + "";
+        
+        for( int index = 0; index < _model.Planets.Count; index++ )
+        {
+            GameObject planet = Instantiate( PlanetPrefab, PlanetsContainer );
+            PlanetComponent planetView = planet.GetComponent<PlanetComponent>();
+            planetView.Setup( _model.Planets[ index ] );
+        }
 
-        Messenger.Dispatch( PlanetMessage.CREATE_PLANET, new PlanetMessage( _model.Planets, _planetsContainer ) );
-
-        isActive = true;
+        _isActive = true;
     }
 
     private void OnDestroy()
     {
-        //_model = null;
-        //solarStore = null;
+        _model = null;
+        _solarStore = null;
+        _isActive = false;
     }
 }

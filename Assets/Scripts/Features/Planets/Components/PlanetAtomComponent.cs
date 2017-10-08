@@ -3,9 +3,9 @@ using System.Collections;
 
 public class PlanetAtomComponent : AbstractView
 {
-    private PlanetAtomModel _model;
+    private AtomModel _model;
 
-    public void Setup( PlanetAtomModel model )
+    public void Setup( AtomModel model )
     {
         _model = model;
 
@@ -21,7 +21,11 @@ public class PlanetAtomComponent : AbstractView
 
         HarvesterComponent harvester = gameObject.GetComponent<HarvesterComponent>();
         harvester.Setup( planetAtomStore, model );
+    }
 
+    void OnDestroy()
+    {
+        _model = null;
     }
 
 

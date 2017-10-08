@@ -15,39 +15,12 @@ public class SolarManager : AbstractController
     
     private List<SolarComponent> solars = new List<SolarComponent>();
 
-    Vector3 p0;
-    Vector3 p1;
-    Vector3 p2;
-    Vector3 p3;
-
     void Start()
     {
         Messenger.Listen( SolarMessage.CREATE_SOLAR, handleCreateSolar );
-        Messenger.Listen(GameMessage.MODEL_LOADED, handleGameModelLoaded);
-        p0 = new Vector3( 0.0f, 0.0f );
-        p1 = new Vector3( 15000.0f, 30.0f );
-        p2 = new Vector3( 120000.0f, 60.0f );
-        p3 = new Vector3( 150000.0f, 118.0f );
-
-        
+        Messenger.Listen(GameMessage.MODEL_LOADED, handleGameModelLoaded);       
     }
-
-    int getMaxAtomicNumberFromSC( float SC )
-    {
-        int result = 1;
-        foreach( KeyValuePair<int,int> range in gameModel.Config.atomSCUnlockRanges )
-        {
-            if( SC >= range.Value )
-            {
-                result = range.Key;
-            }
-            else
-                break;
-        }
-
-        return result;
-    }
-
+    
     void Update()
     {
         if( _layoutUpdateCount < 30 )
@@ -72,36 +45,18 @@ public class SolarManager : AbstractController
         Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, SC ) );
         /**/
         
-        float minSC = gameModel.Config.minSC;
-        //float maxSC = gameModel.Config.maxSC;
-        float minLT = 90;
-        float maxLT = 3220;
-        float minEL = 1;
-        float maxEL = gameModel.Config.MaxAtomicNumber;
-        
-        float minST = SC * 2.0f;
-        float maxST = SC * 100.0f;
-
         SolarModel solarModel = new SolarModel();
-        solarModel.Name = "Star " + _starsCreated;
         _starsCreated++;
+        solarModel.Name = "Star " + _starsCreated;
         solarModel.Radius = (int)( SC );
-        //float factorLT = ( maxLT - minLT ) / ( maxSC - minSC );
-        //solarModel.Lifetime = (int)( ( factorLT * ( SC - minSC ) ) + minLT );
-
-
-
-        ///
-        //Randomizing Atoms amount for the whole Solar
-        ///
-        int maxAtomicNumber = getMaxAtomicNumberFromSC( SC );//(int)Math.Ceiling( yFromX( SC ) );
-
+        
+        int maxAtomicNumber = getMaxAtomicNumberFromSC( SC );
         
         Dictionary<int, int> stocks = new Dictionary<int, int>();
         Dictionary<int, float> atomWeights = new Dictionary<int, float>();
         float curve = gameModel.Config.curve;
 
-        string output = "weights: ";
+        //string output = "weights: ";
 
         for( int i = 1; i <= maxAtomicNumber; i++ )
         {
@@ -112,9 +67,9 @@ public class SolarManager : AbstractController
                 i,
                 ( 1 / Mathf.Sqrt( 2 * Mathf.PI * curve ) ) * Mathf.Exp( -Mathf.Pow(maxAtomicNumber - i, 2 ) / ( 2 * curve ) )
             );
-            output += i + ":"+Math.Round( 100f * atomWeights[i] ) + ", ";
+            //output += i + ":"+Math.Round( 100f * atomWeights[i] ) + ", ";
         }
-        Debug.Log(output);
+        //Debug.Log(output);
 
         Dictionary<int, bool> chosenAtoms = new Dictionary<int, bool>();
         int minimum = maxAtomicNumber;
@@ -128,33 +83,47 @@ public class SolarManager : AbstractController
             chosenAtoms[ currentAtomIndex ] = true;
         }
         
-        float given = (int)( gameModel.Config.MaxHarvestTime * SC );
+        float maxSCSolar = (int)( 10f * SC );
+        float MaxSCSoFar = 0;
+        bool MaxNeedMore = true;
+
+        float SCSolar = SC;
         float SCSoFar = 0;
-        bool needMore = true;
+        bool NeedMore = true;
+
         int lifetime = 0;
-        while (needMore)
+        while (MaxNeedMore)
         {
             foreach (KeyValuePair<int, bool> item in chosenAtoms)
             {
-                if( SCSoFar + gameModel.Atoms[ item.Key ].AtomicWeight > given )
+                if( SCSoFar + gameModel.Atoms[ item.Key ].AtomicWeight > SCSolar )
                 {
-                    needMore = false;
+                    NeedMore = false;
+                }
+                else
+                {
+                    SCSoFar += gameModel.Atoms[ item.Key ].AtomicWeight;
+                }
+
+                if( MaxSCSoFar + gameModel.Atoms[ item.Key ].AtomicWeight > maxSCSolar )
+                {
+                    MaxNeedMore = false;
                     break;
                 }
                 else
                 {
-                    SCSoFar += gameModel.Atoms[item.Key].AtomicWeight;
+                    MaxSCSoFar += gameModel.Atoms[item.Key].AtomicWeight;
                     stocks[item.Key] += 1;
                 }
             }
-            lifetime++;
+            if( NeedMore )
+                lifetime++;
         }
 
-        solarModel.Lifetime = lifetime;
+        solarModel.Lifetime = (int)(lifetime / 0.1f);
 
+        AtomModel planetAtomModel;
         PlanetModel planetModel = new PlanetModel();
-        PlanetAtomModel planetAtomModel;
-        planetModel = new PlanetModel();
         planetModel.Name = "Planet " + _planetsCreated;
         planetModel.Radius = _planetsCreated;
         _planetsCreated++;
@@ -162,7 +131,7 @@ public class SolarManager : AbstractController
 
         foreach( KeyValuePair<int,bool> item in chosenAtoms )
         {
-            planetAtomModel = new PlanetAtomModel();
+            planetAtomModel = new AtomModel();
             planetAtomModel.AtomicNumber = item.Key;
             planetAtomModel.Stock = stocks[ item.Key ];
             planetModel.Atoms.Add( planetAtomModel );
@@ -179,12 +148,13 @@ public class SolarManager : AbstractController
 
         _layoutUpdateCount = 0; //fix for layoutgroup update, check Update() function;
 
-        Debug.Log( "-------------" );
+        //Debug.Log( "-------------" );
 
     }
  
     void handleGameModelLoaded( AbstractMessage message )
     {
+        /*
         int galaxiesCount = gameModel.User.Galaxies.Count;
         if ( galaxiesCount > 0 )
         {
@@ -195,6 +165,7 @@ public class SolarManager : AbstractController
                 solar.Setup(gameModel.User.Galaxies[solarIndex]);
             }
         }
+        */
     }
 
     float Choose( Dictionary<int, float> probs )
@@ -222,68 +193,20 @@ public class SolarManager : AbstractController
         }
         return probs.Count;
     }
-
-    Vector3 getBezier(float time)
+    
+    int getMaxAtomicNumberFromSC( float SC )
     {
-        return Bezier.GetPoint(p0, p1, p2, p3, time);
-    }
-
-    float yFromX(float xTarget)
-    {
-
-        float xTolerance = 0.1f; //adjust as you please
-
-        //establish bounds
-        float lower = 0.0f;
-        float upper = 1.0f;
-        float percent = (upper + lower) / 2;
-
-        //get initial x
-        float x = getBezier(percent).x;
-
-        //loop until completion
-        while (Mathf.Abs(xTarget - x) > xTolerance)
+        int result = 1;
+        foreach( KeyValuePair<int, int> range in gameModel.Config.atomSCUnlockRanges )
         {
-            if (xTarget > x)
-                lower = percent;
-            else
-                upper = percent;
-
-            percent = (upper + lower) / 2;
-            x = getBezier(percent).x;
-        }
-        //we're within tolerance of the desired x value.
-        //return the y value.
-        return getBezier(percent).y;
-    }
-
-    private void getRanges()
-    {
-        Dictionary<int, Vector2> ranges = new Dictionary<int, Vector2>();
-        Vector3 bezier;
-        int currentY = 0;
-        float maxX = 0;
-
-        for (float i = 0.00001f; i <= 1.0f; i += 0.00001f)
-        {
-            bezier = getBezier(i);
-
-            if (bezier.x > maxX)
+            if( SC >= range.Value )
             {
-                maxX = bezier.x;
-            }
-
-            if ((int)Mathf.Ceil(bezier.y) > currentY)
-            {
-                currentY = (int)Mathf.Ceil(bezier.y);
-                ranges[currentY] = new Vector2(bezier.x, 0.0f);
+                result = range.Key;
             }
             else
-            {
-                ranges[currentY] = new Vector2(ranges[currentY].x, maxX);
-            }
+                break;
         }
 
-        Debug.Log(ranges);
+        return result;
     }
 }
