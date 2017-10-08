@@ -73,6 +73,11 @@ public class GameController : AbstractController
         else
             CraftingPanel.SetActive( true );
     }
+
+    public void SaveUser()
+    {
+        gameModel.SaveUser();
+    }
     
     public void GenerateAtom( int times = 1 )
     {

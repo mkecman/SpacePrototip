@@ -18,9 +18,15 @@ public class SolarManager : AbstractController
     void Start()
     {
         Messenger.Listen( SolarMessage.CREATE_SOLAR, handleCreateSolar );
-        Messenger.Listen(GameMessage.MODEL_LOADED, handleGameModelLoaded);       
+        Messenger.Listen(GameMessage.MODEL_LOADED, handleGameModelLoaded);
+        Messenger.Listen( SolarMessage.SOLAR_DESTROYED, handleSolarDestroyed );
     }
-    
+
+    private void handleSolarDestroyed( AbstractMessage message )
+    {
+        gameModel.User.Galaxies.Remove( ( message as SolarMessage ).model );
+    }
+
     void Update()
     {
         if( _layoutUpdateCount < 30 )
@@ -154,7 +160,7 @@ public class SolarManager : AbstractController
  
     void handleGameModelLoaded( AbstractMessage message )
     {
-        /*
+        
         int galaxiesCount = gameModel.User.Galaxies.Count;
         if ( galaxiesCount > 0 )
         {
@@ -165,7 +171,7 @@ public class SolarManager : AbstractController
                 solar.Setup(gameModel.User.Galaxies[solarIndex]);
             }
         }
-        */
+        _layoutUpdateCount = 0;
     }
 
     float Choose( Dictionary<int, float> probs )

@@ -26,6 +26,7 @@ public class SolarComponent : MonoBehaviour
             }
             else
             {
+                Messenger.Dispatch( SolarMessage.SOLAR_DESTROYED, new SolarMessage( 0, 0, _model ) );
                 Destroy(gameObject);
             }
         }
