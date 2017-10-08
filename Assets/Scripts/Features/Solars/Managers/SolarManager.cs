@@ -83,11 +83,11 @@ public class SolarManager : AbstractController
             chosenAtoms[ currentAtomIndex ] = true;
         }
         
-        float maxSCSolar = (int)( 10f * SC );
+        float maxSCSolar = (int)( gameModel.Config.MaxHarvestRate * SC );
         float MaxSCSoFar = 0;
         bool MaxNeedMore = true;
 
-        float SCSolar = SC;
+        float SCSolar = ( SC / .1f );
         float SCSoFar = 0;
         bool NeedMore = true;
 
@@ -120,7 +120,7 @@ public class SolarManager : AbstractController
                 lifetime++;
         }
 
-        solarModel.Lifetime = (int)(lifetime / 0.1f);
+        solarModel.Lifetime = (int)(lifetime);
 
         AtomModel planetAtomModel;
         PlanetModel planetModel = new PlanetModel();
