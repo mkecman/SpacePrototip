@@ -3,27 +3,12 @@ using System.Collections;
 
 public class HarvesterMessage : AbstractMessage
 {
+    public static string HARVESTER_UPGRADE = "HarvesterUpgrade";
 
-    public static string HARVESTER_UPGRADED = "HarversterUpgraded";
-    
-    private int _atomicNumber;
-    private int _delta;
+    public AtomModel Model;
 
-    public HarvesterMessage( int atomicNumber, int delta )
+    public HarvesterMessage( AtomModel model )
     {
-        _atomicNumber = atomicNumber;
-        _delta = delta;
-    }
-
-    public int AtomicNumber
-    {
-        get { return _atomicNumber; }
-        set { _atomicNumber = value; }
-    }
-
-    public int Delta
-    {
-        get { return _delta; }
-        set { _delta = value; }
+        Model = model;
     }
 }

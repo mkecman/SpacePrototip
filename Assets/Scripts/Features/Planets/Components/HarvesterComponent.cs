@@ -40,7 +40,7 @@ public class HarvesterComponent : AbstractView
         }
     }
 
-    internal void Setup( StoreComponent store, AtomModel model )
+    internal void UpdateModel( StoreComponent store, AtomModel model )
     {
         _store = store;
         _model = model;

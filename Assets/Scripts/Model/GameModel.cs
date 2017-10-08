@@ -10,7 +10,7 @@ public class GameModel
     private RecipeConfig rawRecipes;
     
     public UserModel User;
-    public AtomModel[] Atoms;
+    public List<AtomModel> Atoms;
     public Dictionary<string, AtomModel> AtomsBySymbol;
     public List<RecipeModel> Recipes;
     

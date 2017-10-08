@@ -4,11 +4,12 @@ using System;
 
 public class AtomsManager : AbstractController
 {
+    private AtomsModelManager AMM = new AtomsModelManager();
+
     public GameObject atomPrefab;
     public Transform atomsContainer;
 
-    private Dictionary<int, GameObject> gameObjects = new Dictionary<int, GameObject>();
-    private int nextLevelMaxStock = 10;
+    private Dictionary<int, AtomComponent> _atoms = new Dictionary<int, AtomComponent>();
 
     void Start()
     {
@@ -18,11 +19,12 @@ public class AtomsManager : AbstractController
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPGRADE, AtomStockUpgrade );
         Messenger.Listen( AtomMessage.DEDUCT_ATOMS_WORTH_SC, DeductAtomsWorthSC );
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATE, handleAtomStockUpdate );
-
+        
     }
-
+    
     private void SetupAtoms( AbstractMessage message )
     {
+        AMM.Setup( gameModel.Atoms, gameModel.User );
         for( int atomicNumber = 1; atomicNumber < gameModel.User.Atoms.Count; atomicNumber++ )
         {
             CreateAtom( gameModel.User.Atoms[ atomicNumber ] );
@@ -31,176 +33,52 @@ public class AtomsManager : AbstractController
 
     private void CreateAtom( AtomModel atomModel )
     {
-        StoreComponent atomStore;
         GameObject go = Instantiate( atomPrefab, atomsContainer );
-        atomStore = go.GetComponentInChildren<StoreComponent>();
-        atomStore.Name = atomModel.Symbol;
-        atomStore.Property = "x" + atomModel.AtomicWeight.ToString( "F2" );
-        atomStore.MaxStock = atomModel.MaxStock;
-        atomStore.Stock = atomModel.Stock;
-
-        AtomStockUpgradeComponent stockUpgradeComp = go.GetComponentInChildren<AtomStockUpgradeComponent>();
-        int nextLevelSC = getNextUpgradePrice( atomModel );
-        stockUpgradeComp.Setup( atomModel.AtomicNumber, atomModel.MaxStock + 10, nextLevelSC );
-        
-        gameObjects.Add( atomModel.AtomicNumber, go );
+        AtomComponent atomComp = go.GetComponent<AtomComponent>();
+        atomComp.UpdateModel( atomModel );
+        _atoms.Add( atomModel.AtomicNumber, atomComp );
     }
 
     private void GenerateAtom( AbstractMessage message )
     {
         int randomAtomIndex = UnityEngine.Random.Range( 1, gameModel.User.Atoms.Count );
-        int maxStock = gameModel.User.Atoms[ randomAtomIndex ].MaxStock;
-        int newStock = gameModel.User.Atoms[ randomAtomIndex ].Stock + 1;
-
-        if( newStock <= maxStock )
+        if( AMM.GenerateAtom() )
         {
-            getStore( randomAtomIndex ).Stock = newStock;
-            Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATE, new AtomMessage( randomAtomIndex, 1 ) );
+            _atoms[ randomAtomIndex ].UpdateView();
+            Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
         }
     }
 
     private void AtomHarvested( AbstractMessage message )
     {
         AtomMessage data = message as AtomMessage;
-        AtomModel atom = new AtomModel();
+        AMM.HarvestAtom( data.AtomicNumber );
 
-        if( data.AtomicNumber >= gameModel.User.Atoms.Count )
-        {
-            for( int i = gameModel.User.Atoms.Count; i <= data.AtomicNumber; i++ )
-            {
-                atom = gameModel.Atoms[ i ];
-                gameModel.User.Atoms.Add( atom );
-                CreateAtom( atom );
-            }
-        }
-
-        Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATE, data );
+        Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
     }
 
     private void AtomStockUpgrade( AbstractMessage msg )
     {
         AtomMessage message = msg as AtomMessage;
-        int atomicNumber = message.AtomicNumber;
-        AtomModel atomModel = gameModel.User.Atoms[ atomicNumber ];
-
-        int currentPrice = getNextUpgradePrice( atomModel );
-        if( gameModel.User.SC < currentPrice )
+        if( AMM.UpgradeAtomStock( message.AtomicNumber ) )
         {
-            Debug.Log( "NOT ENOUGH ATOMIC MASS TO UPGRADE!" );
-            return;
+            _atoms[ message.AtomicNumber ].UpdateUpgradeView();
+            Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
         }
-
-        DeductAtomsWorthSC( new AtomMessage( 0, 0, currentPrice ) );
-
-        atomModel.UpgradeLevel += 1;
-        atomModel.MaxStock += nextLevelMaxStock;
-
-        int nextLevelPrice = getNextUpgradePrice( atomModel );
-        AtomStockUpgradeComponent upgradeComp = gameObjects[ message.AtomicNumber ].GetComponentInChildren<AtomStockUpgradeComponent>();
-        upgradeComp.Setup( message.AtomicNumber, nextLevelMaxStock, nextLevelPrice );
-
-        getStore( message.AtomicNumber ).MaxStock = atomModel.MaxStock;
     }
 
     private void DeductAtomsWorthSC( AbstractMessage msg )
     {
         AtomMessage message = msg as AtomMessage;
-        float _sc = message.SC;
-        Dictionary<int, AtomModel> collectedAtoms = new Dictionary<int, AtomModel>();
-        Dictionary<int, AtomMessage> atomsMessages = new Dictionary<int, AtomMessage>();
-        List<int> atomsList = new List<int>();
-
-        foreach( AtomModel atomModel in gameModel.User.Atoms )
-        {
-            if( atomModel.Stock > 0 )
-            {
-                AtomModel atom = new AtomModel();
-                atom.AtomicNumber = atomModel.AtomicNumber;
-                atom.AtomicWeight = atomModel.AtomicWeight;
-                atom.Stock = atomModel.Stock;
-                collectedAtoms.Add( atomModel.AtomicNumber, atom );
-                atomsList.Add( atomModel.AtomicNumber );
-                atomsMessages.Add( atomModel.AtomicNumber, new AtomMessage( atomModel.AtomicNumber, 0 ) );
-            }
-        }
-
-        atomsList.Sort();
-        atomsList.Reverse();
-        
-        bool needMore = true;
-        while( _sc > 0 )
-        {
-            for( int i = 0; i < atomsList.Count; i++ )
-            {
-                AtomModel atomModel = collectedAtoms[ atomsList[ i ] ];
-                if( atomModel.Stock > 0 )
-                {
-                    if( _sc - atomModel.AtomicWeight >= 0 )
-                    {
-                        _sc -= atomModel.AtomicWeight;
-                        atomModel.Stock -= 1;
-                        atomsMessages[ atomModel.AtomicNumber ].Delta -= 1;
-                    }
-                    else
-                    {
-                        atomModel.Stock = 0;
-                    }
-                    needMore = true;
-                }
-                else
-                {
-                    needMore = false;
-                }
-            }
-            if( !needMore )
-                _sc = 0;
-        }
-        
-        foreach( KeyValuePair<int, AtomMessage> atomMessage in atomsMessages )
-        {
-            handleAtomStockUpdate( atomMessage.Value );
-        }
-    }
-
-    public void handleAtomStockUpdate( AbstractMessage message )
-    {
-        AtomMessage data = message as AtomMessage;
-        AtomModel atom = gameModel.User.Atoms[ data.AtomicNumber ];
-        
-        if( atom.Stock + data.Delta <= atom.MaxStock)
-        {
-            atom.Stock += data.Delta;
-            updateUserSC();
-        }
-
-        if( atom.Stock + data.Delta < 0 )
-        {
-            atom.Stock -= atom.Stock;
-            updateUserSC();
-        }
-        
-        getStore( data.AtomicNumber ).Stock = gameModel.User.Atoms[ data.AtomicNumber ].Stock;
+        AMM.SpendAtomsWorthSC( message.SC );
         Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
     }
 
-    private StoreComponent getStore( int atomicNumber )
+    private void handleAtomStockUpdate( AbstractMessage message )
     {
-        return gameObjects[ atomicNumber ].GetComponentInChildren<StoreComponent>();
+        AtomMessage data = message as AtomMessage;
+        AMM.UpdateAtomStock( data.AtomicNumber, data.Delta );
+        Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
     }
-
-    private int getNextUpgradePrice( AtomModel model )
-    {
-        return (int)Math.Round( model.AtomicWeight * Mathf.Pow( 1.049f, model.MaxStock ) );
-    }
-
-    private void updateUserSC()
-    {
-        float SC = 0f;
-        foreach( AtomModel atomModel in gameModel.User.Atoms )
-        {
-            SC += atomModel.Stock * atomModel.AtomicWeight;
-        }
-        gameModel.User.SC = SC;
-    }
-
+    
 }

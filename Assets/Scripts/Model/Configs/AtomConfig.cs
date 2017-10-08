@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class AtomConfig
 {
-    public AtomModel[] Data;
+    public List<AtomModel> Data;
     public Dictionary<string, AtomModel> AtomsBySymbol;
     private string jsonFilePath;
 
@@ -18,14 +18,14 @@ public class AtomConfig
     internal void Load()
     {
         TextAsset targetFile = Resources.Load<TextAsset>( "Configs/Atoms" );
-        Data = JsonHelper.FromJson<AtomModel>( targetFile.text );
+        Data = JsonHelper.FromJsonList<AtomModel>( targetFile.text );
         storeAtomsBySymbol();
     }
 
     private void storeAtomsBySymbol()
     {
         AtomsBySymbol = new Dictionary<string, AtomModel>();
-        for (int i = 0; i < Data.Length; i++)
+        for (int i = 0; i < Data.Count; i++)
         {
             AtomsBySymbol.Add(Data[i].Symbol, Data[i]);
         }

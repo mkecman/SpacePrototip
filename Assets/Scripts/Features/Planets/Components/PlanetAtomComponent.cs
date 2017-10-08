@@ -17,10 +17,10 @@ public class PlanetAtomComponent : AbstractView
         planetAtomStore.Stock = model.Stock;
 
         PlanetAtomUpgradeComponent upgradeComp = gameObject.GetComponent<PlanetAtomUpgradeComponent>();
-        upgradeComp.Setup( model );
+        upgradeComp.UpdateModel( model );
 
         HarvesterComponent harvester = gameObject.GetComponent<HarvesterComponent>();
-        harvester.Setup( planetAtomStore, model );
+        harvester.UpdateModel( planetAtomStore, model );
     }
 
     void OnDestroy()

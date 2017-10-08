@@ -10,21 +10,32 @@ public class AtomStockUpgradeComponent : AbstractView
     public Text UISCLabel;
     public Button UIButton;
 
-    private int _atomicNumber = 0;
-    private int _stock = 0;
-    private int _price = 0;
+    private AtomModel _model;
+    private AtomMessage _atomMessage;
 
     void Start()
     {
-        UIButton = gameObject.GetComponent<Button>();
         UIButton.onClick.AddListener( new UnityAction( DispatchUpgradeMessage ) );
-
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated );
+        _atomMessage = new AtomMessage( _model.AtomicNumber, 1 );
+    }
+
+    public void UpdateModel( AtomModel model )
+    {
+        _model = model;
+
+        UpdateView();
+    }
+
+    public void UpdateView()
+    {
+        UIStockLabel.text = "+" + _model.MaxStockNextLevel.ToString();
+        UISCLabel.text = _model.MaxStockUpgradePrice.ToString();
     }
 
     private void handleAtomStockUpdated( AbstractMessage message )
     {
-        if( gameModel.User.SC < _price )
+        if( gameModel.User.SC < _model.MaxStockUpgradePrice )
         {
             UIButton.interactable = false;
         }
@@ -33,19 +44,9 @@ public class AtomStockUpgradeComponent : AbstractView
             UIButton.interactable = true;
         }
     }
-
-    public void Setup( int atomicNumber, int stock, int price )
-    {
-        _atomicNumber = atomicNumber;
-        _stock = stock;
-        _price = price;
-
-        UIStockLabel.text = "+" + stock.ToString();
-        UISCLabel.text = price.ToString();
-    }
-
+    
     private void DispatchUpgradeMessage()
     {
-        Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPGRADE, new AtomMessage( _atomicNumber, 1 ) );
+        Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPGRADE, _atomMessage );
     }
 }

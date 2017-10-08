@@ -11,8 +11,7 @@ public class PlanetAtomUpgradeComponent : AbstractView
     public Button UIUpgradeButton;
     
     private AtomModel _model;
-    private int _currentPrice;
-
+    
     void Start()
     {
         UIUpgradeButton.onClick.AddListener( new UnityAction( Upgrade ) );
@@ -21,7 +20,7 @@ public class PlanetAtomUpgradeComponent : AbstractView
 
     private void handleHCUpdated( AbstractMessage message )
     {
-        if( gameModel.User.HC < _currentPrice )
+        if( gameModel.User.HC < _model.HarvestRateUpgradePrice )
         {
             UIUpgradeButton.interactable = false;
         }
@@ -31,38 +30,27 @@ public class PlanetAtomUpgradeComponent : AbstractView
         }
     }
 
-    public void Setup( AtomModel model )
+    public void UpdateModel( AtomModel model )
     {
         _model = model;
-        _currentPrice = getPrice();
         updateView();
     }
-
-    private int getPrice()
+    
+    private void handleHarvesterUpgraded( AbstractMessage message )
     {
-        return (int)(Mathf.Pow( 10f, _model.HarvestRate ) * gameModel.Atoms[ _model.AtomicNumber ].AtomicWeight);
+        updateView();
     }
 
     private void Upgrade()
     {
-        if( gameModel.User.HC >= _currentPrice )
-        {
-
-            Messenger.Dispatch( HCMessage.UPDATE_REQUEST, new HCMessage( -_currentPrice ) );
-            _model.HarvestRate += gameModel.Config.HarvestRateUpgradeStep;
-            _currentPrice = getPrice();
-            updateView();
-
-
-
-            //Debug.Log( _model.HarvestRate );
-        }
+        Messenger.Dispatch( HarvesterMessage.HARVESTER_UPGRADE, new HarvesterMessage( _model ) );
+        updateView();
     }
 
     private void updateView()
     {
         UIStockLabel.text = ( 1 / ( 1 / _model.HarvestRate ) ).ToString("F1") + "/s";
-        UIPriceLabel.text = _currentPrice.ToString();
+        UIPriceLabel.text = _model.HarvestRateUpgradePrice.ToString();
     }
 
     void OnDestroy()
