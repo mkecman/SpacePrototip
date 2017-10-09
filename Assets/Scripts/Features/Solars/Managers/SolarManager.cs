@@ -26,7 +26,7 @@ public class SolarManager : AbstractController
         float maxSC = (message as SolarMessage).maxSC;
 
         /**/
-        if( SC > gameModel.User.SC )
+        if( SC > gameModel.User.rSC.Value )
         {
             Debug.Log( "Not enough SC to create Solar system!" );
             return;

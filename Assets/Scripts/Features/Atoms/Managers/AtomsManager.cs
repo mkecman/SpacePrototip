@@ -19,7 +19,6 @@ public class AtomsManager : AbstractController
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPGRADE, AtomStockUpgrade );
         Messenger.Listen( AtomMessage.DEDUCT_ATOMS_WORTH_SC, DeductAtomsWorthSC );
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATE, handleAtomStockUpdate );
-        
     }
     
     private void SetupAtoms( AbstractMessage message )

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class SCManager : AbstractController
 {
@@ -11,18 +12,14 @@ public class SCManager : AbstractController
     private float _lastTime;
     private bool _isActive = false;
 
+    
+
     void Start()
     {
-        Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated );
-        Messenger.Listen( GameMessage.MODEL_LOADED, handleGameModelLoaded );
-        Messenger.Listen( SolarMessage.SOLAR_CREATED, handleSolarCreated );
+        Messenger.Listen(AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated);
+        Messenger.Listen(GameMessage.MODEL_LOADED, handleGameModelLoaded);        
     }
-
-    private void handleSolarCreated( AbstractMessage message )
-    {
-        UpdateLabel();
-    }
-
+    
     void Update()
     {
 
@@ -37,27 +34,27 @@ public class SCManager : AbstractController
 
     public void handleAtomStockUpdated( AbstractMessage message )
     {
-        if( gameModel.User.SC > SCSlider.maxValue )
-            if( gameModel.User.SC <= gameModel.Config.maxSC )
-                SCSlider.maxValue = Mathf.Floor( gameModel.User.SC );
+        if( gameModel.User.rSC.Value > SCSlider.maxValue )
+            if( gameModel.User.rSC.Value <= gameModel.Config.maxSC )
+                SCSlider.maxValue = Mathf.Floor( gameModel.User.rSC.Value );
             else
                 SCSlider.maxValue = gameModel.Config.maxSC;
 
-        UpdateLabel();
     }
 
     public void handleGameModelLoaded( AbstractMessage message )
     {
+        gameModel.User.rSC.Subscribe(UpdateLabel);
+
         float SC = 0;
         
         foreach( AtomModel atomModel in gameModel.User.Atoms )
         {
             SC += atomModel.Stock * atomModel.AtomicWeight;
         }
-        
-        gameModel.User.SC = SC;
+
+        gameModel.User.rSC.Value = SC;
         SCSlider.Setup( SC );
-        UpdateLabel();
         //_isActive = true;
     }
 
@@ -66,9 +63,9 @@ public class SCManager : AbstractController
         Messenger.Dispatch( SolarMessage.CREATE_SOLAR, new SolarMessage( SCSlider.SCSlider.value, SCSlider.maxValue ) );
     }
     
-    private void UpdateLabel()
+    private void UpdateLabel( float sc )
     {
-        SCHUDLabel.text = "AM:" + (int)Mathf.Floor( gameModel.User.SC );
+        SCHUDLabel.text = "AM:" + (int)Mathf.Floor( sc );
     }
 
    

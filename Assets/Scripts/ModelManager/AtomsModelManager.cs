@@ -49,7 +49,7 @@ public class AtomsModelManager
     public void UpdateAtomStock( int atomicNumber, int delta )
     {
         _user.Atoms[ atomicNumber ].Stock += delta;
-        _user.SC += _user.Atoms[ atomicNumber ].AtomicWeight * delta;
+        _user.rSC.Value += _user.Atoms[ atomicNumber ].AtomicWeight * delta;
     }
     
     public bool UpgradeAtomStock( int atomicNumber )
@@ -71,7 +71,7 @@ public class AtomsModelManager
 
     public bool SpendAtomsWorthSC( float PriceSC )
     {
-        if( _user.SC < PriceSC )
+        if( _user.rSC.Value < PriceSC )
             return false;
 
         float remainingSC = PriceSC;
@@ -84,10 +84,9 @@ public class AtomsModelManager
                 {
                     float reducedSC = remainingSC - atom.AtomicWeight;
                     if( reducedSC >= 0 )
-                    {
-                        remainingSC = reducedSC;
                         UpdateAtomStock( atom.AtomicNumber, -1 );
-                    }
+                    
+                    remainingSC = reducedSC;    
                 }
             }
         }

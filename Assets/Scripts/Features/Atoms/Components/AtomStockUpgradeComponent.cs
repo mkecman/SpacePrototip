@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using System;
 using UnityEngine.Events;
+using UniRx;
+using UniRx.Triggers;
 
 public class AtomStockUpgradeComponent : AbstractView
 {
@@ -15,7 +17,8 @@ public class AtomStockUpgradeComponent : AbstractView
 
     void Start()
     {
-        UIButton.onClick.AddListener( new UnityAction( DispatchUpgradeMessage ) );
+        UIButton.OnClickAsObservable().Subscribe(_ => Messenger.Dispatch(AtomMessage.ATOM_STOCK_UPGRADE, _atomMessage) );
+        
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated );
         _atomMessage = new AtomMessage( _model.AtomicNumber, 1 );
     }
@@ -35,7 +38,7 @@ public class AtomStockUpgradeComponent : AbstractView
 
     private void handleAtomStockUpdated( AbstractMessage message )
     {
-        if( gameModel.User.SC < _model.MaxStockUpgradePrice )
+        if( gameModel.User.rSC.Value < _model.MaxStockUpgradePrice )
         {
             UIButton.interactable = false;
         }

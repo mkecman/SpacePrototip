@@ -87,7 +87,8 @@ public class SolarModelManager
         solarModel.Name = "Star " + _gameModel.User.StarsCreated;
         _gameModel.User.StarsCreated++;
         solarModel.Radius = (int)( SC );
-        solarModel.Lifetime = (int)( lifetime );
+        solarModel.Lifetime = (int)(lifetime);
+        solarModel.CreatedSC = SC;
 
         PlanetModel planetModel = new PlanetModel();
         planetModel.Name = "Planet " + _gameModel.User.PlanetsCreated;
