@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class GameModel
 {
@@ -10,7 +11,7 @@ public class GameModel
     private RecipeConfig rawRecipes;
     
     public UserModel User;
-    public List<AtomModel> Atoms;
+    public ReactiveCollection<AtomModel> Atoms;
     public Dictionary<string, AtomModel> AtomsBySymbol;
     public List<RecipeModel> Recipes;
     
@@ -37,12 +38,12 @@ public class GameModel
         
         rawAtoms = new AtomConfig();
         rawAtoms.Load();
-        Atoms = rawAtoms.Data;
+        Atoms = rawAtoms.atoms;
         AtomsBySymbol = rawAtoms.AtomsBySymbol;
         
         rawUser = new UserConfig();
         rawUser.Load();
-        User = rawUser.Data;
+        User = rawUser.userModel;
 
         rawRecipes = new RecipeConfig();
         rawRecipes.Load( AtomsBySymbol );

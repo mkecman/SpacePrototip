@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class UserConfig
 {
-    public UserModel Data;
+    public UserModel userModel;
+    private JSONUserModel Data;
     private string jsonFilePath;
     
     public UserConfig()
@@ -18,12 +19,13 @@ public class UserConfig
     {
         if (File.Exists(jsonFilePath))
         {
-            Data = JsonUtility.FromJson<UserModel>( File.ReadAllText( jsonFilePath ) );
+            Data = JsonUtility.FromJson<JSONUserModel>( File.ReadAllText( jsonFilePath ) );
+            userModel = new UserModel( Data );
         }
         else
         {
             TextAsset targetFile = Resources.Load<TextAsset>("Configs/DefaultUser");
-            Data = JsonUtility.FromJson<UserModel>(targetFile.text);
+            Data = JsonUtility.FromJson<JSONUserModel>(targetFile.text);
             Save();
         }
     }
@@ -32,5 +34,6 @@ public class UserConfig
     {
         File.WriteAllText( jsonFilePath, JsonUtility.ToJson( Data, true ) );
     }
+    
     
 }

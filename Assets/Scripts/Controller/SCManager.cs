@@ -34,9 +34,9 @@ public class SCManager : AbstractController
 
     public void handleAtomStockUpdated( AbstractMessage message )
     {
-        if( gameModel.User.rSC.Value > SCSlider.maxValue )
-            if( gameModel.User.rSC.Value <= gameModel.Config.maxSC )
-                SCSlider.maxValue = Mathf.Floor( gameModel.User.rSC.Value );
+        if( gameModel.User.SC > SCSlider.maxValue )
+            if( gameModel.User.SC <= gameModel.Config.maxSC )
+                SCSlider.maxValue = Mathf.Floor( gameModel.User.SC );
             else
                 SCSlider.maxValue = gameModel.Config.maxSC;
 
@@ -53,7 +53,7 @@ public class SCManager : AbstractController
             SC += atomModel.Stock * atomModel.AtomicWeight;
         }
 
-        gameModel.User.rSC.Value = SC;
+        gameModel.User.SC = SC;
         SCSlider.Setup( SC );
         //_isActive = true;
     }

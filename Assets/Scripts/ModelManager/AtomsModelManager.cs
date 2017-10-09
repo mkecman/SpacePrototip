@@ -2,14 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UniRx;
 
 public class AtomsModelManager
 {
     private UserModel _user;
-    private List<AtomModel> _atomsDefinitions;
+    private ReactiveCollection<AtomModel> _atomsDefinitions;
     private int nextLevelMaxStock = 10;
 
-    public void Setup( List<AtomModel> atoms, UserModel user )
+    public void Setup( ReactiveCollection<AtomModel> atoms, UserModel user )
     {
         _atomsDefinitions = atoms;
         _user = user;
@@ -32,10 +33,9 @@ public class AtomsModelManager
 
     public void HarvestAtom( int atomicNumber )
     {
-        AtomModel atom = new AtomModel();
-
         if( atomicNumber >= _user.Atoms.Count )
         {
+            AtomModel atom;
             for( int i = _user.Atoms.Count; i <= atomicNumber; i++ )
             {
                 atom = _atomsDefinitions[ i ];
@@ -49,7 +49,7 @@ public class AtomsModelManager
     public void UpdateAtomStock( int atomicNumber, int delta )
     {
         _user.Atoms[ atomicNumber ].Stock += delta;
-        _user.rSC.Value += _user.Atoms[ atomicNumber ].AtomicWeight * delta;
+        _user.SC += _user.Atoms[ atomicNumber ].AtomicWeight * delta;
     }
     
     public bool UpgradeAtomStock( int atomicNumber )
@@ -64,14 +64,13 @@ public class AtomsModelManager
 
         atomModel.MaxStock += nextLevelMaxStock;
         atomModel.MaxStockNextLevel = atomModel.MaxStock + nextLevelMaxStock;
-        atomModel.calculateMaxStockUpgradePrice();
 
         return true;
     }
 
     public bool SpendAtomsWorthSC( float PriceSC )
     {
-        if( _user.rSC.Value < PriceSC )
+        if( _user.SC < PriceSC )
             return false;
 
         float remainingSC = PriceSC;

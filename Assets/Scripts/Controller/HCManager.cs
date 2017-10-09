@@ -22,7 +22,6 @@ public class HCManager : AbstractController
         {
             gameModel.User.HC -= data.Model.HarvestRateUpgradePrice;
             data.Model.HarvestRate += gameModel.Config.HarvestRateUpgradeStep;
-            data.Model.calculateHarvestRateUpgradePrice();
 
             updateView();
             Messenger.Dispatch( HCMessage.UPDATED );

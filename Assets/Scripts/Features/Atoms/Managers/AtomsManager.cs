@@ -53,6 +53,7 @@ public class AtomsManager : AbstractController
         AtomMessage data = message as AtomMessage;
         AMM.HarvestAtom( data.AtomicNumber );
 
+        _atoms[ data.AtomicNumber ].UpdateView();
         Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
     }
 

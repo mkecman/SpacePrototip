@@ -83,14 +83,14 @@ public class SolarModelManager
                 lifetime++;
         }
 
-        SolarModel solarModel = new SolarModel();
+        SolarModel solarModel = new SolarModel( new JSONSolarModel() );
         solarModel.Name = "Star " + _gameModel.User.StarsCreated;
         _gameModel.User.StarsCreated++;
         solarModel.Radius = (int)( SC );
         solarModel.Lifetime = (int)(lifetime);
         solarModel.CreatedSC = SC;
 
-        PlanetModel planetModel = new PlanetModel();
+        PlanetModel planetModel = new PlanetModel( new JSONPlanetModel() );
         planetModel.Name = "Planet " + _gameModel.User.PlanetsCreated;
         _gameModel.User.PlanetsCreated++;
         planetModel.Radius = 1;
@@ -99,7 +99,7 @@ public class SolarModelManager
         AtomModel planetAtomModel;
         foreach( KeyValuePair<int, bool> item in chosenAtoms )
         {
-            planetAtomModel = new AtomModel();
+            planetAtomModel = new AtomModel( new JSONAtomModel() );
             planetAtomModel.AtomicNumber = item.Key;
             planetAtomModel.Stock = stocks[ item.Key ];
             planetModel.Atoms.Add( planetAtomModel );

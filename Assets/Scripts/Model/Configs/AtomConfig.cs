@@ -3,10 +3,12 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using System.Collections.Generic;
+using UniRx;
 
 public class AtomConfig
 {
-    public List<AtomModel> Data;
+    public ReactiveCollection<AtomModel> atoms;
+    public List<JSONAtomModel> jsonModel;
     public Dictionary<string, AtomModel> AtomsBySymbol;
     private string jsonFilePath;
 
@@ -18,16 +20,26 @@ public class AtomConfig
     internal void Load()
     {
         TextAsset targetFile = Resources.Load<TextAsset>( "Configs/Atoms" );
-        Data = JsonHelper.FromJsonList<AtomModel>( targetFile.text );
+        jsonModel = JsonHelper.FromJsonList<JSONAtomModel>( targetFile.text );
+        createRxAtoms();
         storeAtomsBySymbol();
+    }
+
+    private void createRxAtoms()
+    {
+        atoms = new ReactiveCollection<AtomModel>();
+        for( int i = 0; i < jsonModel.Count; i++ )
+        {
+            atoms.Add( new AtomModel( jsonModel[ i ] ) );
+        }
     }
 
     private void storeAtomsBySymbol()
     {
         AtomsBySymbol = new Dictionary<string, AtomModel>();
-        for (int i = 0; i < Data.Count; i++)
+        for (int i = 0; i < jsonModel.Count; i++)
         {
-            AtomsBySymbol.Add(Data[i].Symbol, Data[i]);
+            AtomsBySymbol.Add(jsonModel[i].Symbol, atoms[i]);
         }
     }
 

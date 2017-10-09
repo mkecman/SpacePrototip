@@ -38,7 +38,7 @@ public class AtomStockUpgradeComponent : AbstractView
 
     private void handleAtomStockUpdated( AbstractMessage message )
     {
-        if( gameModel.User.rSC.Value < _model.MaxStockUpgradePrice )
+        if( gameModel.User.SC < _model.MaxStockUpgradePrice )
         {
             UIButton.interactable = false;
         }
