@@ -43,7 +43,7 @@ public class AtomsManager : AbstractController
         int randomAtomIndex = UnityEngine.Random.Range( 1, gameModel.User.Atoms.Count );
         if( AMM.GenerateAtom() )
         {
-            _atoms[ randomAtomIndex ].UpdateView();
+            
             Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
         }
     }
@@ -53,7 +53,6 @@ public class AtomsManager : AbstractController
         AtomMessage data = message as AtomMessage;
         AMM.HarvestAtom( data.AtomicNumber );
 
-        _atoms[ data.AtomicNumber ].UpdateView();
         Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
     }
 
@@ -62,7 +61,6 @@ public class AtomsManager : AbstractController
         AtomMessage message = msg as AtomMessage;
         if( AMM.UpgradeAtomStock( message.AtomicNumber ) )
         {
-            _atoms[ message.AtomicNumber ].UpdateUpgradeView();
             Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
         }
     }

@@ -17,35 +17,19 @@ public class AtomStockUpgradeComponent : AbstractView
 
     void Start()
     {
-        UIButton.OnClickAsObservable().Subscribe(_ => Messenger.Dispatch(AtomMessage.ATOM_STOCK_UPGRADE, _atomMessage) );
-        
-        Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated );
         _atomMessage = new AtomMessage( _model.AtomicNumber, 1 );
+        UIButton.OnClickAsObservable().Subscribe(_ => Messenger.Dispatch(AtomMessage.ATOM_STOCK_UPGRADE, _atomMessage) );
     }
 
     public void UpdateModel( AtomModel model )
     {
         _model = model;
 
-        UpdateView();
-    }
+        _model.rMaxStockNextLevel.Subscribe( newValue => UIStockLabel.text = "+" + newValue.ToString() );
+        _model.rMaxStockUpgradePrice.Subscribe( newValue => UISCLabel.text = newValue.ToString() );
 
-    public void UpdateView()
-    {
-        UIStockLabel.text = "+" + _model.MaxStockNextLevel.ToString();
-        UISCLabel.text = _model.MaxStockUpgradePrice.ToString();
-    }
-
-    private void handleAtomStockUpdated( AbstractMessage message )
-    {
-        if( gameModel.User.SC < _model.MaxStockUpgradePrice )
-        {
-            UIButton.interactable = false;
-        }
-        else
-        {
-            UIButton.interactable = true;
-        }
+        gameModel.User.rSC.Where( SC => SC >= _model.MaxStockUpgradePrice ).Subscribe( _ => UIButton.interactable = true );
+        gameModel.User.rSC.Where( SC => SC < _model.MaxStockUpgradePrice ).Subscribe( _ => UIButton.interactable = false );
     }
     
     private void DispatchUpgradeMessage()
