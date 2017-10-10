@@ -6,19 +6,18 @@ public class SolarComponent : MonoBehaviour
 {
     public GameObject PlanetPrefab;
     public Transform PlanetsContainer;
+    public StoreComponent SolarStore;
 
     private SolarModel _model;
-    private StoreComponent _solarStore;
     
     public void Setup( SolarModel model )
     {
         _model = model;
 
-        _solarStore = GetComponent<StoreComponent>();
-        _solarStore.Name = _model.Name;
-        _solarStore.MaxStock = _model.Lifetime;
-        _solarStore.Stock = _model.Lifetime;
-        _solarStore.Property = _model.Radius + "";
+        SolarStore.Name = _model.Name;
+        SolarStore.MaxStock = _model.Lifetime;
+        SolarStore.Stock = _model.Lifetime;
+        SolarStore.Property = _model.Radius + "";
 
         for( int index = 0; index < _model.Planets.Count; index++ )
         {
@@ -42,7 +41,7 @@ public class SolarComponent : MonoBehaviour
             .AddTo(this);
 
         _model.rLifetime
-            .Subscribe( lifetime => _solarStore.Stock = lifetime )
+            .Subscribe( lifetime => SolarStore.Stock = lifetime )
             .AddTo( this );
         
     }
@@ -50,6 +49,6 @@ public class SolarComponent : MonoBehaviour
     private void OnDestroy()
     {
         _model = null;
-        _solarStore = null;
+        SolarStore = null;
     }
 }

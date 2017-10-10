@@ -125,6 +125,7 @@
     <Compile Include="Assets\Scripts\Features\Solars\Components\SolarModel.cs" />
     <Compile Include="Assets\Scripts\Features\Solars\Managers\SolarManager.cs" />
     <Compile Include="Assets\Scripts\Features\Solars\Messages\SolarMessage.cs" />
+    <Compile Include="Assets\Scripts\Features\Stores\Components\ProgressBar.cs" />
     <Compile Include="Assets\Scripts\Features\Stores\Components\StoreComponent.cs" />
     <Compile Include="Assets\Scripts\Helpers\AutoPlayer.cs" />
     <Compile Include="Assets\Scripts\Helpers\DetectLeaksWindow.cs" />

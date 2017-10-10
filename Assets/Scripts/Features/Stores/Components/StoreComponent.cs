@@ -3,8 +3,7 @@ using UnityEngine.UI;
 
 public class StoreComponent : MonoBehaviour
 {
-    public Slider Fill;
-    public Image FillImage;
+    public ProgressBar Fill;
     public Text UIName;
     public Text UIStock;
     public Text UIMaxStock;
@@ -14,7 +13,6 @@ public class StoreComponent : MonoBehaviour
     private string _name;
     private string _property;
     private int _stock;
-
 
     public int MaxStock
     {
@@ -32,14 +30,6 @@ public class StoreComponent : MonoBehaviour
             _stock = value;
             Fill.value = value;
             UIStock.text = value.ToString();
-            if( _stock >= Fill.maxValue )
-            {
-                FillImage.color = Color.red;
-            }
-            else
-            {
-                FillImage.color = Color.white;
-            }
         }
 
         get

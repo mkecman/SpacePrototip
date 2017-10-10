@@ -6,7 +6,7 @@ using UniRx;
 
 public class HarvesterComponent : AbstractView
 {
-    public Slider UISlider;
+    public ProgressBar UISlider;
     
     private AtomModel _model;
 
