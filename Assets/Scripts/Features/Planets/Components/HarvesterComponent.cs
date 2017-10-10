@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System;
+using UniRx;
 
 public class HarvesterComponent : AbstractView
 {
@@ -40,12 +41,38 @@ public class HarvesterComponent : AbstractView
         }
     }
 
+    private float maxPercent = 3f;
+    private IDisposable test;
+
     internal void UpdateModel( StoreComponent store, AtomModel model )
     {
         _store = store;
         _model = model;
         _isHarvesting = true;
         _startTime = Time.time;
+
+        _model.rHarvestRate
+            .Subscribe(
+            harvestRate => 
+                {
+
+                    if ( test != null )
+                        test.Dispose();
+
+                    maxPercent = 1f / harvestRate;
+
+                    test = Observable
+                    .EveryUpdate().Timestamp()
+                    .TakeWhile(_ => _isHarvesting)
+                    .Subscribe( testFunc )
+                    .AddTo(this);
+                } );
+        
+    }
+
+    private void testFunc( Timestamped<long> _ )
+    {
+        Debug.Log(_);        
     }
 
     void OnDestroy()

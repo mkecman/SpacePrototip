@@ -9,7 +9,7 @@ public class AtomComponent : AbstractView
     public StoreComponent StoreComponent;
 
     private AtomModel _model;
-
+    
     public void UpdateModel( AtomModel model )
     {
         _model = model;
@@ -19,7 +19,7 @@ public class AtomComponent : AbstractView
         
         UpgradeComponent.UpdateModel( _model );
 
-        _model.rStock.Subscribe( stock => StoreComponent.Stock = stock );
-        _model.rMaxStock.Subscribe( maxStock => StoreComponent.MaxStock = maxStock );
+        _model.rStock.Subscribe( stock => StoreComponent.Stock = stock ).AddTo(this);
+        _model.rMaxStock.Subscribe( maxStock => StoreComponent.MaxStock = maxStock ).AddTo(this);
     }
 }

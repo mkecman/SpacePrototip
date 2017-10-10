@@ -29,25 +29,25 @@ public class SolarModel
 
     public string Name
     {
-        set { Model.Name = value; rName.Value = value; }
+        set { rName.Value = value; }
         get { return rName.Value; }
     }
 
     public int Radius
     {
-        set { Model.Radius = value; rRadius.Value = value; }
+        set { rRadius.Value = value; }
         get { return rRadius.Value; }
     }
 
     public int Lifetime
     {
-        set { Model.Lifetime = value; rLifetime.Value = value; }
+        set { rLifetime.Value = value; }
         get { return rLifetime.Value; }
     }
 
     public float CreatedSC
     {
-        set { Model.CreatedSC = value; rCreatedSC.Value = value; }
+        set { rCreatedSC.Value = value; }
         get { return rCreatedSC.Value; }
     }
 

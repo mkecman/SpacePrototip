@@ -5,7 +5,7 @@ public class PlanetAtomComponent : AbstractView
 {
     private AtomModel _model;
 
-    public void Setup( AtomModel model )
+    public void UpdateModel( AtomModel model )
     {
         _model = model;
 

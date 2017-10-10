@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
+using UniRx;
 
 public class PlanetAtomUpgradeComponent : AbstractView
 {
@@ -14,49 +15,35 @@ public class PlanetAtomUpgradeComponent : AbstractView
     
     void Start()
     {
-        UIUpgradeButton.onClick.AddListener( new UnityAction( Upgrade ) );
-        Messenger.Listen( HCMessage.UPDATED, handleHCUpdated );
-    }
+        UIUpgradeButton.OnClickAsObservable()
+            .Subscribe( _ => Messenger.Dispatch(HarvesterMessage.HARVESTER_UPGRADE, new HarvesterMessage(_model)) )
+            .AddTo(this);
 
-    private void handleHCUpdated( AbstractMessage message )
-    {
-        if( gameModel.User.HC < _model.HarvestRateUpgradePrice )
-        {
-            UIUpgradeButton.interactable = false;
-        }
-        else
-        {
-            UIUpgradeButton.interactable = true;
-        }
+        gameModel.User.rHC
+            .Subscribe(HC => UIUpgradeButton.interactable = HC >= _model.HarvestRateUpgradePrice )
+            .AddTo(this);
     }
-
+    
     public void UpdateModel( AtomModel model )
     {
         _model = model;
-        updateView();
-    }
-    
-    private void handleHarvesterUpgraded( AbstractMessage message )
-    {
-        updateView();
+
+        _model.rHarvestRate
+            .Subscribe(HR => UIStockLabel.text = (1 / (1 / _model.HarvestRate)).ToString("F1") + "/s")
+            .AddTo(this);
+
+        _model.rHarvestRateUpgradePrice
+            .Subscribe(price => UIPriceLabel.text = _model.HarvestRateUpgradePrice.ToString())
+            .AddTo(this);
     }
 
     private void Upgrade()
     {
         Messenger.Dispatch( HarvesterMessage.HARVESTER_UPGRADE, new HarvesterMessage( _model ) );
-        updateView();
-    }
-
-    private void updateView()
-    {
-        UIStockLabel.text = ( 1 / ( 1 / _model.HarvestRate ) ).ToString("F1") + "/s";
-        UIPriceLabel.text = _model.HarvestRateUpgradePrice.ToString();
     }
 
     void OnDestroy()
     {
         _model = null;
-        UIUpgradeButton.onClick.RemoveListener( new UnityAction( Upgrade ) );
-        Messenger.StopListening( HCMessage.UPDATED, handleHCUpdated );
     }
 }

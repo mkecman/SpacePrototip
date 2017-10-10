@@ -26,7 +26,7 @@ public class PlanetComponent : AbstractView
         {
             GameObject planetAtomPrefabInstance = Instantiate( planetAtomPrefab, planetAtomsContainer.transform );
             PlanetAtomComponent planetAtomComp = planetAtomPrefabInstance.GetComponent<PlanetAtomComponent>();
-            planetAtomComp.Setup( _model.Atoms[ i ] );
+            planetAtomComp.UpdateModel( _model.Atoms[ i ] );
             //atoms.Add( planetAtomComp );
         }
     }
