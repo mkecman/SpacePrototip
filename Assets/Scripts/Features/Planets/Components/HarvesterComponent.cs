@@ -8,78 +8,56 @@ public class HarvesterComponent : AbstractView
 {
     public Slider UISlider;
     
-    private bool _isHarvesting = false;
     private AtomModel _model;
-    private StoreComponent _store;
+
     private float _startTime;
+    private FloatReactiveProperty timePercent = new FloatReactiveProperty();
+    private AtomMessage _atomMessage;
     
-    void Update()
+    internal void UpdateModel( AtomModel model )
     {
-        if( !_isHarvesting )
-            return;
-
-        float maxPercent = 1f / _model.HarvestRate;
-        float timePercent = ( Time.time - _startTime ) / maxPercent;
-        
-        UISlider.value = UISlider.maxValue * timePercent;
-        
-        if( timePercent >= 1.0f )
-        {
-            _startTime = Time.time;
-            
-            if( _model.Stock > 0 )
-            {
-                _store.Stock -= 1;
-                _model.Stock -= 1;
-                Messenger.Dispatch( AtomMessage.ATOM_HARVEST, new AtomMessage( _model.AtomicNumber, 1 ) );
-                UISlider.value = 0;
-            }
-            else
-            {
-                _isHarvesting = false;
-            }
-        }
-    }
-
-    private float maxPercent = 3f;
-    private IDisposable test;
-
-    internal void UpdateModel( StoreComponent store, AtomModel model )
-    {
-        _store = store;
         _model = model;
-        _isHarvesting = true;
         _startTime = Time.time;
 
-        _model.rHarvestRate
-            .Subscribe(
-            harvestRate => 
+        _atomMessage = new AtomMessage( _model.AtomicNumber, 1 );
+
+        AddReactor( timePercent );
+
+        AddReactor
+        (
+            Observable.EveryUpdate()
+            .Subscribe( _ => timePercent.Value = ( Time.time - _startTime ) / ( 1f / _model.HarvestRate ) )
+        );
+
+        AddReactor
+        (
+            timePercent.Subscribe( percent => UISlider.value = UISlider.maxValue * percent )
+        );
+        
+        AddReactor
+        (
+            timePercent
+            .Where( percent => percent >= 1f )
+            .Subscribe( percent =>
                 {
+                    _startTime = Time.time;
+                    _model.Stock -= 1;
+                    Messenger.Dispatch( AtomMessage.ATOM_HARVEST, _atomMessage );
+                }
+            )
+        );
 
-                    if ( test != null )
-                        test.Dispose();
-
-                    maxPercent = 1f / harvestRate;
-
-                    test = Observable
-                    .EveryUpdate().Timestamp()
-                    .TakeWhile(_ => _isHarvesting)
-                    .Subscribe( testFunc )
-                    .AddTo(this);
-                } );
+        AddReactor
+        (
+            _model.rStock.Where( _ => _model.Stock <= 0 ).Subscribe( _ => DestroyReactors() )
+        );
         
     }
-
-    private void testFunc( Timestamped<long> _ )
-    {
-        Debug.Log(_);        
-    }
-
+    
     void OnDestroy()
     {
-        _store = null;
+        DestroyReactors();
         _model = null;
-        _isHarvesting = false;
     }
 
 }

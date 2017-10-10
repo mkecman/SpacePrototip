@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
 public class StoreComponent : MonoBehaviour
 {
@@ -74,5 +70,5 @@ public class StoreComponent : MonoBehaviour
             return _property;
         }
     }
-    
+
 }

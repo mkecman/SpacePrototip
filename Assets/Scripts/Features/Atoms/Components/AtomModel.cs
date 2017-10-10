@@ -31,6 +31,25 @@ public class AtomModel
         fromJSON(model);
     }
 
+    public AtomModel Copy()
+    {
+        JSONAtomModel json = new JSONAtomModel();
+        
+        json.Name = rName.Value;
+        json.Symbol = rSymbol.Value;
+        json.AtomicNumber = rAtomicNumber.Value;
+        json.AtomicWeight = rAtomicWeight.Value;
+        json.HexColor = rHexColor.Value;
+        json.GroupBlock = rGroupBlock.Value;
+        json.Stock = rStock.Value;
+        json.MaxStock = rMaxStock.Value;
+        json.MaxStockNextLevel = rMaxStockNextLevel.Value;
+        json.HarvestRate = rHarvestRate.Value;
+
+        AtomModel atom = new AtomModel( json );
+        return atom;
+    }
+
     public void fromJSON( JSONAtomModel model )
     {
         Model = model;

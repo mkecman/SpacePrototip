@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using System;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class AtomsManager : AbstractController
 {
@@ -17,10 +16,10 @@ public class AtomsManager : AbstractController
         Messenger.Listen( AtomMessage.GENERATE_ATOM, GenerateAtom );
         Messenger.Listen( AtomMessage.ATOM_HARVEST, AtomHarvested );
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPGRADE, AtomStockUpgrade );
-        Messenger.Listen( AtomMessage.DEDUCT_ATOMS_WORTH_SC, DeductAtomsWorthSC );
+        Messenger.Listen( AtomMessage.SPEND_ATOMS, SpendAtoms );
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATE, handleAtomStockUpdate );
     }
-    
+
     private void SetupAtoms( AbstractMessage message )
     {
         AMM.Setup( gameModel.Atoms, gameModel.User );
@@ -43,7 +42,7 @@ public class AtomsManager : AbstractController
         int randomAtomIndex = UnityEngine.Random.Range( 1, gameModel.User.Atoms.Count );
         if( AMM.GenerateAtom() )
         {
-            
+
             Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
         }
     }
@@ -65,10 +64,10 @@ public class AtomsManager : AbstractController
         }
     }
 
-    private void DeductAtomsWorthSC( AbstractMessage msg )
+    private void SpendAtoms( AbstractMessage msg )
     {
         AtomMessage message = msg as AtomMessage;
-        AMM.SpendAtomsWorthSC( message.SC );
+        AMM.SpendAtoms( message.SC );
         Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
     }
 
@@ -78,5 +77,5 @@ public class AtomsManager : AbstractController
         AMM.UpdateAtomStock( data.AtomicNumber, data.Delta );
         Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
     }
-    
+
 }

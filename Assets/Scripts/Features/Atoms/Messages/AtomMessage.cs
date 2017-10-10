@@ -11,7 +11,7 @@ public class AtomMessage : AbstractMessage
     public static string ATOM_STOCK_UPDATE = "AtomStockUpdate";
     public static string ATOM_STOCK_UPDATED = "AtomStockUpdated";
     public static string ATOM_STOCK_UPGRADE = "AtomStockUpgrade";
-    public static string DEDUCT_ATOMS_WORTH_SC = "DeductAtomsWorthSC";
+    public static string SPEND_ATOMS = "SpendAtoms";
 
     private int _atomicNumber;
     private int _delta;

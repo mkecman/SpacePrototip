@@ -56,7 +56,7 @@ public class AtomsModelManager
     {
         AtomModel atomModel = _user.Atoms[ atomicNumber ];
 
-        if( !SpendAtomsWorthSC( atomModel.MaxStockUpgradePrice ) )
+        if( !SpendAtoms( atomModel.MaxStockUpgradePrice ) )
         {
             Debug.Log( "NOT ENOUGH ATOMIC MASS TO UPGRADE!" );
             return false;
@@ -68,7 +68,7 @@ public class AtomsModelManager
         return true;
     }
 
-    public bool SpendAtomsWorthSC( float PriceSC )
+    public bool SpendAtoms( float PriceSC )
     {
         if( _user.SC < PriceSC )
             return false;

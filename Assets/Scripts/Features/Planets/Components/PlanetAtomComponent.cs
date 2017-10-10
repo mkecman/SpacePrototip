@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UniRx;
+using System;
 
 public class PlanetAtomComponent : AbstractView
 {
@@ -8,19 +10,20 @@ public class PlanetAtomComponent : AbstractView
     public void UpdateModel( AtomModel model )
     {
         _model = model;
-
-        AtomModel atomDefinition = gameModel.Atoms[ model.AtomicNumber ];
+        
         StoreComponent planetAtomStore = gameObject.GetComponent<StoreComponent>();
-        planetAtomStore.ID = atomDefinition.AtomicNumber + "";
-        planetAtomStore.Name = atomDefinition.Symbol;
-        planetAtomStore.MaxStock = model.Stock;
-        planetAtomStore.Stock = model.Stock;
+        planetAtomStore.ID = _model.AtomicNumber.ToString();
+        planetAtomStore.Name = _model.Symbol;
+        planetAtomStore.MaxStock = _model.Stock;
+        planetAtomStore.Stock = _model.Stock;
 
         PlanetAtomUpgradeComponent upgradeComp = gameObject.GetComponent<PlanetAtomUpgradeComponent>();
-        upgradeComp.UpdateModel( model );
+        upgradeComp.UpdateModel( _model );
 
         HarvesterComponent harvester = gameObject.GetComponent<HarvesterComponent>();
-        harvester.UpdateModel( planetAtomStore, model );
+        harvester.UpdateModel( _model );
+
+        _model.rStock.Subscribe( stock => planetAtomStore.Stock = stock ).AddTo( this );
     }
 
     void OnDestroy()

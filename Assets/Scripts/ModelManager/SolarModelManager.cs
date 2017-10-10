@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class SolarModelManager
 {
@@ -10,12 +9,12 @@ public class SolarModelManager
     {
         _gameModel = gameModel;
     }
-    
+
     public SolarModel GenerateSolar( float SC )
     {
         Dictionary<int, int> stocks = new Dictionary<int, int>();
         Dictionary<int, float> atomWeights = new Dictionary<int, float>();
-        
+
         //string output = "weights: ";
 
         int maxAtomicNumber = getMaxAtomicNumberFromSC( SC );
@@ -87,7 +86,7 @@ public class SolarModelManager
         solarModel.Name = "Star " + _gameModel.User.StarsCreated;
         _gameModel.User.StarsCreated++;
         solarModel.Radius = (int)( SC );
-        solarModel.Lifetime = (int)(lifetime);
+        solarModel.Lifetime = (int)( lifetime );
         solarModel.CreatedSC = SC;
 
         PlanetModel planetModel = new PlanetModel( new JSONPlanetModel() );
@@ -99,8 +98,7 @@ public class SolarModelManager
         AtomModel planetAtomModel;
         foreach( KeyValuePair<int, bool> item in chosenAtoms )
         {
-            planetAtomModel = new AtomModel( new JSONAtomModel() );
-            planetAtomModel.AtomicNumber = item.Key;
+            planetAtomModel = _gameModel.Atoms[ item.Key ].Copy();
             planetAtomModel.Stock = stocks[ item.Key ];
             planetModel.Atoms.Add( planetAtomModel );
         }

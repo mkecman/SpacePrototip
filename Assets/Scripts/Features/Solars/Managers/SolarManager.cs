@@ -32,7 +32,7 @@ public class SolarManager : AbstractController
             return;
         }
 
-        Messenger.Dispatch( AtomMessage.DEDUCT_ATOMS_WORTH_SC, new AtomMessage( 0, 0, SC ) );
+        Messenger.Dispatch( AtomMessage.SPEND_ATOMS, new AtomMessage( 0, 0, SC ) );
         /**/
         SolarModel generatedSolarModel = SMM.GenerateSolar( SC );
         gameModel.User.Galaxies.Add( generatedSolarModel );
