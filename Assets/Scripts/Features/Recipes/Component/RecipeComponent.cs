@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using System.Collections;
 using UnityEngine.UI;
 using System;
+using UniRx;
 
 public class RecipeComponent : AbstractView
 {
@@ -17,6 +18,7 @@ public class RecipeComponent : AbstractView
 
     private RecipeModel _model;
     private ColorBlock _buttonColors;
+    private bool _isEnough = false;
 
     void Start()
     {
@@ -47,6 +49,10 @@ public class RecipeComponent : AbstractView
             GameObject go = Instantiate( FormulaAtomPrefab, RecipeFormula );
             FormulaAtomComponent formulaAtom = go.GetComponent<FormulaAtomComponent>();
             formulaAtom.Setup( _model.FormulaAtomsList[ i ] );
+
+            _model.FormulaAtomsList[i].HaveEnough
+                .Subscribe( enough => _isEnough &= enough );
+
             handleAtomStockUpdated(new AtomMessage(_model.FormulaAtomsList[i].AtomicNumber, 0));
         }
 
@@ -68,16 +74,8 @@ public class RecipeComponent : AbstractView
     private void handleAtomStockUpdated( AbstractMessage message )
     {
         AtomMessage msg = message as AtomMessage;
-        bool isEnough = true;
-        for( int i = 0; i < _model.FormulaAtomsList.Count; i++ )
-        {
-            if( !_model.FormulaAtomsList[ i ].HaveEnough )
-            {
-                isEnough = false;
-                break;
-            }
-        }
-        if( isEnough )
+        
+        if( _isEnough )
         {
             _buttonColors.normalColor = new Color(0,1,0);
             AmountSlider.maxValue = calculateMaxSliderValue();

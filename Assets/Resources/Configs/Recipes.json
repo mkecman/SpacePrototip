@@ -1,6 +1,15 @@
 {
 	"Items":
 	[
+	{
+   "Name": "Liquid hydrogen",
+   "Formula": "H2",
+   "MolecularMass": 2.02,
+   "ExchangeRate": 1
+ }
+	],
+	"Items2":
+	[
  {
    "Name": "R-alpine-hydride™",
    "Formula": "C18H32BLi",

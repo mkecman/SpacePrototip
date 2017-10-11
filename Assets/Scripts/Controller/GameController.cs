@@ -73,7 +73,6 @@ public class GameController : AbstractController
             CraftingPanel.SetActive( false );
         else
             CraftingPanel.SetActive( true );
-        
     }
 
     public void SaveUser()

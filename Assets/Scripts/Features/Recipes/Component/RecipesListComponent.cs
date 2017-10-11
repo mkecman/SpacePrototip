@@ -31,10 +31,4 @@ public class RecipesListComponent : AbstractView
         }
         _started = true;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
