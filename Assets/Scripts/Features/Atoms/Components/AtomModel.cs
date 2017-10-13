@@ -7,14 +7,14 @@ public class AtomModel
 {
     public StringReactiveProperty rName = new StringReactiveProperty();
     public StringReactiveProperty rSymbol = new StringReactiveProperty();
-    public IntReactiveProperty rAtomicNumber = new IntReactiveProperty( 0 );
-    public FloatReactiveProperty rAtomicWeight = new FloatReactiveProperty( 0 );
+    public IntReactiveProperty rAtomicNumber = new IntReactiveProperty();
+    public FloatReactiveProperty rAtomicWeight = new FloatReactiveProperty(987);
     public StringReactiveProperty rHexColor = new StringReactiveProperty();
     public StringReactiveProperty rGroupBlock = new StringReactiveProperty();
     public IntReactiveProperty rStock = new IntReactiveProperty( 0 );
     public IntReactiveProperty rMaxStock = new IntReactiveProperty( 10 );
     public IntReactiveProperty rMaxStockUpgradePrice = new IntReactiveProperty( 1 );
-    public IntReactiveProperty rMaxStockNextLevel = new IntReactiveProperty( 20 );
+    public IntReactiveProperty rMaxStockNextLevel = new IntReactiveProperty( 10 );
     public FloatReactiveProperty rHarvestRate = new FloatReactiveProperty(1f);
     public IntReactiveProperty rHarvestRateUpgradePrice = new IntReactiveProperty( 1 );
 
@@ -23,10 +23,11 @@ public class AtomModel
 
     public AtomModel( JSONAtomModel model )
     {
-        maxStockSubscriber = rMaxStock.Subscribe( _ => MaxStockUpgradePrice = (int)( AtomicWeight * Mathf.Pow( 1.049f, MaxStock ) ) );
-        harvestRateSubscriber = rHarvestRate.Subscribe( _ => HarvestRateUpgradePrice = (int)( Mathf.Pow( 10f, HarvestRate ) * AtomicWeight ) );
-
         fromJSON(model);
+
+        maxStockSubscriber = rMaxStock.Subscribe( _ => MaxStockUpgradePrice = (int)( AtomicWeight * Mathf.Pow( 1.035f, MaxStock ) ) );
+        harvestRateSubscriber = rHarvestRate.Subscribe( _ => HarvestRateUpgradePrice = (int)( Mathf.Pow( 2f, HarvestRate ) * AtomicWeight ) );
+
     }
 
     public AtomModel Copy()
@@ -62,6 +63,8 @@ public class AtomModel
         model.MaxStock = rMaxStock.Value;
         model.MaxStockNextLevel = rMaxStockNextLevel.Value;
         model.HarvestRate = rHarvestRate.Value;
+        model.MaxStockUpgradePrice = rMaxStockUpgradePrice.Value;
+        model.HarvestRateUpgradePrice = rHarvestRateUpgradePrice.Value;
 
         return model;
     }

@@ -14,7 +14,8 @@ public class GameModel
     public ReactiveCollection<AtomModel> Atoms;
     public Dictionary<string, AtomModel> AtomsBySymbol;
     public List<RecipeModel> Recipes;
-    
+    public AtomsModelManager AMM;
+
     private static GameModel gameModel;
 
     public static GameModel instance
@@ -48,6 +49,9 @@ public class GameModel
         rawRecipes = new RecipeConfig();
         rawRecipes.Load( AtomsBySymbol );
         Recipes = rawRecipes.Data;
+
+        AMM = new AtomsModelManager();
+        AMM.Setup( this );
 
         Messenger.Dispatch(GameMessage.MODEL_LOADED);
     }

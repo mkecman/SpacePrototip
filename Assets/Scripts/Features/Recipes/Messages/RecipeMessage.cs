@@ -6,9 +6,9 @@ public class RecipeMessage : AbstractMessage
     public static string CRAFT_COMPOUND_REQUEST = "CraftCompoundRequest";
 
     public RecipeModel Model;
-    public float Amount;
+    public int Amount;
 
-    public RecipeMessage( RecipeModel model, float amount )
+    public RecipeMessage( RecipeModel model, int amount )
     {
         Model = model;
         Amount = amount;

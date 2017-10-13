@@ -11,14 +11,12 @@ public class RecipesManager : AbstractController
     {
         RecipeMessage recipeMessage = msg as RecipeMessage;
         RecipeModel model = recipeMessage.Model;
-
-        float collectedSC = 0;
+        
         for( int j = 0; j < model.FormulaAtomsList.Count; j++ )
         {
-            collectedSC += recipeMessage.Amount * model.FormulaAtomsList[ j ].Amount * gameModel.Atoms[ model.FormulaAtomsList[ j ].AtomicNumber].AtomicWeight;
+            gameModel.AMM.UpdateAtomStock( model.FormulaAtomsList[ j ].AtomicNumber, - recipeMessage.Amount * model.FormulaAtomsList[ j ].Amount );
         }
-
-        Messenger.Dispatch( AtomMessage.SPEND_ATOMS, new AtomMessage( 0, 0, collectedSC ) );
+        
         Messenger.Dispatch( HCMessage.UPDATE_REQUEST, new HCMessage( Mathf.RoundToInt( model.MolecularMass * model.ExchangeRate * recipeMessage.Amount ) ) );
     }
     

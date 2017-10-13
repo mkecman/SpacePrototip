@@ -71,7 +71,7 @@ public class RecipeComponent : AbstractView
 
     private void handleConvertButtonClick()
     {
-        Messenger.Dispatch( RecipeMessage.CRAFT_COMPOUND_REQUEST, new RecipeMessage( _model, AmountSlider.value ) );
+        Messenger.Dispatch( RecipeMessage.CRAFT_COMPOUND_REQUEST, new RecipeMessage( _model, (int)AmountSlider.value ) );
     }
 
     private void UpdateSliderLabel( float value )

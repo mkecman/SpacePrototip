@@ -17,7 +17,17 @@ public class AutoPlayer : AbstractController
     
     private float lastTime;
     private bool _isActive = true;
-    
+
+    private void OnEnable()
+    {
+        gameModel.Config.autoPlay = true;
+    }
+
+    private void OnDisable()
+    {
+        gameModel.Config.autoPlay = false;
+    }
+
     // Use this for initialization
     void Start()
     {

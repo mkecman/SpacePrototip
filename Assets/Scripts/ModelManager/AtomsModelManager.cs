@@ -8,12 +8,13 @@ public class AtomsModelManager
 {
     private UserModel _user;
     private ReactiveCollection<AtomModel> _atomsDefinitions;
-    private int nextLevelMaxStock = 10;
+    private GameConfig _config;
 
-    public void Setup( ReactiveCollection<AtomModel> atoms, UserModel user )
+    public void Setup( GameModel gameModel )
     {
-        _atomsDefinitions = atoms;
-        _user = user;
+        _config = gameModel.Config;
+        _atomsDefinitions = gameModel.Atoms;
+        _user = gameModel.User;
 
         UpdateSC();
     }
@@ -76,15 +77,15 @@ public class AtomsModelManager
             return false;
         }
 
-        atomModel.MaxStock += nextLevelMaxStock;
-        atomModel.MaxStockNextLevel = atomModel.MaxStock + nextLevelMaxStock;
-
+        atomModel.MaxStock += atomModel.MaxStockNextLevel;
+        
         return true;
     }
 
     public bool SpendAtoms( float PriceSC )
     {
-        return true;
+        if( _config.autoPlay )
+            return true;
 
         if( _user.SC < PriceSC )
             return false;

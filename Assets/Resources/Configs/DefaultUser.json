@@ -5,10 +5,10 @@
     "HC": 1000,
     "Atoms": [
         {
-            "Name": "",
-            "Symbol": "",
+            "Name": "Dummy",
+            "Symbol": "D",
             "AtomicNumber": 0,
-            "AtomicWeight": 0.0,
+            "AtomicWeight": 0,
             "HexColor": "",
             "GroupBlock": "",
             "Stock": 0,

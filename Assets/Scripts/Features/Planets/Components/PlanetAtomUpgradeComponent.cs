@@ -23,7 +23,7 @@ public class PlanetAtomUpgradeComponent : AbstractView
         .AddTo( this );
         
         _model.rHarvestRate
-        .Subscribe( HR => UIStockLabel.text = ( ( 1f / ( 1f / _model.HarvestRate ) ) * _model.AtomicWeight ).ToString( "F1" ) + "AM/s" )
+        .Subscribe( HR => UIStockLabel.text = _model.HarvestRate.ToString( "F1" ) + "AM/s" )
         .AddTo( this );
         
         _model.rHarvestRateUpgradePrice

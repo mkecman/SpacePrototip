@@ -14,6 +14,65 @@ public class SolarModelManager
     {
         Dictionary<int, int> stocks = new Dictionary<int, int>();
         Dictionary<int, float> atomWeights = new Dictionary<int, float>();
+        
+        int maxAtomicNumber = getMaxAtomicNumberFromSC( SC );
+        for( int i = 1; i <= maxAtomicNumber; i++ )
+        {
+            stocks[ i ] = 0;
+
+            atomWeights.Add
+            (
+                i,
+                ( 1 / Mathf.Sqrt( 2 * Mathf.PI * _gameModel.Config.curve ) ) * Mathf.Exp( -Mathf.Pow( maxAtomicNumber - i, 2 ) / ( 2 * _gameModel.Config.curve ) )
+            );
+        }
+
+        Dictionary<int, bool> chosenAtoms = new Dictionary<int, bool>();
+        int minimum = maxAtomicNumber;
+        if( minimum > 12 )
+            minimum = 12;
+
+        int currentAtomIndex;
+        for( int i = 0; i < minimum; i++ )
+        {
+            currentAtomIndex = (int)chooseWithProbabilities( atomWeights );
+            chosenAtoms[ currentAtomIndex ] = true;
+        }
+
+        float SCmin = SC * 1.1f;
+        float SCmax = SC * 3f;
+
+        float SCPerAtom = SCmin / chosenAtoms.Count;
+
+
+        SolarModel solarModel = new SolarModel( new JSONSolarModel() );
+        solarModel.Name = "Star " + _gameModel.User.StarsCreated;
+        _gameModel.User.StarsCreated++;
+        solarModel.Radius = (int)( SC );
+        solarModel.Lifetime = (int)( SCmin / chosenAtoms.Count );
+        solarModel.CreatedSC = SC;
+
+        PlanetModel planetModel = new PlanetModel( new JSONPlanetModel() );
+        planetModel.Name = "Planet " + _gameModel.User.PlanetsCreated;
+        _gameModel.User.PlanetsCreated++;
+        planetModel.Radius = 1;
+        solarModel.Planets.Add( planetModel );
+
+        AtomModel planetAtomModel;
+        foreach( KeyValuePair<int, bool> item in chosenAtoms )
+        {
+            planetAtomModel = _gameModel.Atoms[ item.Key ].Copy();
+            planetAtomModel.Stock = (int)(SCPerAtom / planetAtomModel.AtomicWeight * 3f);
+            planetModel.Atoms.Add( planetAtomModel );
+        }
+
+        return solarModel;
+    }
+
+    public SolarModel oldGenerateSolar( float SC )
+    {
+        Dictionary<int, int> stocks = new Dictionary<int, int>();
+        Dictionary<int, float> atomWeights = new Dictionary<int, float>();
 
         //string output = "weights: ";
 

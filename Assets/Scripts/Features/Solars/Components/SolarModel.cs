@@ -29,6 +29,7 @@ public class SolarModel
         JSONSolarModel model = new JSONSolarModel();
         model.Name = rName.Value;
         model.Radius = rRadius.Value;
+        model.Lifetime = rLifetime.Value;
         model.CreatedSC = rCreatedSC.Value;
 
         model.Planets = new List<JSONPlanetModel>();
