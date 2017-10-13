@@ -26,13 +26,38 @@ public class ProgressBar : MonoBehaviour
 
     public float value
     {
-        set { _value = value; setFill(); }
+        set {
+                if( value == _value )
+                    return;
+
+                /*if( value < 0 )
+                    _value = 0;
+                if( value > _maxValue )
+                    _value = _maxValue;
+                if( value >= 0 && value <= _maxValue )*/
+                    _value = value;
+
+                setFill();
+            }
         get { return _value; }
     }
 
     public float maxValue
     {
-        set { _maxValue = value; setFill(); }
+        set {
+                if( value == _maxValue )
+                    return;
+
+                /*if( value < 1 )
+                    _maxValue = 1;
+                if( value >= 1 )*/
+                    _maxValue = value;
+
+                /*if( _value > _maxValue )
+                    _value = _maxValue;*/
+
+                setFill();
+            }
         get { return _maxValue; }
     }
 

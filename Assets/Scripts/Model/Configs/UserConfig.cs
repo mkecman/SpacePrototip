@@ -26,13 +26,14 @@ public class UserConfig
         {
             TextAsset targetFile = Resources.Load<TextAsset>("Configs/DefaultUser");
             Data = JsonUtility.FromJson<JSONUserModel>(targetFile.text);
+            userModel = new UserModel( Data );
             Save();
         }
     }
 
     public void Save()
     {
-        File.WriteAllText( jsonFilePath, JsonUtility.ToJson( Data, true ) );
+        File.WriteAllText( jsonFilePath, JsonUtility.ToJson( userModel.toJSON(), true ) );
     }
     
     

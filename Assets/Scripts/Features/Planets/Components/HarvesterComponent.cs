@@ -1,19 +1,16 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
-using System;
-using UniRx;
+﻿using UniRx;
+using UnityEngine;
 
 public class HarvesterComponent : AbstractView
 {
     public ProgressBar UISlider;
-    
+
     private AtomModel _model;
 
     private float _startTime;
     private FloatReactiveProperty timePercent = new FloatReactiveProperty();
     private AtomMessage _atomMessage;
-    
+
     internal void UpdateModel( AtomModel model )
     {
         _model = model;
@@ -33,7 +30,7 @@ public class HarvesterComponent : AbstractView
         (
             timePercent.Subscribe( percent => UISlider.value = UISlider.maxValue * percent )
         );
-        
+
         AddReactor
         (
             timePercent
@@ -51,9 +48,9 @@ public class HarvesterComponent : AbstractView
         (
             _model.rStock.Where( _ => _model.Stock <= 0 ).Subscribe( _ => DestroyReactors() )
         );
-        
+
     }
-    
+
     void OnDestroy()
     {
         DestroyReactors();

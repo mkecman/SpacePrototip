@@ -14,6 +14,19 @@ public class AtomsModelManager
     {
         _atomsDefinitions = atoms;
         _user = user;
+
+        UpdateSC();
+    }
+
+    private void UpdateSC()
+    {
+        float collectedSC = 0;
+        for( int i = 1; i < _user.Atoms.Count; i++ )
+        {
+            collectedSC += _user.Atoms[ i ].AtomicWeight * _user.Atoms[ i ].Stock;
+        }
+
+        _user.SC = collectedSC;
     }
 
     public bool GenerateAtom()
@@ -38,12 +51,13 @@ public class AtomsModelManager
             AtomModel atom;
             for( int i = _user.Atoms.Count; i <= atomicNumber; i++ )
             {
-                atom = _atomsDefinitions[ i ];
+                atom = _atomsDefinitions[ i ].Copy();
                 _user.Atoms.Add( atom );
             }
         }
 
-        UpdateAtomStock( atomicNumber, 1 );
+        if( _user.Atoms[ atomicNumber ].Stock < _user.Atoms[ atomicNumber ].MaxStock )
+            UpdateAtomStock( atomicNumber, 1 );
     }
 
     public void UpdateAtomStock( int atomicNumber, int delta )
@@ -70,6 +84,8 @@ public class AtomsModelManager
 
     public bool SpendAtoms( float PriceSC )
     {
+        return true;
+
         if( _user.SC < PriceSC )
             return false;
 
@@ -89,6 +105,7 @@ public class AtomsModelManager
                 }
             }
         }
+        
         return true;
     }
     

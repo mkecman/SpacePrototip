@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections.Generic;
 using UniRx;
 
 public class UserModel
@@ -38,39 +37,66 @@ public class UserModel
         }
     }
 
+    public JSONUserModel toJSON()
+    {
+        JSONUserModel model = new JSONUserModel();
+
+        model.ID = rID.Value;
+        model.XP = rXP.Value;
+        model.SC = rSC.Value;
+        model.HC = rHC.Value;
+        model.StarsCreated = rStarsCreated.Value;
+        model.PlanetsCreated = rPlanetsCreated.Value;
+
+        model.Atoms = new List<JSONAtomModel>();
+        int i;
+        for( i = 0; i < Atoms.Count; i++ )
+        {
+            model.Atoms.Add( Atoms[ i ].toJSON() );
+        }
+
+        model.Galaxies = new List<JSONSolarModel>();
+        for( i = 0; i < Galaxies.Count; i++ )
+        {
+            model.Galaxies.Add( Galaxies[ i ].toJSON() );
+        }
+
+        return model;
+    }
+
     public string ID
     {
-        set { Model.ID = value; rID.Value = value; }
+        set { rID.Value = value; }
         get { return rID.Value; }
     }
 
     public int XP
     {
-        set { Model.XP = value; rXP.Value = value; }
+        set { rXP.Value = value; }
         get { return rXP.Value; }
     }
 
     public float SC
     {
-        set { Model.SC = value; rSC.Value = value; }
+        set { rSC.Value = value; }
         get { return rSC.Value; }
     }
 
     public int HC
     {
-        set { Model.HC = value; rHC.Value = value; }
+        set { rHC.Value = value; }
         get { return rHC.Value; }
     }
 
     public int StarsCreated
     {
-        set { Model.StarsCreated = value; rStarsCreated.Value = value; }
+        set { rStarsCreated.Value = value; }
         get { return rStarsCreated.Value; }
     }
 
     public int PlanetsCreated
     {
-        set { Model.PlanetsCreated = value; rPlanetsCreated.Value = value; }
+        set { rPlanetsCreated.Value = value; }
         get { return rPlanetsCreated.Value; }
     }
 }

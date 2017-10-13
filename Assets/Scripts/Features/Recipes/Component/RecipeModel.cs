@@ -23,6 +23,8 @@ public class RecipeModel
         var pattern = @"\((.*?)\)|([A-Z][a-z])|([A-Z])|\d+"; //find between brackets, Uppercase+lowercase, Uppercase, digit
         var matches = Regex.Matches( formula, pattern );
 
+        Dictionary<int, FormulaAtomModel> atomDict = new Dictionary<int, FormulaAtomModel>();
+
         for( int i = 0; i < matches.Count; i++ )
         {
             string symbol = matches[ i ].ToString();
@@ -48,9 +50,20 @@ public class RecipeModel
                     }
                 }
                 amount *= multiplier;
-                FormulaAtomsList.Add( new FormulaAtomModel(Atoms[symbol].AtomicNumber, symbol, amount ) );
+
+                FormulaAtomModel atomModel;
+                if( atomDict.TryGetValue( Atoms[ symbol ].AtomicNumber, out atomModel ) )
+                    atomModel.Amount += amount;
+                else
+                    atomDict.Add( Atoms[ symbol ].AtomicNumber, new FormulaAtomModel(Atoms[symbol].AtomicNumber, symbol, amount ) );
             }
         }
+
+        foreach( KeyValuePair<int, FormulaAtomModel> item in atomDict )
+        {
+            FormulaAtomsList.Add( item.Value );
+        }
+        
     }
 
     

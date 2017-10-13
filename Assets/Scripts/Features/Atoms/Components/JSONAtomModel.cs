@@ -14,6 +14,6 @@ public class JSONAtomModel
     public int MaxStock = 10;
     public int MaxStockUpgradePrice = 1;
     public int MaxStockNextLevel = 20;
-    public float HarvestRate = .1f;
+    public float HarvestRate = 1f;
     public int HarvestRateUpgradePrice = 1;
 }

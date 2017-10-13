@@ -1,9 +1,7 @@
-﻿using UnityEngine;
+﻿using UniRx;
+using UnityEngine;
 using UnityEngine.Events;
-using System.Collections;
 using UnityEngine.UI;
-using System;
-using UniRx;
 
 public class RecipeComponent : AbstractView
 {
@@ -17,23 +15,7 @@ public class RecipeComponent : AbstractView
     public Button ConvertButton;
 
     private RecipeModel _model;
-    private ColorBlock _buttonColors;
-    private bool _isEnough = false;
-
-    void Start()
-    {
-        _buttonColors = ColorBlock.defaultColorBlock;
-    }
-
-    void OnEnable()
-    {
-        Messenger.Listen(AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated);
-    }
-
-    void OnDisable()
-    {
-        Messenger.StopListening(AtomMessage.ATOM_STOCK_UPDATED, handleAtomStockUpdated);
-    }
+    private bool _isSetup = false;
 
     public void Setup( RecipeModel model )
     {
@@ -41,27 +23,55 @@ public class RecipeComponent : AbstractView
         MolecularWeightLabel.text = _model.MolecularMass.ToString();
         ExchangeRateLabel.text = _model.ExchangeRate.ToString();
         HardCurrencyLabel.text = "0";
-        AmountSlider.onValueChanged.AddListener( new UnityAction<float>( UpdateSliderLabel ) );
-        ConvertButton.onClick.AddListener(new UnityAction(handleConvertButtonClick));
 
+        AmountSlider.OnValueChangedAsObservable().Subscribe( UpdateSliderLabel ).AddTo( this );
+        ConvertButton.OnClickAsObservable().Subscribe( _ => handleConvertButtonClick() ).AddTo( this );
+        
         for( int i = 0; i < _model.FormulaAtomsList.Count; i++ )
         {
             GameObject go = Instantiate( FormulaAtomPrefab, RecipeFormula );
             FormulaAtomComponent formulaAtom = go.GetComponent<FormulaAtomComponent>();
-            formulaAtom.Setup( _model.FormulaAtomsList[ i ] );
+            FormulaAtomModel formulaAtomModel = _model.FormulaAtomsList[ i ];
 
-            _model.FormulaAtomsList[i].HaveEnough
-                .Subscribe( enough => _isEnough &= enough );
+            if( formulaAtomModel.AtomicNumber < gameModel.User.Atoms.Count )
+                listenForAtomStockChange( formulaAtomModel.AtomicNumber );
 
-            handleAtomStockUpdated(new AtomMessage(_model.FormulaAtomsList[i].AtomicNumber, 0));
+            formulaAtom.Setup( formulaAtomModel );
         }
+
+        _isSetup = true;
+
+        gameModel.User.Atoms.ObserveAdd().Subscribe( addEvent => listenForAtomStockChange( addEvent.Value.AtomicNumber ) );
 
         UpdateSliderLabel( 0 );
     }
 
+    private void listenForAtomStockChange( int atomicNumber )
+    {
+        gameModel.User.Atoms[ atomicNumber ].rStock
+            .Where( _ => isActiveAndEnabled && _isSetup )
+            .Subscribe( checkAmount )
+            .AddTo( this );
+    }
+
+    private void checkAmount( int stock )
+    {
+        if( _model.FormulaAtomsList.TrueForAll( formulaAtom => formulaAtom.HaveEnough.Value ) )
+        {
+            ConvertButton.interactable = true;
+            AmountSlider.maxValue = calculateMaxSliderValue();
+            AmountSlider.value = AmountSlider.maxValue;
+        }
+        else
+        {
+            ConvertButton.interactable = false;
+            AmountSlider.maxValue = 0;
+        }
+    }
+
     private void handleConvertButtonClick()
     {
-        Messenger.Dispatch(RecipeMessage.CRAFT_COMPOUND_REQUEST, new RecipeMessage( _model, AmountSlider.value ));
+        Messenger.Dispatch( RecipeMessage.CRAFT_COMPOUND_REQUEST, new RecipeMessage( _model, AmountSlider.value ) );
     }
 
     private void UpdateSliderLabel( float value )
@@ -70,37 +80,19 @@ public class RecipeComponent : AbstractView
         int HCAmount = (int)( _model.MolecularMass * value * _model.ExchangeRate );
         HardCurrencyLabel.text = HCAmount.ToString();
     }
-    
-    private void handleAtomStockUpdated( AbstractMessage message )
-    {
-        AtomMessage msg = message as AtomMessage;
-        
-        if( _isEnough )
-        {
-            _buttonColors.normalColor = new Color(0,1,0);
-            AmountSlider.maxValue = calculateMaxSliderValue();
-            AmountSlider.value = AmountSlider.maxValue;
-        }
-        else
-        {
-            _buttonColors.normalColor = Color.white;
-            AmountSlider.maxValue = 0;
-        }
-        ConvertButton.colors = _buttonColors;
-    }
 
     private int calculateMaxSliderValue()
     {
         int minValue = int.MaxValue;
         int currentAmount = 0;
-        
+
         for( int i = 0; i < _model.FormulaAtomsList.Count; i++ )
         {
-            currentAmount = gameModel.User.Atoms[_model.FormulaAtomsList[i].AtomicNumber].Stock / _model.FormulaAtomsList[i].Amount;
-            if ( currentAmount < minValue )
+            currentAmount = gameModel.User.Atoms[ _model.FormulaAtomsList[ i ].AtomicNumber ].Stock / _model.FormulaAtomsList[ i ].Amount;
+            if( currentAmount < minValue )
                 minValue = currentAmount;
         }
-        
+
         return minValue;
     }
 }

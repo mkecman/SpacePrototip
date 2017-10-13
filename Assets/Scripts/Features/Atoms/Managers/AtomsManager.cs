@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class AtomsManager : AbstractController
 {
@@ -17,11 +18,12 @@ public class AtomsManager : AbstractController
         Messenger.Listen( AtomMessage.ATOM_HARVEST, AtomHarvested );
         Messenger.Listen( AtomMessage.ATOM_STOCK_UPGRADE, AtomStockUpgrade );
         Messenger.Listen( AtomMessage.SPEND_ATOMS, SpendAtoms );
-        Messenger.Listen( AtomMessage.ATOM_STOCK_UPDATE, handleAtomStockUpdate );
     }
 
     private void SetupAtoms( AbstractMessage message )
     {
+        gameModel.User.Atoms.ObserveAdd().Subscribe( addEvent => CreateAtom( addEvent.Value ) ).AddTo(this);
+
         AMM.Setup( gameModel.Atoms, gameModel.User );
         for( int atomicNumber = 1; atomicNumber < gameModel.User.Atoms.Count; atomicNumber++ )
         {
@@ -40,42 +42,27 @@ public class AtomsManager : AbstractController
     private void GenerateAtom( AbstractMessage message )
     {
         int randomAtomIndex = UnityEngine.Random.Range( 1, gameModel.User.Atoms.Count );
-        if( AMM.GenerateAtom() )
-        {
-
-            Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
-        }
+        AMM.GenerateAtom();
     }
 
     private void AtomHarvested( AbstractMessage message )
     {
         AtomMessage data = message as AtomMessage;
         AMM.HarvestAtom( data.AtomicNumber );
-
-        Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
     }
 
     private void AtomStockUpgrade( AbstractMessage msg )
     {
         AtomMessage message = msg as AtomMessage;
-        if( AMM.UpgradeAtomStock( message.AtomicNumber ) )
-        {
-            Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
-        }
+        AMM.UpgradeAtomStock( message.AtomicNumber );
     }
 
     private void SpendAtoms( AbstractMessage msg )
     {
         AtomMessage message = msg as AtomMessage;
         AMM.SpendAtoms( message.SC );
-        Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
     }
 
-    private void handleAtomStockUpdate( AbstractMessage message )
-    {
-        AtomMessage data = message as AtomMessage;
-        AMM.UpdateAtomStock( data.AtomicNumber, data.Delta );
-        Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPDATED );
-    }
+    
 
 }

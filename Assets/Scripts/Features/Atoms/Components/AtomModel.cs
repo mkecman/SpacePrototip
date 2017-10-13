@@ -5,8 +5,6 @@ using System;
 
 public class AtomModel
 {
-    public JSONAtomModel Model;
-
     public StringReactiveProperty rName = new StringReactiveProperty();
     public StringReactiveProperty rSymbol = new StringReactiveProperty();
     public IntReactiveProperty rAtomicNumber = new IntReactiveProperty( 0 );
@@ -17,7 +15,7 @@ public class AtomModel
     public IntReactiveProperty rMaxStock = new IntReactiveProperty( 10 );
     public IntReactiveProperty rMaxStockUpgradePrice = new IntReactiveProperty( 1 );
     public IntReactiveProperty rMaxStockNextLevel = new IntReactiveProperty( 20 );
-    public FloatReactiveProperty rHarvestRate = new FloatReactiveProperty(.1f);
+    public FloatReactiveProperty rHarvestRate = new FloatReactiveProperty(1f);
     public IntReactiveProperty rHarvestRateUpgradePrice = new IntReactiveProperty( 1 );
 
     private IDisposable maxStockSubscriber;
@@ -33,53 +31,39 @@ public class AtomModel
 
     public AtomModel Copy()
     {
-        JSONAtomModel json = new JSONAtomModel();
-        
-        json.Name = rName.Value;
-        json.Symbol = rSymbol.Value;
-        json.AtomicNumber = rAtomicNumber.Value;
-        json.AtomicWeight = rAtomicWeight.Value;
-        json.HexColor = rHexColor.Value;
-        json.GroupBlock = rGroupBlock.Value;
-        json.Stock = rStock.Value;
-        json.MaxStock = rMaxStock.Value;
-        json.MaxStockNextLevel = rMaxStockNextLevel.Value;
-        json.HarvestRate = rHarvestRate.Value;
-
-        AtomModel atom = new AtomModel( json );
-        return atom;
+        return new AtomModel( this.toJSON() );
     }
 
     public void fromJSON( JSONAtomModel model )
     {
-        Model = model;
-
-        rName.Value = Model.Name;
-        rSymbol.Value = Model.Symbol;
-        rAtomicNumber.Value = Model.AtomicNumber;
-        rAtomicWeight.Value = Model.AtomicWeight;
-        rHexColor.Value = Model.HexColor;
-        rGroupBlock.Value = Model.GroupBlock;
-        rStock.Value = Model.Stock;
-        rMaxStock.Value = Model.MaxStock;
-        rMaxStockNextLevel.Value = Model.MaxStockNextLevel;
-        rHarvestRate.Value = Model.HarvestRate;
+        rName.Value = model.Name;
+        rSymbol.Value = model.Symbol;
+        rAtomicNumber.Value = model.AtomicNumber;
+        rAtomicWeight.Value = model.AtomicWeight;
+        rHexColor.Value = model.HexColor;
+        rGroupBlock.Value = model.GroupBlock;
+        rStock.Value = model.Stock;
+        rMaxStock.Value = model.MaxStock;
+        rMaxStockNextLevel.Value = model.MaxStockNextLevel;
+        rHarvestRate.Value = model.HarvestRate;
     }
 
     public JSONAtomModel toJSON()
     {
-        Model.Name = rName.Value;
-        Model.Symbol = rSymbol.Value;
-        Model.AtomicNumber = rAtomicNumber.Value;
-        Model.AtomicWeight = rAtomicWeight.Value;
-        Model.HexColor = rHexColor.Value;
-        Model.GroupBlock = rGroupBlock.Value;
-        Model.Stock = rStock.Value;
-        Model.MaxStock = rMaxStock.Value;
-        Model.MaxStockNextLevel = rMaxStockNextLevel.Value;
-        Model.HarvestRate = rHarvestRate.Value;
+        JSONAtomModel model = new JSONAtomModel();
 
-        return Model;
+        model.Name = rName.Value;
+        model.Symbol = rSymbol.Value;
+        model.AtomicNumber = rAtomicNumber.Value;
+        model.AtomicWeight = rAtomicWeight.Value;
+        model.HexColor = rHexColor.Value;
+        model.GroupBlock = rGroupBlock.Value;
+        model.Stock = rStock.Value;
+        model.MaxStock = rMaxStock.Value;
+        model.MaxStockNextLevel = rMaxStockNextLevel.Value;
+        model.HarvestRate = rHarvestRate.Value;
+
+        return model;
     }
 
     public void OnDestroy()

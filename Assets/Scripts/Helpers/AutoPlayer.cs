@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class AutoPlayer : MonoBehaviour
+public class AutoPlayer : AbstractController
 {
     [SerializeField]
     private float _timeScale;
@@ -13,6 +13,7 @@ public class AutoPlayer : MonoBehaviour
     public int SC = 100;
 
     private SolarMessage message = new SolarMessage( 0 );
+    private AtomMessage upgradeMessage = new AtomMessage( 1, 1 );
     
     private float lastTime;
     private bool _isActive = true;
@@ -36,11 +37,15 @@ public class AutoPlayer : MonoBehaviour
             Time.timeScale = _timeScale;
             _currentTimeScale = _timeScale;
         }
-
+        
         if( _isActive && Time.time - lastTime > spawnEvery )
         {
-            message.SC = SC;
+            message.SC = gameModel.User.SC;
             Messenger.Dispatch(SolarMessage.CREATE_SOLAR, message);
+
+            upgradeMessage.AtomicNumber = gameModel.User.Atoms.Count - 1;
+            Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPGRADE, upgradeMessage );
+
             lastTime = Time.time;
         }
     }

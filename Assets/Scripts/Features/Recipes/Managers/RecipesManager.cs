@@ -1,36 +1,25 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 public class RecipesManager : AbstractController
 {
-
-    // Use this for initialization
     void Start()
     {
-        Messenger.Listen(RecipeMessage.CRAFT_COMPOUND_REQUEST, handleCraftCompoundRequest);
+        Messenger.Listen( RecipeMessage.CRAFT_COMPOUND_REQUEST, handleCraftCompoundRequest );
     }
 
-    private void handleCraftCompoundRequest(AbstractMessage msg)
+    private void handleCraftCompoundRequest( AbstractMessage msg )
     {
         RecipeMessage recipeMessage = msg as RecipeMessage;
         RecipeModel model = recipeMessage.Model;
 
-        for (int i = 0; i < recipeMessage.Amount; i++)
+        float collectedSC = 0;
+        for( int j = 0; j < model.FormulaAtomsList.Count; j++ )
         {
-            for (int j = 0; j < model.FormulaAtomsList.Count; j++)
-            {
-                FormulaAtomModel atom = model.FormulaAtomsList[j];
-                Messenger.Dispatch(AtomMessage.ATOM_STOCK_UPDATE, new AtomMessage(atom.AtomicNumber, -atom.Amount));
-            }
+            collectedSC += recipeMessage.Amount * model.FormulaAtomsList[ j ].Amount * gameModel.Atoms[ model.FormulaAtomsList[ j ].AtomicNumber].AtomicWeight;
         }
 
-        Messenger.Dispatch(HCMessage.UPDATE_REQUEST, new HCMessage(Mathf.RoundToInt(model.MolecularMass * model.ExchangeRate * recipeMessage.Amount)));
+        Messenger.Dispatch( AtomMessage.SPEND_ATOMS, new AtomMessage( 0, 0, collectedSC ) );
+        Messenger.Dispatch( HCMessage.UPDATE_REQUEST, new HCMessage( Mathf.RoundToInt( model.MolecularMass * model.ExchangeRate * recipeMessage.Amount ) ) );
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
 }

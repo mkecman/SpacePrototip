@@ -10,13 +10,7 @@ public class AtomConfig
     public ReactiveCollection<AtomModel> atoms;
     public List<JSONAtomModel> jsonModel;
     public Dictionary<string, AtomModel> AtomsBySymbol;
-    private string jsonFilePath;
-
-    public AtomConfig()
-    {
-        jsonFilePath = Application.persistentDataPath + "atoms.json";
-    }
-
+    
     internal void Load()
     {
         TextAsset targetFile = Resources.Load<TextAsset>( "Configs/Atoms" );

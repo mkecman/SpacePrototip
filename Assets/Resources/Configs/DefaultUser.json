@@ -1,8 +1,8 @@
 {
     "ID": "1",
     "XP": 1,
-    "SC": 0.0,
-    "HC": 0,
+    "SC": 10.0794,
+    "HC": 1000,
     "Atoms": [
         {
             "Name": "",
@@ -23,17 +23,6 @@
             "HexColor": "",
             "GroupBlock": "",
             "Stock": 10,
-            "MaxStock": 10,
-            "UpgradeLevel": 1
-        },
-        {
-            "Name": "Helium",
-            "Symbol": "He",
-            "AtomicNumber": 2,
-            "AtomicWeight": 4.0026021003723148,
-            "HexColor": "",
-            "GroupBlock": "",
-            "Stock": 1000,
             "MaxStock": 10,
             "UpgradeLevel": 1
         }
