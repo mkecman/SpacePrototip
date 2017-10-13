@@ -31,7 +31,8 @@ public class FormulaAtomComponent : AbstractView
 
     private void listenForAtomStockChange( int atomicNumber )
     {
-        gameModel.User.Atoms[ _model.AtomicNumber ].rStock
+        if( _model.AtomicNumber < gameModel.User.Atoms.Count )
+            gameModel.User.Atoms[ _model.AtomicNumber ].rStock
                 .Where( _ => isActiveAndEnabled )
                 .Subscribe( stock => _model.HaveEnough.Value = ( stock >= _model.Amount ) )
                 .AddTo( this );
