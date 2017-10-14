@@ -50,11 +50,18 @@ public class AutoPlayer : AbstractController
         
         if( _isActive && Time.time - lastTime > spawnEvery )
         {
-            message.SC = gameModel.User.SC;
-            Messenger.Dispatch(SolarMessage.CREATE_SOLAR, message);
+            for( int i = 0; i < gameModel.User.Atoms.Count; i++ )
+            {
+                AtomModel atom = gameModel.User.Atoms[ i ];
+                if( atom.Stock == atom.MaxStock )
+                {
+                    upgradeMessage.AtomicNumber = atom.AtomicNumber;
+                    Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPGRADE, upgradeMessage );
+                }
+            }
 
-            upgradeMessage.AtomicNumber = gameModel.User.Atoms.Count - 1;
-            Messenger.Dispatch( AtomMessage.ATOM_STOCK_UPGRADE, upgradeMessage );
+            message.SC = gameModel.User.SC;
+            Messenger.Dispatch( SolarMessage.CREATE_SOLAR, message );
 
             lastTime = Time.time;
         }

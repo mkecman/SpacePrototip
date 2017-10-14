@@ -1,7 +1,7 @@
 {
     "ID": "1",
     "XP": 1,
-    "SC": 10.0794,
+    "SC": 1,
     "HC": 1000,
     "Atoms": [
         {
@@ -22,8 +22,8 @@
             "AtomicWeight": 1.0079400539398194,
             "HexColor": "",
             "GroupBlock": "",
-            "Stock": 10,
-            "MaxStock": 10,
+            "Stock": 20,
+            "MaxStock": 100,
             "UpgradeLevel": 1
         }
     ],

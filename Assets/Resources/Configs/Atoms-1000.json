@@ -19,7 +19,7 @@
          "HexColor":"FFFFFF",
          "GroupBlock":"nonmetal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -30,7 +30,7 @@
          "HexColor":"D9FFFF",
          "GroupBlock":"noble gas",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -41,7 +41,7 @@
          "HexColor":"CC80FF",
          "GroupBlock":"alkali metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -52,7 +52,7 @@
          "HexColor":"C2FF00",
          "GroupBlock":"alkaline earth metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -63,7 +63,7 @@
          "HexColor":"FFB5B5",
          "GroupBlock":"metalloid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -74,7 +74,7 @@
          "HexColor":"909090",
          "GroupBlock":"nonmetal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -85,7 +85,7 @@
          "HexColor":"3050F8",
          "GroupBlock":"nonmetal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -96,7 +96,7 @@
          "HexColor":"FF0D0D",
          "GroupBlock":"nonmetal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -107,7 +107,7 @@
          "HexColor":"B3E3F5",
          "GroupBlock":"halogen",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -118,7 +118,7 @@
          "HexColor":"B3E3F5",
          "GroupBlock":"noble gas",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -129,7 +129,7 @@
          "HexColor":"AB5CF2",
          "GroupBlock":"alkali metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -140,7 +140,7 @@
          "HexColor":"8AFF00",
          "GroupBlock":"alkaline earth metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -151,7 +151,7 @@
          "HexColor":"BFA6A6",
          "GroupBlock":"metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -162,7 +162,7 @@
          "HexColor":"F0C8A0",
          "GroupBlock":"metalloid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -173,7 +173,7 @@
          "HexColor":"FF8000",
          "GroupBlock":"nonmetal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -184,7 +184,7 @@
          "HexColor":"FFFF30",
          "GroupBlock":"nonmetal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -195,7 +195,7 @@
          "HexColor":"1FF01F",
          "GroupBlock":"halogen",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -206,7 +206,7 @@
          "HexColor":"80D1E3",
          "GroupBlock":"noble gas",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -217,7 +217,7 @@
          "HexColor":"8F40D4",
          "GroupBlock":"alkali metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -228,7 +228,7 @@
          "HexColor":"3DFF00",
          "GroupBlock":"alkaline earth metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -239,7 +239,7 @@
          "HexColor":"E6E6E6",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -250,7 +250,7 @@
          "HexColor":"BFC2C7",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -261,7 +261,7 @@
          "HexColor":"A6A6AB",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -272,7 +272,7 @@
          "HexColor":"8A99C7",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -283,7 +283,7 @@
          "HexColor":"9C7AC7",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -294,7 +294,7 @@
          "HexColor":"E06633",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -305,7 +305,7 @@
          "HexColor":"F090A0",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -316,7 +316,7 @@
          "HexColor":"50D050",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -327,7 +327,7 @@
          "HexColor":"C88033",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -338,7 +338,7 @@
          "HexColor":"7D80B0",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -349,7 +349,7 @@
          "HexColor":"C28F8F",
          "GroupBlock":"metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -360,7 +360,7 @@
          "HexColor":"668F8F",
          "GroupBlock":"metalloid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -371,7 +371,7 @@
          "HexColor":"BD80E3",
          "GroupBlock":"metalloid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -382,7 +382,7 @@
          "HexColor":"FFA100",
          "GroupBlock":"nonmetal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -393,7 +393,7 @@
          "HexColor":"A62929",
          "GroupBlock":"halogen",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -404,7 +404,7 @@
          "HexColor":"5CB8D1",
          "GroupBlock":"noble gas",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -415,7 +415,7 @@
          "HexColor":"702EB0",
          "GroupBlock":"alkali metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -426,7 +426,7 @@
          "HexColor":"00FF00",
          "GroupBlock":"alkaline earth metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -437,7 +437,7 @@
          "HexColor":"94FFFF",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -448,7 +448,7 @@
          "HexColor":"94E0E0",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -459,7 +459,7 @@
          "HexColor":"73C2C9",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -470,7 +470,7 @@
          "HexColor":"54B5B5",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -481,7 +481,7 @@
          "HexColor":"3B9E9E",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -492,7 +492,7 @@
          "HexColor":"248F8F",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -503,7 +503,7 @@
          "HexColor":"0A7D8C",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -514,7 +514,7 @@
          "HexColor":"698500",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -525,7 +525,7 @@
          "HexColor":"C0C0C0",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -536,7 +536,7 @@
          "HexColor":"FFD98F",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -547,7 +547,7 @@
          "HexColor":"A67573",
          "GroupBlock":"metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -558,7 +558,7 @@
          "HexColor":"668080",
          "GroupBlock":"metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -569,7 +569,7 @@
          "HexColor":"9E63B5",
          "GroupBlock":"metalloid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -580,7 +580,7 @@
          "HexColor":"D47A00",
          "GroupBlock":"metalloid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -591,7 +591,7 @@
          "HexColor":"940094",
          "GroupBlock":"halogen",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -602,7 +602,7 @@
          "HexColor":"429EB0",
          "GroupBlock":"noble gas",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -613,7 +613,7 @@
          "HexColor":"57178F",
          "GroupBlock":"alkali metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -624,7 +624,7 @@
          "HexColor":"00C900",
          "GroupBlock":"alkaline earth metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -635,7 +635,7 @@
          "HexColor":"70D4FF",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -646,7 +646,7 @@
          "HexColor":"FFFFC7",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -657,7 +657,7 @@
          "HexColor":"D9FFC7",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -668,7 +668,7 @@
          "HexColor":"C7FFC7",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -679,7 +679,7 @@
          "HexColor":"A3FFC7",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -690,7 +690,7 @@
          "HexColor":"8FFFC7",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -701,7 +701,7 @@
          "HexColor":"61FFC7",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -712,7 +712,7 @@
          "HexColor":"45FFC7",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -723,7 +723,7 @@
          "HexColor":"30FFC7",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -734,7 +734,7 @@
          "HexColor":"1FFFC7",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -745,7 +745,7 @@
          "HexColor":"00FF9C",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -756,7 +756,7 @@
          "HexColor":"000000",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -767,7 +767,7 @@
          "HexColor":"00D452",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -778,7 +778,7 @@
          "HexColor":"00BF38",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -789,7 +789,7 @@
          "HexColor":"00AB24",
          "GroupBlock":"lanthanoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -800,7 +800,7 @@
          "HexColor":"4DC2FF",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -811,7 +811,7 @@
          "HexColor":"4DA6FF",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -822,7 +822,7 @@
          "HexColor":"2194D6",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -833,7 +833,7 @@
          "HexColor":"267DAB",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -844,7 +844,7 @@
          "HexColor":"266696",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -855,7 +855,7 @@
          "HexColor":"175487",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -866,7 +866,7 @@
          "HexColor":"D0D0E0",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -877,7 +877,7 @@
          "HexColor":"FFD123",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -888,7 +888,7 @@
          "HexColor":"B8B8D0",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -899,7 +899,7 @@
          "HexColor":"A6544D",
          "GroupBlock":"metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -910,7 +910,7 @@
          "HexColor":"575961",
          "GroupBlock":"metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -921,7 +921,7 @@
          "HexColor":"9E4FB5",
          "GroupBlock":"metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -932,7 +932,7 @@
          "HexColor":"AB5C00",
          "GroupBlock":"metalloid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -943,7 +943,7 @@
          "HexColor":"754F45",
          "GroupBlock":"halogen",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -954,7 +954,7 @@
          "HexColor":"428296",
          "GroupBlock":"noble gas",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -965,7 +965,7 @@
          "HexColor":"420066",
          "GroupBlock":"alkali metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -976,7 +976,7 @@
          "HexColor":"007D00",
          "GroupBlock":"alkaline earth metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -987,7 +987,7 @@
          "HexColor":"70ABFA",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -998,7 +998,7 @@
          "HexColor":"00BAFF",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1009,7 +1009,7 @@
          "HexColor":"00A1FF",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1020,7 +1020,7 @@
          "HexColor":"008FFF",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1031,7 +1031,7 @@
          "HexColor":"0080FF",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1042,7 +1042,7 @@
          "HexColor":"006BFF",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1053,7 +1053,7 @@
          "HexColor":"545CF2",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1064,7 +1064,7 @@
          "HexColor":"785CE3",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1075,7 +1075,7 @@
          "HexColor":"8A4FE3",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1086,7 +1086,7 @@
          "HexColor":"A136D4",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1097,7 +1097,7 @@
          "HexColor":"B31FD4",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1108,7 +1108,7 @@
          "HexColor":"B31FBA",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1119,7 +1119,7 @@
          "HexColor":"B30DA6",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1130,7 +1130,7 @@
          "HexColor":"BD0D87",
          "GroupBlock":"actinoid",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1141,7 +1141,7 @@
          "HexColor":"C70066",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1152,7 +1152,7 @@
          "HexColor":"CC0059",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1163,7 +1163,7 @@
          "HexColor":"D1004F",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1174,7 +1174,7 @@
          "HexColor":"D90045",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1185,7 +1185,7 @@
          "HexColor":"E00038",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1196,7 +1196,7 @@
          "HexColor":"E6002E",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1207,7 +1207,7 @@
          "HexColor":"EB0026",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1218,7 +1218,7 @@
          "HexColor":"EB0026",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1229,7 +1229,7 @@
          "HexColor":"EB0026",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1240,7 +1240,7 @@
          "HexColor":"EB0026",
          "GroupBlock":"transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1251,7 +1251,7 @@
          "HexColor":"EB0026",
          "GroupBlock":"post-transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1262,7 +1262,7 @@
          "HexColor":"EB0026",
          "GroupBlock":"post-transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1273,7 +1273,7 @@
          "HexColor":"EB0026",
          "GroupBlock":"post-transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1284,7 +1284,7 @@
          "HexColor":"EB0026",
          "GroupBlock":"post-transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1295,7 +1295,7 @@
          "HexColor":"EB0026",
          "GroupBlock":"post-transition metal",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       },
       {
@@ -1306,7 +1306,7 @@
          "HexColor":"EB0026",
          "GroupBlock":"noble gas",
          "Stock":0,
-         "MaxStock":100,
+         "MaxStock":1000,
          "UpgradeLevel":1
       }
    ]

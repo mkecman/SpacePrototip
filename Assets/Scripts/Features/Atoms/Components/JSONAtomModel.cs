@@ -10,10 +10,10 @@ public class JSONAtomModel
     public float AtomicWeight;
     public string HexColor;
     public string GroupBlock;
-    public int Stock = 0;
-    public int MaxStock = 10;
+    public int Stock;
+    public int MaxStock;
     public int MaxStockUpgradePrice = 10;
-    public int MaxStockNextLevel = 10;
+    public int MaxStockNextLevel = 100;
     public float HarvestRate = 1f;
     public int HarvestRateUpgradePrice = 10;
 }

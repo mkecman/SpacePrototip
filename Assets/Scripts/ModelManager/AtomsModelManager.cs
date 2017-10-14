@@ -84,15 +84,27 @@ public class AtomsModelManager
 
     public bool SpendAtoms( float PriceSC )
     {
-        if( _config.autoPlay )
-            return true;
+        //if( _config.autoPlay )
+         //   return true;
 
         if( _user.SC < PriceSC )
             return false;
 
+        List<bool> depleted = new List<bool>( _user.Atoms.Count );
+        depleted.Add(true);
+        for( int index = 1; index < _user.Atoms.Count; index++ )
+        {
+            depleted.Add( false );
+        }
+
         float remainingSC = PriceSC;
         while( remainingSC > 0 )
         {
+            if( depleted.TrueForAll( value => value ) )
+            {
+                Debug.Log( "ahaaaa! " + remainingSC );
+                remainingSC = 0;
+            }
             for( int index = 1; index < _user.Atoms.Count; index++ )
             {
                 AtomModel atom = _user.Atoms[ index ];
@@ -101,9 +113,11 @@ public class AtomsModelManager
                     float reducedSC = remainingSC - atom.AtomicWeight;
                     if( reducedSC >= 0 )
                         UpdateAtomStock( atom.AtomicNumber, -1 );
-                    
-                    remainingSC = reducedSC;    
+
+                    remainingSC = reducedSC;
                 }
+                else
+                    depleted[ atom.AtomicNumber ] = true;
             }
         }
         

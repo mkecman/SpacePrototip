@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using UniRx;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ public class SolarComponent : MonoBehaviour
     public StoreComponent SolarStore;
 
     private SolarModel _model;
-    
+    private StringBuilder sb = new StringBuilder();
+
     public void Setup( SolarModel model )
     {
         _model = model;
@@ -41,9 +43,30 @@ public class SolarComponent : MonoBehaviour
             .AddTo(this);
 
         _model.rLifetime
-            .Subscribe( lifetime => SolarStore.Stock = lifetime )
+            .Subscribe( lifetime => { SolarStore.Stock = lifetime; SolarStore.Property = FormatTimeSpan( TimeSpan.FromSeconds( lifetime ) ); } )
             .AddTo( this );
         
+    }
+
+    private string FormatTimeSpan( TimeSpan ts )
+    {
+        sb.Clear();
+        if( (int)ts.TotalHours > 0 )
+        {
+            sb.Append( (int)ts.TotalHours );
+            sb.Append( "h " );
+        }
+
+        if( ts.Minutes > 0 )
+        {
+            sb.Append( ts.ToString( @"mm" ) );
+            sb.Append( "m " );
+        }
+        
+        sb.Append( ts.ToString( @"ss" ) );
+        sb.Append( "s" );
+
+        return sb.ToString();
     }
 
     private void OnDestroy()

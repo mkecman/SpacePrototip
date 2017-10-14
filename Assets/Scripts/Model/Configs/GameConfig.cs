@@ -4,9 +4,10 @@ using UnityEngine;
 public class GameConfig
 {
     public int MaxAtomicNumber = 20;
-    public float curve = 3f;
-    public float MaxHarvestRate = 3f;
+    public float curve = 10f;
+    public float MaxHarvestMultiplier = 3f;
     public float HarvestRateUpgradeStep = 0.2f;
+    public float HarvestTimeSpan = 1f;
 
     public Color32 GreenColor = new Color32( 0, 120, 20, 255 );
 

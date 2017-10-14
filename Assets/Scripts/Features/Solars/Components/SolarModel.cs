@@ -6,10 +6,10 @@ using System;
 
 public class SolarModel
 {
-    public StringReactiveProperty rName = new StringReactiveProperty("DefaultStar");
-    public IntReactiveProperty rRadius = new IntReactiveProperty(10);
-    public IntReactiveProperty rLifetime = new IntReactiveProperty(30);
-    public FloatReactiveProperty rCreatedSC = new FloatReactiveProperty(10f);
+    public StringReactiveProperty rName = new StringReactiveProperty();
+    public IntReactiveProperty rRadius = new IntReactiveProperty();
+    public IntReactiveProperty rLifetime = new IntReactiveProperty();
+    public FloatReactiveProperty rCreatedSC = new FloatReactiveProperty();
     public ReactiveCollection<PlanetModel> Planets = new ReactiveCollection<PlanetModel>();
 
     public SolarModel( JSONSolarModel model )
@@ -17,6 +17,7 @@ public class SolarModel
         rName.Value = model.Name;
         rRadius.Value = model.Radius;
         rCreatedSC.Value = model.CreatedSC;
+        rLifetime.Value = model.Lifetime;
 
         for( int i = 0; i < model.Planets.Count; i++ )
         {

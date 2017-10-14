@@ -8,15 +8,15 @@ public class AtomModel
     public StringReactiveProperty rName = new StringReactiveProperty();
     public StringReactiveProperty rSymbol = new StringReactiveProperty();
     public IntReactiveProperty rAtomicNumber = new IntReactiveProperty();
-    public FloatReactiveProperty rAtomicWeight = new FloatReactiveProperty(987);
+    public FloatReactiveProperty rAtomicWeight = new FloatReactiveProperty();
     public StringReactiveProperty rHexColor = new StringReactiveProperty();
     public StringReactiveProperty rGroupBlock = new StringReactiveProperty();
-    public IntReactiveProperty rStock = new IntReactiveProperty( 0 );
-    public IntReactiveProperty rMaxStock = new IntReactiveProperty( 10 );
-    public IntReactiveProperty rMaxStockUpgradePrice = new IntReactiveProperty( 1 );
-    public IntReactiveProperty rMaxStockNextLevel = new IntReactiveProperty( 10 );
-    public FloatReactiveProperty rHarvestRate = new FloatReactiveProperty(1f);
-    public IntReactiveProperty rHarvestRateUpgradePrice = new IntReactiveProperty( 1 );
+    public IntReactiveProperty rStock = new IntReactiveProperty();
+    public IntReactiveProperty rMaxStock = new IntReactiveProperty();
+    public IntReactiveProperty rMaxStockUpgradePrice = new IntReactiveProperty();
+    public IntReactiveProperty rMaxStockNextLevel = new IntReactiveProperty();
+    public FloatReactiveProperty rHarvestRate = new FloatReactiveProperty();
+    public IntReactiveProperty rHarvestRateUpgradePrice = new IntReactiveProperty();
 
     private IDisposable maxStockSubscriber;
     private IDisposable harvestRateSubscriber;
@@ -25,9 +25,8 @@ public class AtomModel
     {
         fromJSON(model);
 
-        maxStockSubscriber = rMaxStock.Subscribe( _ => MaxStockUpgradePrice = (int)( AtomicWeight * Mathf.Pow( 1.035f, MaxStock ) ) );
-        harvestRateSubscriber = rHarvestRate.Subscribe( _ => HarvestRateUpgradePrice = (int)( Mathf.Pow( 2f, HarvestRate ) * AtomicWeight ) );
-
+        maxStockSubscriber = rMaxStock.Subscribe( _ => MaxStockUpgradePrice = (int)( AtomicWeight * MaxStock ) );
+        harvestRateSubscriber = rHarvestRate.Subscribe( _ => HarvestRateUpgradePrice = (int)( Mathf.Pow( 4f, HarvestRate ) * AtomicWeight ) );
     }
 
     public AtomModel Copy()
