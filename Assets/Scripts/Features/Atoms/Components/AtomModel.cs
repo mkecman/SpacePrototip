@@ -26,7 +26,7 @@ public class AtomModel
         fromJSON(model);
 
         maxStockSubscriber = rMaxStock.Subscribe( _ => MaxStockUpgradePrice = (int)( AtomicWeight * MaxStock ) );
-        harvestRateSubscriber = rHarvestRate.Subscribe( _ => HarvestRateUpgradePrice = (int)( Mathf.Pow( 4f, HarvestRate ) * AtomicWeight ) );
+        harvestRateSubscriber = rHarvestRate.Subscribe( _ => HarvestRateUpgradePrice = (int)( Mathf.Pow( 6f, HarvestRate ) * AtomicWeight ) );
     }
 
     public AtomModel Copy()

@@ -38,15 +38,16 @@ public class SolarModelManager
             currentAtomIndex = (int)chooseWithProbabilities( atomWeights );
             chosenAtoms[ currentAtomIndex ] = true;
         }
-
-        float SCmin = SC * 1.1f;
+        
+        float SCmin = SC * 1.5f;
         float SCPerAtom = SCmin / chosenAtoms.Count;
+        float maxSCPerAtom = SC * _gameModel.Config.MaxHarvestMultiplier / chosenAtoms.Count;
         
         SolarModel solarModel = new SolarModel( new JSONSolarModel() );
         solarModel.Name = "Star " + _gameModel.User.StarsCreated;
         _gameModel.User.StarsCreated++;
         solarModel.Radius = (int)( SC );
-        solarModel.Lifetime = (int)( SCPerAtom * _gameModel.Config.HarvestTimeSpan );
+        solarModel.Lifetime = (int)( SCPerAtom );
         solarModel.CreatedSC = SC;
 
         PlanetModel planetModel = new PlanetModel( new JSONPlanetModel() );
@@ -59,7 +60,7 @@ public class SolarModelManager
         foreach( KeyValuePair<int, bool> item in chosenAtoms )
         {
             planetAtomModel = _gameModel.Atoms[ item.Key ].Copy();
-            planetAtomModel.Stock = (int)(SCPerAtom / planetAtomModel.AtomicWeight * _gameModel.Config.MaxHarvestMultiplier);
+            planetAtomModel.Stock = (int)(maxSCPerAtom / planetAtomModel.AtomicWeight);
             planetModel.Atoms.Add( planetAtomModel );
         }
 

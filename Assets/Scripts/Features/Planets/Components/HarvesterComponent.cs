@@ -28,7 +28,7 @@ public class HarvesterComponent : AbstractView
             _model.rHarvestRate
             .Subscribe( rate =>
             {
-                _harvestTime = _model.AtomicWeight / _model.HarvestRate * gameModel.Config.HarvestTimeSpan;
+                _harvestTime = _model.AtomicWeight / _model.HarvestRate;
                 _startTime = -( timePercent.Value * _harvestTime ) + Time.time;
             })
         );
