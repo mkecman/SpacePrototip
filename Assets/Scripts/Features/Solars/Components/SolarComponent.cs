@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using UniRx;
 using UnityEngine;
@@ -12,20 +13,24 @@ public class SolarComponent : MonoBehaviour
     private SolarModel _model;
     private StringBuilder sb = new StringBuilder();
 
+    private List<PlanetComponent> planets;
+
     public void Setup( SolarModel model )
     {
         _model = model;
-
+        
         SolarStore.Name = _model.Name;
         SolarStore.MaxStock = _model.Lifetime;
         SolarStore.Stock = _model.Lifetime;
         SolarStore.Property = _model.Radius + "";
 
+        planets = new List<PlanetComponent>();
         for( int index = 0; index < _model.Planets.Count; index++ )
         {
             GameObject planet = Instantiate( PlanetPrefab, PlanetsContainer );
             PlanetComponent planetView = planet.GetComponent<PlanetComponent>();
             planetView.Setup( _model.Planets[ index ] );
+            planets.Add( planetView );
         }
 
         Observable.Interval( TimeSpan.FromSeconds( 1 ) )
@@ -43,9 +48,14 @@ public class SolarComponent : MonoBehaviour
             .AddTo(this);
 
         _model.rLifetime
-            .Subscribe( lifetime => { SolarStore.Stock = lifetime; SolarStore.Property = FormatTimeSpan( TimeSpan.FromSeconds( lifetime ) ); } )
+            .Subscribe( onLifetimeUpdate )
             .AddTo( this );
-        
+    }
+
+    private void onLifetimeUpdate( int lifetime )
+    {
+        SolarStore.Stock = lifetime;
+        SolarStore.Property = FormatTimeSpan( TimeSpan.FromSeconds( lifetime ) );
     }
 
     private string FormatTimeSpan( TimeSpan ts )

@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UniRx;
 
 public class PlanetComponent : AbstractView
 {
@@ -10,7 +12,7 @@ public class PlanetComponent : AbstractView
     public GameObject planetAtomsContainer;
     
     private PlanetModel _model;
-    //private List<PlanetAtomComponent> atoms = new List<PlanetAtomComponent>();
+    //private List<PlanetAtomComponent> atoms;
     
     void OnDestroy()
     {
@@ -22,6 +24,7 @@ public class PlanetComponent : AbstractView
         _model = model;
         UIName.text = _model.Name;
 
+        //atoms = new List<PlanetAtomComponent>();
         for( int i = 0; i < _model.Atoms.Count; i++ )
         {
             GameObject planetAtomPrefabInstance = Instantiate( planetAtomPrefab, planetAtomsContainer.transform );
@@ -30,4 +33,5 @@ public class PlanetComponent : AbstractView
             //atoms.Add( planetAtomComp );
         }
     }
+    
 }

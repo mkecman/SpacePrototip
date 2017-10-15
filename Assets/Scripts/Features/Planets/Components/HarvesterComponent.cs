@@ -13,24 +13,28 @@ public class HarvesterComponent : AbstractView
     private AtomMessage _atomMessage;
     private IDisposable _interval;
     private float _harvestTime = 1f;
+    private int _originalMaxStock;
 
     internal void UpdateModel( AtomModel model )
     {
         _model = model;
         _startTime = Time.time;
-        
+        _originalMaxStock = _model.MaxStock;
+
         _atomMessage = new AtomMessage( _model.AtomicNumber, 1 );
 
         AddReactor( timePercent );
-        
+
         AddReactor
         (
             _model.rHarvestRate
             .Subscribe( rate =>
             {
+                _model.Stock = (int)( ( (float)_model.Stock / _model.MaxStock ) * ( _originalMaxStock * _model.HarvestRate ) );
+                _model.MaxStock = (int)( _originalMaxStock * _model.HarvestRate );
                 _harvestTime = _model.AtomicWeight / _model.HarvestRate;
                 _startTime = -( timePercent.Value * _harvestTime ) + Time.time;
-            })
+            } )
         );
 
         AddReactor
@@ -43,7 +47,7 @@ public class HarvesterComponent : AbstractView
         (
             timePercent.Subscribe( percent => UISlider.value = UISlider.maxValue * percent )
         );
-        
+
         AddReactor
         (
             _model.rStock.Where( _ => _model.Stock <= 0 ).Subscribe( _ => DestroyReactors() )
@@ -62,7 +66,7 @@ public class HarvesterComponent : AbstractView
         );
 
     }
-    
+
     void OnDestroy()
     {
         DestroyReactors();

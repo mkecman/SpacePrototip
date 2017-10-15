@@ -14,7 +14,7 @@ public class PlanetAtomComponent : AbstractView
         
         PlanetAtomStore.ID = _model.AtomicNumber.ToString();
         PlanetAtomStore.Name = _model.Symbol;
-        PlanetAtomStore.MaxStock = _model.Stock;
+        PlanetAtomStore.MaxStock = _model.MaxStock;
         PlanetAtomStore.Stock = _model.Stock;
 
         PlanetAtomUpgradeComponent upgradeComp = gameObject.GetComponent<PlanetAtomUpgradeComponent>();
@@ -23,7 +23,8 @@ public class PlanetAtomComponent : AbstractView
         HarvesterComponent harvester = gameObject.GetComponent<HarvesterComponent>();
         harvester.UpdateModel( _model );
 
-        _model.rStock.Subscribe( stock => PlanetAtomStore.Stock = stock ).AddTo( this );
+        _model.rStock.Subscribe( stock => { PlanetAtomStore.Stock = stock; PlanetAtomStore.Property = stock + "(" + (stock * _model.AtomicWeight).ToString( "F0" ) + "AM)"; } ).AddTo( this );
+        _model.rMaxStock.Subscribe( maxStock => PlanetAtomStore.MaxStock = maxStock ).AddTo( this );
     }
 
     void OnDestroy()

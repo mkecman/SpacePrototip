@@ -60,7 +60,8 @@ public class SolarModelManager
         foreach( KeyValuePair<int, bool> item in chosenAtoms )
         {
             planetAtomModel = _gameModel.Atoms[ item.Key ].Copy();
-            planetAtomModel.Stock = (int)(maxSCPerAtom / planetAtomModel.AtomicWeight);
+            planetAtomModel.Stock = (int)( SCPerAtom / planetAtomModel.AtomicWeight);
+            planetAtomModel.MaxStock = planetAtomModel.Stock;
             planetModel.Atoms.Add( planetAtomModel );
         }
 

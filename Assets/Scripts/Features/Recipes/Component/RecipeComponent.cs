@@ -1,6 +1,5 @@
 ﻿using UniRx;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class RecipeComponent : AbstractView
@@ -17,6 +16,8 @@ public class RecipeComponent : AbstractView
     private RecipeModel _model;
     private bool _isSetup = false;
 
+    public bool AmountSliderActive;
+
     public void Setup( RecipeModel model )
     {
         _model = model;
@@ -26,7 +27,7 @@ public class RecipeComponent : AbstractView
 
         AmountSlider.OnValueChangedAsObservable().Subscribe( UpdateSliderLabel ).AddTo( this );
         ConvertButton.OnClickAsObservable().Subscribe( _ => handleConvertButtonClick() ).AddTo( this );
-        
+
         for( int i = 0; i < _model.FormulaAtomsList.Count; i++ )
         {
             GameObject go = Instantiate( FormulaAtomPrefab, RecipeFormula );
@@ -60,7 +61,8 @@ public class RecipeComponent : AbstractView
         {
             ConvertButton.interactable = true;
             AmountSlider.maxValue = calculateMaxSliderValue();
-            AmountSlider.value = AmountSlider.maxValue;
+            if( !AmountSliderActive )
+                AmountSlider.value = AmountSlider.maxValue;
         }
         else
         {
@@ -76,6 +78,9 @@ public class RecipeComponent : AbstractView
 
     private void UpdateSliderLabel( float value )
     {
+        if( value < AmountSlider.maxValue )
+            AmountSliderActive = true;
+
         SliderLabel.text = value.ToString();
         int HCAmount = (int)( _model.MolecularMass * value * _model.ExchangeRate );
         HardCurrencyLabel.text = HCAmount.ToString();
@@ -94,5 +99,12 @@ public class RecipeComponent : AbstractView
         }
 
         return minValue;
+    }
+
+    private void OnEnable()
+    {
+        AmountSliderActive = false;
+        if( _model != null )
+            checkAmount( 0 );
     }
 }
