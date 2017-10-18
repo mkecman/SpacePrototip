@@ -39,6 +39,6 @@ public static class JsonHelper
     [Serializable]
     private class WrapperList<T>
     {
-        public List<T> Items;
+        public List<T> Items = null;
     }
 }

@@ -11,7 +11,7 @@ public class HarvesterComponent : AbstractView
     private float _startTime;
     private FloatReactiveProperty timePercent = new FloatReactiveProperty();
     private AtomMessage _atomMessage;
-    private IDisposable _interval;
+    
     private float _harvestTime = 1f;
     private int _originalMaxStock;
 

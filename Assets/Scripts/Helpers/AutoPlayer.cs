@@ -5,7 +5,7 @@ using System;
 public class AutoPlayer : AbstractController
 {
     [SerializeField]
-    private float _timeScale;
+    private float _timeScale = 1;
 
     private float _currentTimeScale;
 

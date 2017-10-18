@@ -63,8 +63,7 @@ public class FlowLayoutGroup : LayoutGroup
 
 
     int cellsPerMainAxis, actualCellCountX, actualCellCountY;
-    int positionX;
-    int positionY;
+    
     float totalWidth = 0;
     float totalHeight = 0;
 
