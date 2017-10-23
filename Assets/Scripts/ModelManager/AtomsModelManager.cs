@@ -98,11 +98,11 @@ public class AtomsModelManager
         }
 
         float remainingSC = PriceSC;
-        while( remainingSC > 0 )
+        while( remainingSC > 1f )
         {
             if( depleted.TrueForAll( value => value ) )
             {
-                Debug.Log( "ahaaaa! " + remainingSC );
+                Debug.LogError( "Depleted Atoms, but remainingSC still above 1AM! " + remainingSC );
                 remainingSC = 0;
             }
             for( int index = 1; index < _user.Atoms.Count; index++ )

@@ -41,7 +41,6 @@ public class SolarModelManager
         
         float SCmin = SC * 1.5f;
         float SCPerAtom = SCmin / chosenAtoms.Count;
-        float maxSCPerAtom = SC * _gameModel.Config.MaxHarvestMultiplier / chosenAtoms.Count;
         
         SolarModel solarModel = new SolarModel( new JSONSolarModel() );
         solarModel.Name = "Star " + _gameModel.User.StarsCreated;
