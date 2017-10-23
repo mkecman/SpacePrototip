@@ -77,7 +77,7 @@ public class FlowLayoutGroup : LayoutGroup
         // However, in this case we set both the horizontal and vertical position when invoked for the vertical axis.
         // Since we only set the horizontal position and not the size, it shouldn't affect children's layout,
         // and thus shouldn't break the rule that all horizontal layout must be calculated before all vertical layout.
-
+        
 
         float width = rectTransform.rect.size.x;
         float height = rectTransform.rect.size.y;

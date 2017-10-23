@@ -10,7 +10,6 @@ public class SolarManager : AbstractController
     public GameObject solarPrefab;
 
     private SolarModelManager SMM = new SolarModelManager();
-    private int _layoutUpdateCount = 0;
 
     void Start()
     {
@@ -41,8 +40,6 @@ public class SolarManager : AbstractController
         SolarComponent solar = solarPrefabInstance.GetComponent<SolarComponent>();
         solar.Setup( generatedSolarModel );
         Messenger.Dispatch( SolarMessage.SOLAR_CREATED );
-
-        _layoutUpdateCount = 0; //fix for layoutgroup update, check Update() function;
     }
 
     private void handleSolarDestroyed( AbstractMessage message )
@@ -62,17 +59,6 @@ public class SolarManager : AbstractController
                 solar.Setup(gameModel.User.Galaxies[solarIndex]);
             }
         }
-        _layoutUpdateCount = 0;
     }
-
-    void Update()
-    {
-        if( _layoutUpdateCount < 30 )
-        {
-            LayoutRebuilder.MarkLayoutForRebuild( galaxy.transform as RectTransform );
-            _layoutUpdateCount++;
-        }
-    }
-
-
+    
 }
