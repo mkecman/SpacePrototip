@@ -19,7 +19,7 @@ public class GameController : AbstractController
     // called first
     void OnEnable()
     {
-        //Debug.Log( "OnEnable called" );
+        Debug.Log( "OnEnable called" );
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -34,7 +34,7 @@ public class GameController : AbstractController
     // called third
     void Start()
     {
-        //Debug.Log( "Start" );
+        Debug.Log( "Start" );
     }
 
     // called when the game is terminated

@@ -39,7 +39,6 @@ public class AtomsManager : AbstractController
 
     private void GenerateAtom( AbstractMessage message )
     {
-        int randomAtomIndex = UnityEngine.Random.Range( 1, gameModel.User.Atoms.Count );
         gameModel.AMM.GenerateAtom();
     }
 
