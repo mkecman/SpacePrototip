@@ -297,6 +297,7 @@
     <Compile Include="Assets\Scripts\Helpers\FlowLayoutGroup.cs" />
     <Compile Include="Assets\Scripts\Helpers\JsonHelper.cs" />
     <Compile Include="Assets\Scripts\Helpers\JSONObject.cs" />
+    <Compile Include="Assets\Scripts\Helpers\TestLayoutGroup.cs" />
     <Compile Include="Assets\Scripts\Model\Configs\AtomConfig.cs" />
     <Compile Include="Assets\Scripts\Model\Configs\GameConfig.cs" />
     <Compile Include="Assets\Scripts\Model\Configs\RecipeConfig.cs" />
