@@ -325,6 +325,7 @@
     <Compile Include="Assets\Scripts\BezierCurves\Editor\BezierCurveInspector.cs" />
     <Compile Include="Assets\Scripts\BezierCurves\Editor\BezierSplineInspector.cs" />
     <Compile Include="Assets\Scripts\BezierCurves\Editor\LineInspector.cs" />
+    <Compile Include="Assets\Scripts\Editor\MenuEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\UniRx\ReadMe.txt" />

@@ -1,0 +1,44 @@
+{
+   "Population":1,
+   "PopulationGrowth":1,
+   "Science":0,
+   "ScienceGrowth":0,
+   "Farmers":1,
+   "Scientists":0,
+   "Miners":0,
+   "Harvesters":
+   [
+		{
+			"Symbol": "H",
+			"Level": 1
+		}
+   ],
+   "Resistance":
+   [
+      {
+         "Symbol":"TMP",
+         "Min":-50,
+         "Max":500
+      },
+	  {
+         "Symbol":"PRS",
+         "Min":10,
+         "Max":70
+      },
+	  {
+         "Symbol":"GRV",
+         "Min":40,
+         "Max":60
+      },
+	  {
+         "Symbol":"MGN",
+         "Min":35,
+         "Max":75
+      },
+	  {
+         "Symbol":"LGH",
+         "Min":40,
+         "Max":80
+      }
+   ]
+}

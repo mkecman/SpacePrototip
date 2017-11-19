@@ -1,0 +1,45 @@
+{
+   "Items":[
+      {
+         "Name":"Temperature",
+         "Symbol":"TMP",
+         "CurrentValue":0,
+         "MinValue":-270,
+         "MedValue":1,
+         "MaxValue":1000
+      },
+	  {
+         "Name":"Pressure",
+         "Symbol":"PRS",
+         "CurrentValue":51,
+         "MinValue":0,
+         "MedValue":50,
+         "MaxValue":100
+      },
+	  {
+         "Name":"Gravity",
+         "Symbol":"GRV",
+         "CurrentValue":51,
+         "MinValue":0,
+         "MedValue":50,
+         "MaxValue":100
+      },
+	  {
+         "Name":"Magnetic Field",
+         "Symbol":"MGN",
+         "CurrentValue":51,
+         "MinValue":0,
+         "MedValue":50,
+         "MaxValue":100
+      },
+	  {
+         "Name":"Light",
+         "Symbol":"LGH",
+         "CurrentValue":51,
+         "MinValue":0,
+         "MedValue":50,
+         "MaxValue":100
+      }
+
+   ]
+}

@@ -12,12 +12,15 @@
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile></TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.2.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -293,6 +296,24 @@
     <Compile Include="Assets\Scripts\Features\Solars\Messages\SolarMessage.cs" />
     <Compile Include="Assets\Scripts\Features\Stores\Components\ProgressBar.cs" />
     <Compile Include="Assets\Scripts\Features\Stores\Components\StoreComponent.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\JSONLifeHarvestModel.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\JSONLifeModel.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\JSONLifeResistanceModel.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\LifeManager.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\LifeModel.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\LifeFloatProperty.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\LifeResistance.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\PopulationProperty.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\ResistanceChart.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\ResistanceChartModel.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\ResistanceChartPoint.cs" />
+    <Compile Include="Assets\Scripts\Features\YLife\ResistanceChartRange.cs" />
+    <Compile Include="Assets\Scripts\Features\YPlanets\JSONPlanetaryEnvironmentModel.cs" />
+    <Compile Include="Assets\Scripts\Features\YPlanets\PlanetaryEnvironment.cs" />
+    <Compile Include="Assets\Scripts\Features\YPlanets\PlanetaryEnvironmentConfig.cs" />
+    <Compile Include="Assets\Scripts\Features\YPlanets\PlanetaryEnvironmentModel.cs" />
+    <Compile Include="Assets\Scripts\Features\YPlanets\PlanetProperty.cs" />
+    <Compile Include="Assets\Scripts\Features\YPlanets\YPlanetModel.cs" />
     <Compile Include="Assets\Scripts\Helpers\AutoPlayer.cs" />
     <Compile Include="Assets\Scripts\Helpers\FlowLayoutGroup.cs" />
     <Compile Include="Assets\Scripts\Helpers\JsonHelper.cs" />

@@ -5,15 +5,16 @@ using UnityEngine.UI;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using UniRx;
+using System;
 
 public class GameController : AbstractController
 {
-    public GameObject CraftingPanel;
-
     // called zero
     void Awake()
     {
-        //Debug.Log( "Awake" );
+        Debug.Log( "Awake" );
+        DontDestroyOnLoad( gameObject );
+        StartCoroutine( DelayedSetup( 1 ) );
     }
 
     // called first
@@ -26,9 +27,7 @@ public class GameController : AbstractController
     // called second
     void OnSceneLoaded( Scene scene, LoadSceneMode mode )
     {
-        //Debug.Log( "OnSceneLoaded: " + scene.name );
-        //Debug.Log( mode );
-        StartCoroutine(DelayedSetup(1) );
+        Debug.Log( "OnSceneLoaded: " + scene.name + " | Mode: " + mode.ToString() );
     }
 
     // called third
@@ -49,46 +48,38 @@ public class GameController : AbstractController
         yield return new WaitForSeconds( time );
 
         Messenger.Listen(GameMessage.MODEL_LOADED, Setup);
-
         gameModel.Init();
     }
 
     public void Setup( AbstractMessage message )
     {
-        Messenger.Dispatch( AtomMessage.SETUP_ATOMS );
-
-        CraftingPanel.SetActive(false);
-
-        /*
-        GenerateAtom();
-        GenerateAtom();
-        GenerateAtom();
-        GenerateAtom();
-        */
+        //LoadScene( "LifeSimulator" );
+        //Messenger.Dispatch( AtomMessage.SETUP_ATOMS );
     }
-
-    public void ShowHideCrafting()
-    {
-        if( CraftingPanel.activeSelf )
-            CraftingPanel.SetActive( false );
-        else
-            CraftingPanel.SetActive( true );
-    }
-
+    
     public void SaveUser()
     {
         gameModel.SaveUser();
     }
-    
-    public void GenerateAtom( int times = 1 )
+
+    private void LoadScene( string scene, LoadSceneMode mode = LoadSceneMode.Single )
     {
-        for( int i = 0; i < times; i++ )
-        {
-            Messenger.Dispatch( AtomMessage.GENERATE_ATOM );
-        }
-        
-        //gameModel.SaveUser();
+        StartCoroutine( LoadSceneAsync( scene, mode ) );
     }
 
-    
+    IEnumerator LoadSceneAsync( string scene, LoadSceneMode mode )
+    {
+        // The Application loads the Scene in the background at the same time as the current Scene.
+        //This is particularly good for creating loading screens. You could also load the Scene by build //number.
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync( scene, mode );
+
+        //Wait until the last operation fully loads to return anything
+        while( !asyncLoad.isDone )
+        {
+            yield return null;
+        }
+    }
+
+
+
 }

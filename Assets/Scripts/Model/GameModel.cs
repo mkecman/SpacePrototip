@@ -9,12 +9,15 @@ public class GameModel
     private UserConfig rawUser;
     private AtomConfig rawAtoms;
     private RecipeConfig rawRecipes;
+    private PlanetaryEnvironmentConfig rawPlanetaryEnvironments;
     
     public UserModel User;
     public ReactiveCollection<AtomModel> Atoms;
     public Dictionary<string, AtomModel> AtomsBySymbol;
     public List<RecipeModel> Recipes;
     public AtomsModelManager AMM;
+    public Dictionary<string, PlanetaryEnvironmentModel> PlanetaryEnvironments;
+
 
     private static GameModel gameModel;
 
@@ -52,6 +55,10 @@ public class GameModel
 
         AMM = new AtomsModelManager();
         AMM.Setup( this );
+
+        rawPlanetaryEnvironments = new PlanetaryEnvironmentConfig();
+        rawPlanetaryEnvironments.Load();
+        PlanetaryEnvironments = rawPlanetaryEnvironments.rxBySymbol;
 
         Messenger.Dispatch(GameMessage.MODEL_LOADED);
     }
