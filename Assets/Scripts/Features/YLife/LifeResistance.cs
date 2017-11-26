@@ -13,7 +13,13 @@ public class LifeResistance : AbstractController
 
     public void Setup( string environment, YPlanetModel planet, LifeModel life )
     {
-        Name.text = gameModel.PlanetaryEnvironments[ environment ].Name + " Resistance";
+        float factor = 1 / ( planet.environments[ environment ].Model.MaxValue - planet.environments[ environment ].Model.MedValue );
+        float resistancePositive = life.resistances[ environment ].Max * factor;
+
+        factor = 1 / ( planet.environments[ environment ].Model.MedValue - planet.environments[ environment ].Model.MinValue );
+        float resistanceNegative = life.resistances[ environment ].Min * factor;
+        
+        Name.text = resistanceNegative + " :"+ gameModel.PlanetaryEnvironments[ environment ].Name + " Resistance: " + resistancePositive;
 
         //increaseMaxButton.GetComponentInChildren<Text>().text = 
         //increaseMaxButton.OnClickAsObservable().Subscribe( _ => increaseMax() );

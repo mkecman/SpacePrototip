@@ -54,7 +54,7 @@ public class GameController : AbstractController
     public void Setup( AbstractMessage message )
     {
         //LoadScene( "LifeSimulator" );
-        //Messenger.Dispatch( AtomMessage.SETUP_ATOMS );
+        Messenger.Dispatch( AtomMessage.SETUP_ATOMS );
     }
     
     public void SaveUser()
