@@ -17,6 +17,14 @@ public class GameConfig
 
     public Dictionary<int, int> atomSCUnlockRanges;
 
+    public UniversalDefinitions Data;
+
+    public void Load()
+    {
+        TextAsset targetFile = Resources.Load<TextAsset>( "Configs/UniversalDefs" );
+        Data = JsonUtility.FromJson<UniversalDefinitions>( targetFile.text );
+    }
+
     public GameConfig()
     {
         atomSCUnlockRanges = new Dictionary<int, int>();

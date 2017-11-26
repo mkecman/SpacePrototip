@@ -5,12 +5,12 @@ using UniRx;
 
 public class GameModel
 {
-    public GameConfig Config;
     private UserConfig rawUser;
     private AtomConfig rawAtoms;
     private RecipeConfig rawRecipes;
     private PlanetaryEnvironmentConfig rawPlanetaryEnvironments;
     
+    public GameConfig Config;
     public UserModel User;
     public ReactiveCollection<AtomModel> Atoms;
     public Dictionary<string, AtomModel> AtomsBySymbol;
@@ -39,6 +39,7 @@ public class GameModel
     public void Init()
     {
         Config = new GameConfig();
+        Config.Load();
         
         rawAtoms = new AtomConfig();
         rawAtoms.Load();
